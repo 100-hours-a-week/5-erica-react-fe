@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../../styles/UpdatePost.css";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 
 export default function UpdatePost() {
   const postId = Number(useParams().id);
@@ -15,12 +15,7 @@ export default function UpdatePost() {
     const fetchData = async () => {
       try {
         const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "ngrok-skip-browser-warning": "69420",
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+          headers,
           credentials: "include",
           method: "POST",
           body: JSON.stringify({ postId }),
@@ -35,12 +30,7 @@ export default function UpdatePost() {
         }
 
         const postResponse = await fetch(`${backHost}/api/posts/${postId}`, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "ngrok-skip-browser-warning": "69420",
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+          headers,
           credentials: "include",
         });
         const postResponseData = await postResponse.json();
@@ -68,29 +58,24 @@ export default function UpdatePost() {
     fetchData();
   }, [navigate, postId]);
 
-  function handleOnChangePostImage(event) {
+  const handleOnChangePostImage = (event) => {
     reader.onload = (data) => {
       setPostImage(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
-  }
+  };
 
-  function handleOnChangeTitle(event) {
+  const handleOnChangeTitle = (event) => {
     setTitle(event.target.value);
-  }
+  };
 
-  function handleOnChangeContent(event) {
+  const handleOnChangeContent = (event) => {
     setContent(event.target.value);
-  }
+  };
 
-  async function handleOnClickUpdatePost() {
+  const handleOnClickUpdatePost = async () => {
     const response = await fetch(`${backHost}/api/posts/${postId}`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "PATCH",
       body: JSON.stringify({
@@ -113,7 +98,7 @@ export default function UpdatePost() {
         );
         return;
     }
-  }
+  };
 
   return (
     <section className="main updatePost">

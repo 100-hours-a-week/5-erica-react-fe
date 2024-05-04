@@ -1,7 +1,7 @@
 import { DeleteUserModal } from "../modals/Modals";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 import { disableScroll } from "../../utils/scroll";
 
 import "../../styles/UpdateProfile.css";
@@ -19,10 +19,7 @@ export default function UpdateProfile() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`${backHost}/api/users/user`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
+        headers,
         credentials: "include",
       });
       const userData = await response.json();
@@ -43,18 +40,14 @@ export default function UpdateProfile() {
     fetchData();
   }, [navigate]);
 
-  function handleOnChangeNickname(event) {
+  const handleOnChangeNickname = (event) => {
     setNickname(event.target.value);
-  }
+  };
 
-  async function handleOnClickUpdateButton() {
+  const handleOnClickUpdateButton = async () => {
     //닉네임 중복 검사 in 서버
     const response = await fetch(`${backHost}/api/users/nickname/${nickname}`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "POST",
     });
@@ -70,12 +63,7 @@ export default function UpdateProfile() {
     }
 
     const updateResponse = await fetch(`${backHost}/api/users/user/profile`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "PATCH",
       //TODO: postimage url 다시 생성
@@ -100,19 +88,19 @@ export default function UpdateProfile() {
         alert("수정 실패");
         return;
     }
-  }
+  };
 
-  function handleOnChangeProfileImage(event) {
+  const handleOnChangeProfileImage = (event) => {
     reader.onload = (data) => {
       setProfile(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
-  }
+  };
 
-  function handleOnClickUserDelete() {
+  const handleOnClickUserDelete = () => {
     disableScroll();
     setIsDelete(true);
-  }
+  };
 
   return (
     <>

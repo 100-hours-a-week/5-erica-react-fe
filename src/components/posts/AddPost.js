@@ -1,7 +1,7 @@
 import "../../styles/AddPost.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 
 export default function AddPost() {
   const [title, setTitle] = useState("");
@@ -11,23 +11,18 @@ export default function AddPost() {
   const reader = new FileReader();
   const [isEnable, setIsEnable] = useState(true);
 
-  function handleOnChangePostImage(event) {
+  const handleOnChangePostImage = (event) => {
     reader.onload = (data) => {
       setPostImage(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
-  }
+  };
 
-  async function handleOnClickAddPost() {
+  const handleOnClickAddPost = async () => {
     setIsEnable(false);
     console.log(`${postImage}`);
     const response = await fetch(`${backHost}/api/posts`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "POST",
       body: JSON.stringify({
@@ -49,7 +44,7 @@ export default function AddPost() {
         setIsEnable(true);
         return;
     }
-  }
+  };
 
   return (
     <section className="main">

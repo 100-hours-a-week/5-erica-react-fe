@@ -1,4 +1,4 @@
-import { backHost } from "../static";
+import { backHost, headers } from "../static";
 import BackButton from "./BackButton";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -30,16 +30,11 @@ function UserProfile() {
       }
     };
     fetchData();
-  }, [navigate]);
+  });
 
-  async function handleOnClickLogOut() {
+  const handleOnClickLogOut = async () => {
     const response = await fetch(`${backHost}/api/users/logOut`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       method: "DELETE",
       credentials: "include",
     });
@@ -53,7 +48,7 @@ function UserProfile() {
 
     alert("로그아웃 됐습니다.");
     navigate("/");
-  }
+  };
 
   return (
     <div className="userSetting">

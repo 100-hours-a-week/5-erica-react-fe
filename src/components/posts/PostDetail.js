@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { viewToK, commentToK } from "../../utils/numberToK";
@@ -17,10 +17,7 @@ export default function PostDetail() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`${backHost}/api/posts/${postId}`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
+        headers,
         credentials: "include",
       });
       const responseData = await response.json();
@@ -42,14 +39,9 @@ export default function PostDetail() {
     fetchData();
   }, [postId, navigate]);
 
-  async function handleOnClickUpdate() {
+  const handleOnClickUpdate = async () => {
     const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "POST",
       body: JSON.stringify({ postId }),
@@ -62,16 +54,11 @@ export default function PostDetail() {
       return;
     }
     navigate(`/posts/${postId}/update`);
-  }
+  };
 
-  async function handleOnClickDelete() {
+  const handleOnClickDelete = async () => {
     const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "POST",
       body: JSON.stringify({ postId }),
@@ -85,7 +72,7 @@ export default function PostDetail() {
     }
     disableScroll();
     setIsPostDelete(true);
-  }
+  };
 
   return (
     <>

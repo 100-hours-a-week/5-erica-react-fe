@@ -1,5 +1,5 @@
 import "../../styles/SignUp.css";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 
@@ -24,17 +24,17 @@ export default function SignUp() {
   const signUpButton = document.querySelector(".signUpButton");
 
   //프로필 이미지 유효성 검사
-  function checkImageValidation(image) {
+  const checkImageValidation = (image) => {
     if (!image) {
       setImageNull(true);
       return false;
     }
     setImageNull(false);
     return true;
-  }
+  };
 
   //이메일 유효성 검사
-  async function checkEmailValidation(email) {
+  const checkEmailValidation = async (email) => {
     //이메일이 없을 시
     if (!email) {
       setEmailNull(true);
@@ -75,10 +75,10 @@ export default function SignUp() {
 
     setEmailDuplciate(false);
     return true;
-  }
+  };
 
   //비밀번호 유효성 검사
-  function checkPasswordValidation(password, passwordCheck) {
+  const checkPasswordValidation = (password, passwordCheck) => {
     //password 없을 시
     if (!password) {
       return false;
@@ -107,10 +107,10 @@ export default function SignUp() {
     }
     setPasswordNotMatch(false);
     return true;
-  }
+  };
 
   //닉네임 유효성 검사
-  async function checkNicknameValidation(nickname) {
+  const checkNicknameValidation = async (nickname) => {
     if (!nickname) {
       return false;
     }
@@ -126,10 +126,7 @@ export default function SignUp() {
     const isNicknameDuplicate = await fetch(
       `${backHost}/api/users/signup/nickname/${nickname}`,
       {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
+        headers,
         credentials: "include",
         method: "POST",
       }
@@ -148,10 +145,10 @@ export default function SignUp() {
     }
     setNicknameDuplicate(false);
     return true;
-  }
+  };
 
   //회원가입 버튼 클릭 시
-  async function hanleOnClickSignUp() {
+  const hanleOnClickSignUp = async () => {
     //유효성 검사
     //TODO: 이미지 실제 데이터값으로 변경
 
@@ -170,12 +167,13 @@ export default function SignUp() {
     );
     const isNicknameValid = await checkNicknameValidation(nickname.current);
 
-    console.log(`isImageValid ${isImageValid}`);
-    console.log(`isEmailValid ${isEmailValid}`);
-    console.log(`isPasswordValid ${isPasswordValid}`);
-    console.log(`isNicknameValid ${isNicknameValid}`);
-
-    if (!isImageValid || !isEmailValid || !isNicknameValid || !profileImage) {
+    if (
+      !isImageValid ||
+      !isEmailValid ||
+      !isPasswordValid ||
+      !isNicknameValid ||
+      !profileImage
+    ) {
       signUpButton.style.backgroundColor = "lightgray";
       return;
     }
@@ -183,12 +181,7 @@ export default function SignUp() {
     signUpButton.style.backgroundColor = "#7f6aee";
 
     const response = await fetch(`${backHost}/api/users/signup`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "POST",
       body: data,
@@ -209,10 +202,10 @@ export default function SignUp() {
         }, 1000);
         return;
     }
-  }
+  };
 
   //이미지 변경 시
-  function handleOnChangeProfileImage(event) {
+  const handleOnChangeProfileImage = (event) => {
     if (event.target.files.length === 0) {
       setProileImage(null);
       return;
@@ -221,28 +214,28 @@ export default function SignUp() {
       setProileImage(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
-  }
+  };
 
   //인풋값을 입력하다가 포커스 아웃될 때
-  async function handleOnBlurEmail(event) {
+  const handleOnBlurEmail = async (event) => {
     email.current = event.target.value;
     await checkEmailValidation(event.target.value);
-  }
+  };
 
-  function handleOnBlurPassword(event) {
+  const handleOnBlurPassword = (event) => {
     password.current = event.target.value;
     checkPasswordValidation(password.current, passwordCheck.current);
-  }
+  };
 
-  function handleOnBlurPasswordCheck(event) {
+  const handleOnBlurPasswordCheck = (event) => {
     passwordCheck.current = event.target.value;
     checkPasswordValidation(password.current, passwordCheck.current);
-  }
+  };
 
-  async function handleOnBlurNickname(event) {
+  const handleOnBlurNickname = async (event) => {
     nickname.current = event.target.value;
     await checkNicknameValidation(nickname.current);
-  }
+  };
 
   return (
     <div className="signUpMain">

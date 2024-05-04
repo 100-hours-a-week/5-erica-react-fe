@@ -1,5 +1,5 @@
 import "../../styles/PostModal.css";
-import { backHost } from "../../static.js";
+import { backHost, headers } from "../../static.js";
 import { useNavigate } from "react-router-dom";
 import { enableScroll } from "../../utils/scroll.js";
 import { useState, useEffect } from "react";
@@ -13,14 +13,9 @@ export function DeletePostModal({ postId, setIsPostDelete, isPostDelete }) {
     setPosition(getScrollPosition().scrollPosition);
   }, [isPostDelete]);
 
-  async function hadleOnClickDeleteConfirm() {
+  const hadleOnClickDeleteConfirm = async () => {
     const deleteResponse = await fetch(`${backHost}/api/posts/${postId}`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "DELETE",
     });
@@ -39,12 +34,12 @@ export function DeletePostModal({ postId, setIsPostDelete, isPostDelete }) {
     setPosition(getScrollPosition.scrollPosition);
     setIsPostDelete(false);
     enableScroll();
-  }
+  };
 
-  function handleOnClickDeleteCancel() {
+  const handleOnClickDeleteCancel = () => {
     enableScroll();
     setIsPostDelete(false);
-  }
+  };
 
   return isPostDelete ? (
     <div
@@ -86,17 +81,12 @@ export function DeleteCommentModal({
     setPosition(getScrollPosition().scrollPosition);
   }, [isCommentDelete]);
 
-  async function hadleOnClickDeleteConfirm() {
+  const hadleOnClickDeleteConfirm = async () => {
     const response = await fetch(
       `${backHost}/api/posts/${postId}/comments/${commentId}`,
       {
         credentials: "include",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers,
         method: "DELETE",
       }
     );
@@ -115,12 +105,12 @@ export function DeleteCommentModal({
     enableScroll();
     setIsCommentDelete(false);
     enableScroll();
-  }
+  };
 
-  function handleOnClickDeleteCancel() {
+  const handleOnClickDeleteCancel = () => {
     enableScroll();
     setIsCommentDelete(false);
-  }
+  };
 
   return isCommentDelete ? (
     <div
@@ -159,19 +149,14 @@ export function DeleteUserModal({ isDelete, setIsDelete }) {
     setPosition(getScrollPosition().scrollPosition);
   }, [isDelete]);
 
-  function handleOnClickDeleteUserCancel() {
+  const handleOnClickDeleteUserCancel = () => {
     setIsDelete(false);
     enableScroll();
-  }
+  };
 
-  async function handleOnClickDeleteUserConfirm() {
+  const handleOnClickDeleteUserConfirm = async () => {
     const deleteResponse = await fetch(`${backHost}/api/users/user`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "DELETE",
     });
@@ -185,7 +170,7 @@ export function DeleteUserModal({ isDelete, setIsDelete }) {
         alert("계정삭제 실패");
     }
     setIsDelete(false);
-  }
+  };
 
   return isDelete ? (
     <div className="modalContainer" style={{ top: `${position}px` }}>

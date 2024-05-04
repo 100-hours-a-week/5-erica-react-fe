@@ -1,6 +1,6 @@
 import "../../styles/UpdatePassword.css";
 import { useState } from "react";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 import { useNavigate } from "react-router-dom";
 
 export default function UpdatePassword() {
@@ -9,22 +9,17 @@ export default function UpdatePassword() {
   const [isAble, setIsAble] = useState(false);
   const navigate = useNavigate();
 
-  function handleChangePassword(event) {
+  const handleChangePassword = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
-  function handleChangePasswordCheck(event) {
+  const handleChangePasswordCheck = (event) => {
     setPasswordCheck(event.target.value);
-  }
+  };
 
-  async function handleClickUpdatePassword() {
+  const handleClickUpdatePassword = async () => {
     const updateResponse = await fetch(`${backHost}/api/users/user/password`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "PATCH",
       //TODO: postimage url 다시 생성
@@ -47,7 +42,7 @@ export default function UpdatePassword() {
         alert("비밀번호 수정실패");
         return;
     }
-  }
+  };
 
   return (
     <section className="passwordMain">

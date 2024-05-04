@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 import MiniPost from "./MiniPost";
 import "../../styles/Posts.css";
 
@@ -12,10 +12,7 @@ export default function Posts() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`${backHost}/api/posts`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
+        headers,
         credentials: "include",
       });
       const responseData = await response.json();

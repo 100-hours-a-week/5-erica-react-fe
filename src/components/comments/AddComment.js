@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 
 export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
@@ -12,28 +12,23 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
     console.log("AddComments.js");
   }, [updateTarget, isAdd]);
 
-  function handleOnInputComment(event) {
+  const handleOnInputComment = (event) => {
     setComment(event.target.value);
     setIsAble(true);
     if (!event.target.value) {
       setIsAble(false);
     }
     setComment(event.target.value);
-  }
+  };
 
-  async function handleOnClickAddComment() {
+  const handleOnClickAddComment = async () => {
     if (!comment) {
       setIsAble(false);
       return;
     }
 
     const response = await fetch(`${backHost}/api/posts/${postId}/comments`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
+      headers,
       credentials: "include",
       method: "POST",
       body: JSON.stringify({
@@ -56,18 +51,13 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
         setIsAble(false);
         return;
     }
-  }
+  };
 
-  async function handleOnClickUpdateComment() {
+  const handleOnClickUpdateComment = async () => {
     const response = await fetch(
       `${backHost}/api/posts/${postId}/comments/${updateTarget.commentId}`,
       {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers,
         credentials: "include",
         method: "PATCH",
         body: JSON.stringify({ comment }),
@@ -86,7 +76,7 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
     }
     setIsAdd(true);
     setComment("");
-  }
+  };
 
   return (
     <form className="writeComment">
@@ -115,7 +105,3 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
     </form>
   );
 }
-
-/*<button type="button" className="updateButton">
-            댓글 수정
-          </button>*/

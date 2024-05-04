@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { backHost } from "../../static";
+import { backHost, headers } from "../../static";
 import "../../styles/LogIn.css";
 
 export default function LogIn() {
@@ -11,16 +11,16 @@ export default function LogIn() {
   const [emailNotValid, setEmailNotValid] = useState(false);
   const [logInSuccess, setLogInSuccess] = useState(false);
 
-  function handleOnChangeEmail(event) {
+  const handleOnChangeEmail = (event) => {
     email.current = event.target.value;
     checkEmailValidation(event.target.value);
-  }
+  };
 
-  function handleOnChangePassword(event) {
+  const handleOnChangePassword = (event) => {
     password.current = event.target.value;
-  }
+  };
 
-  async function handleOnClickLogIn() {
+  const handleOnClickLogIn = async () => {
     const isEmailValid = checkEmailValidation(email.current);
 
     if (!isEmailValid) {
@@ -28,12 +28,7 @@ export default function LogIn() {
     }
 
     const response = await fetch(`${backHost}/api/users/login`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "ngrok-skip-browser-warning": "69420",
-      },
+      headers,
       credentials: "include",
       method: "POST",
       body: JSON.stringify({
@@ -57,9 +52,9 @@ export default function LogIn() {
         alert("로그인 실패");
         return;
     }
-  }
+  };
 
-  function checkEmailValidation(email) {
+  const checkEmailValidation = (email) => {
     const emailForm = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email || !emailForm.test(email) || email.length < 5) {
@@ -68,7 +63,7 @@ export default function LogIn() {
     }
     setEmailNotValid(false);
     return true;
-  }
+  };
 
   return (
     <section className="logIn">
