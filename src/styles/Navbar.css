@@ -1,6 +1,6 @@
 .navbar {
   border: 0.1rem solid black;
-  background-color: #e8e8e8;
+  background: #f4f5f6;
   position: fixed;
   z-index: 997;
   top: 0;
