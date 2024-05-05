@@ -7,47 +7,52 @@ function UserProfile() {
   const [profileImage, setProfileImage] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${backHost}/api/users/user`, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "ngrok-skip-browser-warning": "69420",
-          },
-          credentials: "include",
-        });
-        const responseData = await response.json();
-        if (responseData.status === 401) {
-          alert("로그인 하십시오");
-          navigate("/");
-          return;
-        }
-        setProfileImage(responseData.data.profile_image);
-      } catch (error) {
-        console.log(error);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${backHost}/api/users/user`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "ngrok-skip-browser-warning": "69420",
+        },
+        credentials: "include",
+      });
+      const responseData = await response.json();
+      if (responseData.status === 401) {
+        alert("로그인 하십시오");
+        navigate("/");
         return;
       }
-    };
+      setProfileImage(responseData.data.profile_image);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   });
 
-  const handleOnClickLogOut = async () => {
-    const response = await fetch(`${backHost}/api/users/logOut`, {
-      headers,
-      method: "DELETE",
-      credentials: "include",
-    });
+  const handleClickLogOut = async () => {
+    try {
+      const response = await fetch(`${backHost}/api/users/logOut`, {
+        headers,
+        method: "DELETE",
+        credentials: "include",
+      });
 
-    const responseData = await response.json();
+      const responseData = await response.json();
 
-    if (responseData.status !== 200) {
-      alert("로그아웃 실패. 다시 시도하세요.");
-      return;
+      if (responseData.status !== 200) {
+        alert("로그아웃 실패. 다시 시도하세요.");
+        return;
+      }
+
+      alert("로그아웃 됐습니다.");
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging out:", error);
     }
-
-    alert("로그아웃 됐습니다.");
-    navigate("/");
   };
 
   return (
@@ -67,7 +72,7 @@ function UserProfile() {
         <Link to="/user/password" className="passwordUpdate setting">
           비밀번호수정
         </Link>
-        <button onClick={handleOnClickLogOut} className="logOut setting">
+        <button onClick={handleClickLogOut} className="logOut setting">
           로그아웃
         </button>
       </div>

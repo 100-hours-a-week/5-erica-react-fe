@@ -6,76 +6,55 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [isAble, setIsAble] = useState(false);
 
   useEffect(() => {
-    if (isAdd === false && updateTarget) {
+    if (!isAdd && updateTarget) {
       setComment(updateTarget.comment);
     }
-    console.log("AddComments.js");
   }, [updateTarget, isAdd]);
 
   const handleOnInputComment = (event) => {
-    setComment(event.target.value);
-    setIsAble(true);
-    if (!event.target.value) {
-      setIsAble(false);
-    }
-    setComment(event.target.value);
+    const inputComment = event.target.value;
+    setComment(inputComment);
+    setIsAble(!!inputComment);
   };
 
-  const handleOnClickAddComment = async () => {
+  const handleOnClickComment = async () => {
     if (!comment) {
       setIsAble(false);
       return;
     }
 
-    const response = await fetch(`${backHost}/api/posts/${postId}/comments`, {
-      headers,
-      credentials: "include",
-      method: "POST",
-      body: JSON.stringify({
-        postId,
-        comment,
-      }),
-    });
+    const url = isAdd
+      ? `${backHost}/api/posts/${postId}/comments`
+      : `${backHost}/api/posts/${postId}/comments/${updateTarget.commentId}`;
 
-    const responseData = await response.json();
+    const method = isAdd ? "POST" : "PATCH";
 
-    switch (responseData?.status) {
-      case 201:
-        alert("댓글이 등록됐습니다.");
+    try {
+      const response = await fetch(url, {
+        headers,
+        credentials: "include",
+        method,
+        body: JSON.stringify({ comment }),
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.status === 201 && isAdd) {
+        alert("댓글이 등록되었습니다.");
         setComment("");
         setIsAble(false);
         window.location.reload();
-        return;
-      default:
+      } else if (responseData.status === 200 && !isAdd) {
+        alert("댓글이 수정되었습니다.");
+        setIsAdd(true);
+        setComment("");
+      } else {
         alert("댓글 작성 실패");
-        setIsAble(false);
-        return;
-    }
-  };
-
-  const handleOnClickUpdateComment = async () => {
-    const response = await fetch(
-      `${backHost}/api/posts/${postId}/comments/${updateTarget.commentId}`,
-      {
-        headers,
-        credentials: "include",
-        method: "PATCH",
-        body: JSON.stringify({ comment }),
       }
-    );
-
-    const responseData = await response.json();
-
-    switch (responseData?.status) {
-      case 200:
-        alert("댓글 수정 성공");
-        break;
-      default:
-        alert("댓글 수정 실패");
-        break;
+    } catch (error) {
+      console.error("댓글 작성/수정 중 에러 발생:", error);
+      alert("댓글 작성/수정 중 에러가 발생했습니다.");
     }
-    setIsAdd(true);
-    setComment("");
   };
 
   return (
@@ -91,7 +70,7 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
       <div className="line"></div>
       <div className="commentPostButton">
         <button
-          onClick={isAdd ? handleOnClickAddComment : handleOnClickUpdateComment}
+          onClick={handleOnClickComment}
           style={{
             backgroundColor: isAble ? "#7f6aee" : null,
           }}

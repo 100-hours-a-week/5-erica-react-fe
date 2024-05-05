@@ -1,56 +1,59 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
 import "../../styles/LogIn.css";
 
 export default function LogIn() {
-  const email = useRef("");
-  const password = useRef("");
-  const navigate = useNavigate();
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [emailNotValid, setEmailNotValid] = useState(false);
   const [logInSuccess, setLogInSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleOnChangeEmail = (event) => {
-    email.current = event.target.value;
+    setEmail(event.target.value);
     checkEmailValidation(event.target.value);
   };
 
   const handleOnChangePassword = (event) => {
-    password.current = event.target.value;
+    setPassword(event.target.value);
   };
 
   const handleOnClickLogIn = async () => {
-    const isEmailValid = checkEmailValidation(email.current);
+    const isEmailValid = checkEmailValidation(email);
 
     if (!isEmailValid) {
       return;
     }
 
-    const response = await fetch(`${backHost}/api/users/login`, {
-      headers,
-      credentials: "include",
-      method: "POST",
-      body: JSON.stringify({
-        email: email.current,
-        password: password.current,
-      }),
-    });
+    try {
+      const response = await fetch(`${backHost}/api/users/login`, {
+        headers,
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    const responseData = await response.json();
+      const responseData = await response.json();
 
-    //응답 상태에 따른 분기
-    switch (responseData.status) {
-      case 200:
-        setLogInSuccess(true);
-        setTimeout(() => {
-          navigate("/posts");
-        }, 3000);
-        return;
-      default:
-        setLogInSuccess(false);
-        alert("로그인 실패");
-        return;
+      switch (responseData.status) {
+        case 200:
+          setLogInSuccess(true);
+          setTimeout(() => {
+            navigate("/posts");
+          }, 3000);
+          break;
+        default:
+          setLogInSuccess(false);
+          alert("로그인 실패");
+          break;
+      }
+    } catch (error) {
+      console.error("로그인 요청 중 에러가 발생했습니다:", error);
+      alert("로그인 요청 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
 
@@ -95,9 +98,8 @@ export default function LogIn() {
           />
           <div className="helperTextContainer">
             <div className="helperText">
-              {emailNotValid
-                ? "* 올바른 이메일 주소 형식을 입력해주세요. \n (예: example@example.com)"
-                : null}
+              {emailNotValid &&
+                "* 올바른 이메일 주소 형식을 입력해주세요. \n (예: example@example.com)"}
             </div>
           </div>
         </div>
@@ -110,6 +112,7 @@ export default function LogIn() {
               ? { backgroundColor: "#7f6aee" }
               : { backgroundColor: "#aca0eb", disabled: true }
           }
+          disabled={!email || !password}
         >
           로그인
         </button>

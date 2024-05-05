@@ -1,103 +1,114 @@
-import { DeleteUserModal } from "../modals/Modals";
-import { useEffect, useState } from "react";
+import "../../styles/UpdateProfile.css";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
 import { disableScroll } from "../../utils/scroll";
-
-import "../../styles/UpdateProfile.css";
+import { DeleteUserModal } from "../modals/Modals";
 
 export default function UpdateProfile() {
-  const [profile, setProfile] = useState();
-  const [nickname, setNickname] = useState();
-  const [email, setEmail] = useState();
-  const navigate = useNavigate();
+  const [profile, setProfile] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
   const [isDelete, setIsDelete] = useState(false);
   const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const reader = new FileReader();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
+    try {
       const response = await fetch(`${backHost}/api/users/user`, {
         headers,
         credentials: "include",
       });
       const userData = await response.json();
 
-      switch (userData.status) {
-        case 200:
-          setEmail(userData.data.email);
-          setNickname(userData.data.nickname);
-          setProfile(userData.data.profile_image);
-          return;
-        default:
-          alert("등록되지 않는 유저입니다.");
-          navigate("/posts");
-          return;
+      if (userData.status === 200) {
+        setEmail(userData.data.email);
+        setNickname(userData.data.nickname);
+        setProfile(userData.data.profile_image);
+      } else {
+        alert("등록되지 않은 유저입니다.");
+        navigate("/posts");
       }
-    };
+    } catch (error) {
+      console.error("유저 데이터 가져오는데 실패했습니다.:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [navigate]);
+  });
 
-  const handleOnChangeNickname = (event) => {
+  const handleChangeNickname = (event) => {
     setNickname(event.target.value);
   };
 
-  const handleOnClickUpdateButton = async () => {
-    //닉네임 중복 검사 in 서버
-    const response = await fetch(`${backHost}/api/users/nickname/${nickname}`, {
-      headers,
-      credentials: "include",
-      method: "POST",
-    });
-
-    const responseData = await response.json();
-
-    switch (responseData.status) {
-      case 200:
-        break;
-      default:
-        setIsNicknameDuplicate(true);
-        return;
-    }
-
-    const updateResponse = await fetch(`${backHost}/api/users/user/profile`, {
-      headers,
-      credentials: "include",
-      method: "PATCH",
-      //TODO: postimage url 다시 생성
-      body: JSON.stringify({
-        nickname,
-        profile_image: profile,
-      }),
-    });
-
-    const updateData = await updateResponse.json();
-
-    switch (updateData.status) {
-      case 201:
-        setIsNicknameDuplicate(false);
-        setShowToast(true);
-        setTimeout(() => {
-          setShowToast(false);
-          window.location.href = "/posts";
-        }, 2000);
-        return;
-      default:
-        alert("수정 실패");
-        return;
-    }
-  };
-
-  const handleOnChangeProfileImage = (event) => {
+  const handleChangeProfileImage = (event) => {
     reader.onload = (data) => {
       setProfile(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
   };
 
-  const handleOnClickUserDelete = () => {
+  const checkNicknameDuplicate = async () => {
+    try {
+      const response = await fetch(
+        `${backHost}/api/users/nickname/${nickname}`,
+        {
+          headers,
+          credentials: "include",
+          method: "POST",
+        }
+      );
+      const responseData = await response.json();
+
+      if (responseData.status !== 200) {
+        setIsNicknameDuplicate(true);
+        return false;
+      } else {
+        setIsNicknameDuplicate(false);
+        return true;
+      }
+    } catch (error) {
+      console.error("중복성 검사 실패:", error);
+      return false;
+    }
+  };
+
+  const handleClickUpdateButton = async () => {
+    const isDuplicate = await checkNicknameDuplicate();
+
+    if (!isDuplicate) return;
+
+    try {
+      const updateResponse = await fetch(`${backHost}/api/users/user/profile`, {
+        headers,
+        credentials: "include",
+        method: "PATCH",
+        body: JSON.stringify({
+          nickname,
+          profile_image: profile,
+        }),
+      });
+
+      const updateData = await updateResponse.json();
+
+      if (updateData.status === 201) {
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+          navigate("/posts");
+        }, 2000);
+      } else {
+        alert("수정 실패");
+      }
+    } catch (error) {
+      console.error("유저 프로필 업데이트 도중 에러가 발생헀습니다.:", error);
+    }
+  };
+
+  const handleClickUserDelete = () => {
     disableScroll();
     setIsDelete(true);
   };
@@ -124,7 +135,7 @@ export default function UpdateProfile() {
                 </label>
                 <input
                   id="imageInput"
-                  onChange={handleOnChangeProfileImage}
+                  onChange={handleChangeProfileImage}
                   type="file"
                   accept="image/*"
                 />
@@ -135,7 +146,7 @@ export default function UpdateProfile() {
             <label htmlFor="emailInput" className="inputTitle">
               이메일
             </label>
-            <div id="updateEmailInput">{email ?? "불러오는 중"}</div>
+            <div id="updateEmailInput">{email || "불러오는 중"}</div>
           </div>
           <div className="profileNickname">
             <label htmlFor="nicknameInput" className="inputTitle">
@@ -146,7 +157,7 @@ export default function UpdateProfile() {
               id="nicknameInput"
               maxLength="10"
               value={nickname ?? "불러오는 중"}
-              onChange={handleOnChangeNickname}
+              onChange={handleChangeNickname}
             />
             <div className="helperTextContainer">
               <div className="helperText">
@@ -158,14 +169,17 @@ export default function UpdateProfile() {
         <div className="profilebutton">
           <button
             type="button"
-            className="updateButton"
-            onClick={handleOnClickUpdateButton}
+            className="profileUpdateButton"
+            onClick={handleClickUpdateButton}
           >
             수정하기
           </button>
         </div>
         <div className="profilebutton">
-          <button onClick={handleOnClickUserDelete} className="deleteButton">
+          <button
+            onClick={handleClickUserDelete}
+            className="profileDeleteButton"
+          >
             회원 탈퇴
           </button>
         </div>

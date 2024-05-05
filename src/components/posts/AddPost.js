@@ -8,10 +8,10 @@ export default function AddPost() {
   const [content, setContent] = useState("");
   const [postImage, setPostImage] = useState();
   const navigate = useNavigate();
-  const reader = new FileReader();
   const [isEnable, setIsEnable] = useState(true);
 
   const handleOnChangePostImage = (event) => {
+    const reader = new FileReader();
     reader.onload = (data) => {
       setPostImage(data.target.result);
     };
@@ -20,29 +20,35 @@ export default function AddPost() {
 
   const handleOnClickAddPost = async () => {
     setIsEnable(false);
-    console.log(`${postImage}`);
-    const response = await fetch(`${backHost}/api/posts`, {
-      headers,
-      credentials: "include",
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        content,
-        postImageSrc: postImage,
-      }),
-    });
 
-    const responseData = await response.json();
+    try {
+      const response = await fetch(`${backHost}/api/posts`, {
+        headers,
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          content,
+          postImageSrc: postImage,
+        }),
+      });
 
-    switch (responseData.status) {
-      case 201:
-        alert("게시글 작성이 완성됐습니다.");
-        navigate(`/posts/${responseData.data.postId}`);
-        return;
-      default:
-        alert("작성 오류");
-        setIsEnable(true);
-        return;
+      const responseData = await response.json();
+
+      switch (responseData.status) {
+        case 201:
+          alert("게시글 작성이 완성됐습니다.");
+          navigate(`/posts/${responseData.data.postId}`);
+          return;
+        default:
+          alert("작성 오류");
+          setIsEnable(true);
+          return;
+      }
+    } catch (error) {
+      console.error("게시글 작성 중 에러 발생:", error);
+      alert("게시글 작성 중 에러가 발생했습니다.");
+      setIsEnable(true);
     }
   };
 

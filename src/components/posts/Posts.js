@@ -6,35 +6,43 @@ import MiniPost from "./MiniPost";
 import "../../styles/Posts.css";
 
 export default function Posts() {
-  const [result, setResult] = useState([]);
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
+    try {
       const response = await fetch(`${backHost}/api/posts`, {
         headers,
         credentials: "include",
       });
       const responseData = await response.json();
-      switch (responseData.status) {
+
+      switch (response.status) {
         case 200:
           if (responseData.data.length === 0) {
             alert("게시물이 없습니다. 게시물을 작성하십시오");
             navigate("/posts/write");
+          } else {
+            setPosts(responseData.data);
           }
-          setResult(responseData.data);
-          return;
+          break;
         case 401:
           navigate("/");
-          return;
+          break;
         default:
           alert("서버 오류");
-          return;
       }
-    };
+    } catch (error) {
+      console.error("게시물을 불러오는 중 에러가 발생했습니다:", error);
+      alert(
+        "게시물을 불러오는 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요."
+      );
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-  }, [navigate]);
+  });
 
   return (
     <section className="main">
@@ -50,7 +58,7 @@ export default function Posts() {
         </Link>
       </div>
       <div className="wrapper">
-        {result.map((post) => (
+        {posts.map((post) => (
           <MiniPost key={post.postId} data={post} />
         ))}
       </div>

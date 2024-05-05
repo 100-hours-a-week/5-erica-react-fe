@@ -4,33 +4,32 @@ import AddComment from "./AddComment.js";
 import Comment from "./Comment.js";
 
 export default function Comments({ postId }) {
-  const [result, setResult] = useState([]);
+  const [comments, setComments] = useState([]);
   const [isAdd, setIsAdd] = useState(true);
   const [updateTarget, setUpdateTarget] = useState();
 
   const id = Number(postId);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${backHost}/api/posts/${id}/comments`, {
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${backHost}/api/posts/${postId}/comments`, {
         headers,
         credentials: "include",
       });
-
       const responseData = await response.json();
 
-      switch (responseData.status) {
-        case 200:
-          setResult(responseData.data);
-          break;
-        default:
-          return;
+      if (response.status === 200) {
+        setComments(responseData.data);
       }
-    };
+    } catch (error) {
+      console.error("댓글 데이터를 불러오는 중 에러 발생:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
     console.log("Comments.js");
-  }, [id, isAdd]);
+  }, [postId, isAdd]);
 
   return (
     <div className="commentContainer">
@@ -41,7 +40,7 @@ export default function Comments({ postId }) {
         updateTarget={updateTarget}
       />
       <div className="commentList">
-        {result.map((comment) => (
+        {comments.map((comment) => (
           <Comment
             setUpdateTarget={setUpdateTarget}
             key={comment.commentId}

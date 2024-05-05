@@ -1,27 +1,62 @@
 import "../../styles/SignUp.css";
 import { backHost, headers } from "../../static";
 import { Link } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 const reader = new FileReader();
 
 export default function SignUp() {
-  const [profileImage, setProileImage] = useState("");
-  const email = useRef("");
-  const password = useRef("");
-  const passwordCheck = useRef("");
-  const nickname = useRef("");
+  const [profileImage, setProfileImage] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const [imageNull, setImageNull] = useState(false);
   const [emailNull, setEmailNull] = useState(false);
   const [emailNotCorrect, setEmailNotCorrect] = useState(false);
-  const [emailDuplicate, setEmailDuplciate] = useState(false);
+  const [emailDuplicate, setEmailDuplicate] = useState(false);
   const [passwordNotSame, setPasswordNotSame] = useState(false);
   const [passwordNotMatch, setPasswordNotMatch] = useState(false);
   const [nicknameSpace, setNicknameSpace] = useState(false);
   const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
 
-  const signUpButton = document.querySelector(".signUpButton");
+  //이미지 변경 시
+  const handleChangeProfileImage = (event) => {
+    if (event.target.files.length === 0) {
+      setProfileImage(null);
+      return;
+    }
+    reader.onload = (data) => {
+      setProfileImage(data.target.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+
+  //인풋값을 입력하다가 포커스 아웃될 때
+  const handleBlurEmail = async (event) => {
+    const email = event.target.value;
+    setEmail(email);
+    await checkEmailValidation(email);
+  };
+
+  const handleBlurPassword = (event) => {
+    const password = event.target.value;
+    setPassword(password);
+    checkPasswordValidation(password, passwordCheck);
+  };
+
+  const handleBlurPasswordCheck = (event) => {
+    const passwordCheck = event.target.value;
+    setPasswordCheck(passwordCheck);
+    checkPasswordValidation(password, passwordCheck);
+  };
+
+  const handleBlurNickname = async (event) => {
+    const nickname = event.target.value;
+    setNickname(nickname);
+    await checkNicknameValidation(nickname);
+  };
 
   //프로필 이미지 유효성 검사
   const checkImageValidation = (image) => {
@@ -35,16 +70,14 @@ export default function SignUp() {
 
   //이메일 유효성 검사
   const checkEmailValidation = async (email) => {
-    //이메일이 없을 시
     if (!email) {
       setEmailNull(true);
       return false;
     }
     setEmailNull(false);
 
-    //이메일 형식 안맞을 시
     const emailForm = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && (!emailForm.test(email) || email.length < 5)) {
+    if (!emailForm.test(email) || email.length < 5) {
       setEmailNotCorrect(true);
       return false;
     }
@@ -53,10 +86,7 @@ export default function SignUp() {
     const isEmailDuplicate = await fetch(
       `${backHost}/api/users/email/${email}`,
       {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
+        headers,
         credentials: "include",
         method: "POST",
       }
@@ -69,39 +99,25 @@ export default function SignUp() {
     });
 
     if (isEmailDuplicate) {
-      setEmailDuplciate(true);
+      setEmailDuplicate(true);
       return false;
     }
 
-    setEmailDuplciate(false);
+    setEmailDuplicate(false);
     return true;
   };
 
   //비밀번호 유효성 검사
   const checkPasswordValidation = (password, passwordCheck) => {
-    //password 없을 시
-    if (!password) {
-      return false;
-    }
-
-    if (!passwordCheck) {
-      return false;
-    }
-
-    //password 와 passwordCheck가 같지 않을 시
-    const isPasswordNotSame = password !== passwordCheck ? true : false;
-
-    if (isPasswordNotSame) {
+    if (!password || !passwordCheck || password !== passwordCheck) {
       setPasswordNotSame(true);
       return false;
     }
     setPasswordNotSame(false);
 
-    //비밀번호 형식 안맞음
     const passwordRegExp =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
-    const isNotPasswordRule = !passwordRegExp.test(password);
-    if (isNotPasswordRule) {
+    if (!passwordRegExp.test(password)) {
       setPasswordNotMatch(true);
       return false;
     }
@@ -111,18 +127,12 @@ export default function SignUp() {
 
   //닉네임 유효성 검사
   const checkNicknameValidation = async (nickname) => {
-    if (!nickname) {
-      return false;
-    }
-
-    //닉네임에 공백이 있을 시
-    if (nickname?.indexOf(" ") !== -1 ? true : false) {
+    if (!nickname || nickname.indexOf(" ") !== -1) {
       setNicknameSpace(true);
       return false;
     }
     setNicknameSpace(false);
 
-    //닉네임이 중복일시
     const isNicknameDuplicate = await fetch(
       `${backHost}/api/users/signup/nickname/${nickname}`,
       {
@@ -132,7 +142,6 @@ export default function SignUp() {
       }
     ).then(async (response) => {
       const data = await response.json();
-      console.log(data.status);
       if (data.status === 400) {
         return true;
       }
@@ -148,24 +157,15 @@ export default function SignUp() {
   };
 
   //회원가입 버튼 클릭 시
-  const hanleOnClickSignUp = async () => {
-    //유효성 검사
-    //TODO: 이미지 실제 데이터값으로 변경
-
-    const data = JSON.stringify({
-      email: email.current,
-      password: password.current,
-      nickname: nickname.current,
-      profile_image: profileImage,
-    });
-
+  const handleClickSignUp = async () => {
+    // 프로필 이미지 유효성 검사
     const isImageValid = checkImageValidation(profileImage);
-    const isEmailValid = await checkEmailValidation(email.current);
-    const isPasswordValid = checkPasswordValidation(
-      password.current,
-      passwordCheck.current
-    );
-    const isNicknameValid = await checkNicknameValidation(nickname.current);
+    // 이메일 유효성 검사
+    const isEmailValid = await checkEmailValidation(email);
+    // 비밀번호 유효성 검사
+    const isPasswordValid = checkPasswordValidation(password, passwordCheck);
+    // 닉네임 유효성 검사
+    const isNicknameValid = await checkNicknameValidation(nickname);
 
     if (
       !isImageValid ||
@@ -174,67 +174,39 @@ export default function SignUp() {
       !isNicknameValid ||
       !profileImage
     ) {
-      signUpButton.style.backgroundColor = "lightgray";
       return;
     }
 
-    signUpButton.style.backgroundColor = "#7f6aee";
-
-    const response = await fetch(`${backHost}/api/users/signup`, {
-      headers,
-      credentials: "include",
-      method: "POST",
-      body: data,
+    const data = JSON.stringify({
+      email,
+      password,
+      nickname,
+      profile_image: profileImage,
     });
 
-    const responseData = await response.json();
+    try {
+      const response = await fetch(`${backHost}/api/users/signup`, {
+        headers,
+        credentials: "include",
+        method: "POST",
+        body: data,
+      });
 
-    //응답 상태에 따른 분기
-    switch (responseData.status) {
-      case 201:
-        alert("회원가입 성공");
-        window.location.href = "/";
-        return;
-      default:
-        signUpButton.style.backgroundColor = "lightgray";
-        setTimeout(() => {
-          signUpButton.style.backgroundColor = "";
-        }, 1000);
-        return;
+      const responseData = await response.json();
+
+      switch (responseData.status) {
+        case 201:
+          alert("회원가입 성공");
+          window.location.href = "/";
+          break;
+        default:
+          alert("회원가입 실패");
+          break;
+      }
+    } catch (error) {
+      console.error("회원가입 중 에러 발생:", error);
+      alert("회원가입 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
-  };
-
-  //이미지 변경 시
-  const handleOnChangeProfileImage = (event) => {
-    if (event.target.files.length === 0) {
-      setProileImage(null);
-      return;
-    }
-    reader.onload = (data) => {
-      setProileImage(data.target.result);
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-
-  //인풋값을 입력하다가 포커스 아웃될 때
-  const handleOnBlurEmail = async (event) => {
-    email.current = event.target.value;
-    await checkEmailValidation(event.target.value);
-  };
-
-  const handleOnBlurPassword = (event) => {
-    password.current = event.target.value;
-    checkPasswordValidation(password.current, passwordCheck.current);
-  };
-
-  const handleOnBlurPasswordCheck = (event) => {
-    passwordCheck.current = event.target.value;
-    checkPasswordValidation(password.current, passwordCheck.current);
-  };
-
-  const handleOnBlurNickname = async (event) => {
-    nickname.current = event.target.value;
-    await checkNicknameValidation(nickname.current);
   };
 
   return (
@@ -258,7 +230,7 @@ export default function SignUp() {
               </label>
               <input
                 id="imageInput"
-                onChange={handleOnChangeProfileImage}
+                onChange={handleChangeProfileImage}
                 type="file"
                 accept="image/*"
               />
@@ -274,18 +246,16 @@ export default function SignUp() {
               required
               type="email"
               id="emailInput"
-              onBlur={handleOnBlurEmail}
+              onBlur={handleBlurEmail}
               placeholder="이메일을 입력하세요"
             />
             <div className="helperTextContainer">
               <div className="helperText emailText">
-                {emailNull
-                  ? "* 이메일을 입력해주세요"
-                  : emailNotCorrect
+                {emailNull ? "* 이메일을 입력해주세요." : null}
+                {emailNotCorrect
                   ? "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)"
-                  : emailDuplicate
-                  ? "*중복된 이메일 입니다."
                   : null}
+                {emailDuplicate ? "* 중복된 이메일입니다." : null}
               </div>
             </div>
           </div>
@@ -297,16 +267,14 @@ export default function SignUp() {
               required
               type="password"
               id="passwordInput"
-              onBlur={handleOnBlurPassword}
+              onBlur={handleBlurPassword}
               placeholder="비밀번호를 입력하세요"
             />
             <div className="helperTextContainer">
               <div className="helperText passwordText">
-                {!password
-                  ? "* 비밀번호를 입력해주세요."
-                  : passwordNotSame
-                  ? "* 비밀번호가 다릅니다."
-                  : passwordNotMatch
+                {!password ? "* 비밀번호를 입력해주세요." : null}
+                {passwordNotSame ? "* 비밀번호가 다릅니다." : null}
+                {passwordNotMatch
                   ? "* 비밀번호는 대문자, 소문자, 숫자, 특수문자가 들어가야 합니다 (8자 이상 20자 이하)"
                   : null}
               </div>
@@ -320,16 +288,13 @@ export default function SignUp() {
               required
               type="password"
               id="passwordCheckInput"
-              onBlur={handleOnBlurPasswordCheck}
+              onBlur={handleBlurPasswordCheck}
               placeholder="비밀번호를 한번 더 입력하세요"
             />
             <div className="helperTextContainer">
               <div className="helperText passwordCheckText">
-                {!passwordCheck
-                  ? "* 비밀번호를 한번 더 입력해주세요."
-                  : passwordNotSame
-                  ? "* 비밀번호가 다릅니다."
-                  : null}
+                {!passwordCheck ? "* 비밀번호를 한번 더 입력해주세요." : null}
+                {passwordNotSame ? "* 비밀번호가 다릅니다." : null}
               </div>
             </div>
           </div>
@@ -342,26 +307,47 @@ export default function SignUp() {
               id="nicknameSignUpInput"
               maxLength="10"
               required
-              onBlur={handleOnBlurNickname}
+              onBlur={handleBlurNickname}
               placeholder="닉네임을 입력하세요"
             />
             <div className="helperTextContainer">
               <div className="helperText nicknameText">
-                {!nickname
-                  ? "* 닉네임을 입력해주세요."
-                  : nicknameSpace
-                  ? "* 띄어쓰기를 없애주세요"
-                  : nicknameDuplicate
-                  ? "* 중복된 닉네임입니다."
-                  : null}
+                {!nickname ? "* 닉네임을 입력해주세요." : null}
+                {nicknameSpace ? "* 띄어쓰기를 없애주세요." : null}
+                {nicknameDuplicate ? "* 중복된 닉네임입니다." : null}
               </div>
             </div>
           </div>
         </div>
         <button
           type="button"
-          onClick={hanleOnClickSignUp}
+          onClick={handleClickSignUp}
           className="signUpButton"
+          style={{
+            backgroundColor:
+              !imageNull &&
+              !emailNull &&
+              !emailNotCorrect &&
+              !emailDuplicate &&
+              !passwordNotSame &&
+              !passwordNotMatch &&
+              !nicknameSpace &&
+              !nicknameDuplicate &&
+              profileImage
+                ? "#7f6aee"
+                : "lightgray",
+          }}
+          disabled={
+            imageNull ||
+            emailNull ||
+            emailNotCorrect ||
+            emailDuplicate ||
+            passwordNotSame ||
+            passwordNotMatch ||
+            nicknameSpace ||
+            nicknameDuplicate ||
+            !profileImage
+          }
         >
           회원가입
         </button>

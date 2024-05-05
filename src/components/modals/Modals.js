@@ -13,32 +13,32 @@ export function DeletePostModal({ postId, setIsPostDelete, isPostDelete }) {
     setPosition(getScrollPosition().scrollPosition);
   }, [isPostDelete]);
 
-  const hadleOnClickDeleteConfirm = async () => {
-    const deleteResponse = await fetch(`${backHost}/api/posts/${postId}`, {
-      headers,
-      credentials: "include",
-      method: "DELETE",
-    });
-
-    const responseData = await deleteResponse.json();
-
-    switch (responseData.status) {
-      case 200:
-        alert("게시물이 삭제되었습니다.");
-        navigate("/posts");
-        break;
-      default:
-        alert("게시물 삭제 실패");
-        break;
-    }
-    setPosition(getScrollPosition.scrollPosition);
-    setIsPostDelete(false);
-    enableScroll();
-  };
-
   const handleOnClickDeleteCancel = () => {
     enableScroll();
     setIsPostDelete(false);
+  };
+
+  const handleOnClickDeleteConfirm = async () => {
+    try {
+      const deleteResponse = await fetch(`${backHost}/api/posts/${postId}`, {
+        headers,
+        credentials: "include",
+        method: "DELETE",
+      });
+      const responseData = await deleteResponse.json();
+
+      if (responseData.status === 200) {
+        alert("게시물이 삭제되었습니다.");
+        navigate("/posts");
+      } else {
+        alert("게시물 삭제 실패");
+      }
+      setIsPostDelete(false);
+      enableScroll();
+    } catch (error) {
+      console.error("게시물 삭제 중 에러 발생:", error);
+      alert("게시물 삭제 중 에러가 발생했습니다.");
+    }
   };
 
   return isPostDelete ? (
@@ -58,7 +58,7 @@ export function DeletePostModal({ postId, setIsPostDelete, isPostDelete }) {
             취소
           </button>
           <button
-            onClick={hadleOnClickDeleteConfirm}
+            onClick={handleOnClickDeleteConfirm}
             className="submitButton button"
           >
             확인
@@ -81,30 +81,31 @@ export function DeleteCommentModal({
     setPosition(getScrollPosition().scrollPosition);
   }, [isCommentDelete]);
 
-  const hadleOnClickDeleteConfirm = async () => {
-    const response = await fetch(
-      `${backHost}/api/posts/${postId}/comments/${commentId}`,
-      {
-        credentials: "include",
-        headers,
-        method: "DELETE",
-      }
-    );
-    const responseData = await response.json();
+  const handleOnClickDeleteConfirm = async () => {
+    try {
+      const response = await fetch(
+        `${backHost}/api/posts/${postId}/comments/${commentId}`,
+        {
+          credentials: "include",
+          headers,
+          method: "DELETE",
+        }
+      );
+      const responseData = await response.json();
 
-    switch (responseData?.status) {
-      case 200:
+      if (responseData?.status === 200) {
         alert("댓글이 삭제되었습니다.");
         window.location.reload();
-        break;
-      default:
+      } else {
         alert("삭제 실패");
-        break;
-    }
+      }
 
-    enableScroll();
-    setIsCommentDelete(false);
-    enableScroll();
+      setIsCommentDelete(false);
+      enableScroll();
+    } catch (error) {
+      console.error("댓글 삭제 중 에러 발생:", error);
+      alert("댓글 삭제 중 에러가 발생했습니다.");
+    }
   };
 
   const handleOnClickDeleteCancel = () => {
@@ -129,7 +130,7 @@ export function DeleteCommentModal({
             취소
           </button>
           <button
-            onClick={hadleOnClickDeleteConfirm}
+            onClick={handleOnClickDeleteConfirm}
             className="submitButton button"
           >
             확인
@@ -155,21 +156,25 @@ export function DeleteUserModal({ isDelete, setIsDelete }) {
   };
 
   const handleOnClickDeleteUserConfirm = async () => {
-    const deleteResponse = await fetch(`${backHost}/api/users/user`, {
-      headers,
-      credentials: "include",
-      method: "DELETE",
-    });
-    const deleteData = await deleteResponse.json();
-    switch (deleteData.status) {
-      case 200:
+    try {
+      const deleteResponse = await fetch(`${backHost}/api/users/user`, {
+        headers,
+        credentials: "include",
+        method: "DELETE",
+      });
+      const deleteData = await deleteResponse.json();
+
+      if (deleteData.status === 200) {
         alert("계정이 삭제되었습니다.");
         navigate("/");
-        return;
-      default:
+      } else {
         alert("계정삭제 실패");
+      }
+      setIsDelete(false);
+    } catch (error) {
+      console.error("계정 삭제 중 에러 발생:", error);
+      alert("계정 삭제 중 에러가 발생했습니다.");
     }
-    setIsDelete(false);
   };
 
   return isDelete ? (

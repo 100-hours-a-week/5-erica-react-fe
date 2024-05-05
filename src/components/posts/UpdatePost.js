@@ -7,96 +7,101 @@ export default function UpdatePost() {
   const postId = Number(useParams().id);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [postImage, setPostImage] = useState();
+  const [postImage, setPostImage] = useState("");
   const navigate = useNavigate();
-  const reader = new FileReader();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
-          headers,
-          credentials: "include",
-          method: "POST",
-          body: JSON.stringify({ postId }),
-        });
+  const fetchData = async () => {
+    try {
+      const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
+        headers,
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({ postId }),
+      });
 
-        const checkResponseData = await checkData.json();
+      const checkResponseData = await checkData.json();
 
-        if (checkResponseData.status === 403) {
-          navigate(`/posts/${postId}`);
-          alert("본인이 작성한 게시물이 아닙니다.");
-          return;
-        }
-
-        const postResponse = await fetch(`${backHost}/api/posts/${postId}`, {
-          headers,
-          credentials: "include",
-        });
-        const postResponseData = await postResponse.json();
-
-        switch (postResponseData.status) {
-          case 200:
-            setTitle(postResponseData.data.title);
-            setContent(postResponseData.data.content);
-            setPostImage(postResponseData.data.postImage ?? "");
-            break;
-          case 401:
-            navigate("/");
-            return;
-          default:
-            alert("해당 게시물이 없습니다");
-            navigate("/board");
-            return;
-        }
-      } catch (error) {
-        console.log(error);
+      if (checkResponseData.status === 403) {
+        navigate(`/posts/${postId}`);
+        alert("본인이 작성한 게시물이 아닙니다.");
         return;
       }
-    };
 
+      const postResponse = await fetch(`${backHost}/api/posts/${postId}`, {
+        headers,
+        credentials: "include",
+      });
+      const postResponseData = await postResponse.json();
+
+      switch (postResponseData.status) {
+        case 200:
+          setTitle(postResponseData.data.title);
+          setContent(postResponseData.data.content);
+          setPostImage(postResponseData.data.postImage ?? "");
+          break;
+        case 401:
+          navigate("/");
+          break;
+        default:
+          alert("해당 게시물이 없습니다");
+          navigate("/board");
+          break;
+      }
+    } catch (error) {
+      console.error("게시물을 불러오는 중 에러가 발생했습니다:", error);
+      alert(
+        "게시물을 불러오는 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요."
+      );
+    }
+  };
+
+  useEffect(() => {
     fetchData();
-  }, [navigate, postId]);
+  }, [postId]);
 
-  const handleOnChangePostImage = (event) => {
+  const handleChangePostImage = (event) => {
+    const reader = new FileReader();
     reader.onload = (data) => {
       setPostImage(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
   };
 
-  const handleOnChangeTitle = (event) => {
+  const handleChangeTitle = (event) => {
     setTitle(event.target.value);
   };
 
-  const handleOnChangeContent = (event) => {
+  const handleChangeContent = (event) => {
     setContent(event.target.value);
   };
 
-  const handleOnClickUpdatePost = async () => {
-    const response = await fetch(`${backHost}/api/posts/${postId}`, {
-      headers,
-      credentials: "include",
-      method: "PATCH",
-      body: JSON.stringify({
-        title: title,
-        content: content,
-        postImageInput: postImage,
-      }),
-    });
+  const handleClickUpdatePost = async () => {
+    try {
+      const response = await fetch(`${backHost}/api/posts/${postId}`, {
+        headers,
+        credentials: "include",
+        method: "PATCH",
+        body: JSON.stringify({
+          title,
+          content,
+          postImageInput: postImage,
+        }),
+      });
 
-    const responseData = await response.json();
+      const responseData = await response.json();
 
-    switch (responseData.status) {
-      case 200:
-        alert("게시글 수정이 완성됐습니다.");
-        navigate(`/posts/${postId}`);
-        return;
-      default:
-        alert(
-          "수정 실패, 이미지가 너무 크거나, 다른 오류로 인해 실패했습니다."
-        );
-        return;
+      switch (responseData.status) {
+        case 200:
+          alert("게시글 수정이 완료되었습니다.");
+          navigate(`/posts/${postId}`);
+          break;
+        default:
+          alert("수정 실패: 이미지가 너무 크거나 다른 오류로 실패했습니다.");
+          break;
+      }
+    } catch (error) {
+      console.error("게시글 수정 중 에러가 발생했습니다:", error);
+      alert("게시글 수정 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
 
@@ -112,7 +117,7 @@ export default function UpdatePost() {
             type="text"
             maxLength="26"
             value={title}
-            onChange={handleOnChangeTitle}
+            onChange={handleChangeTitle}
             id="boardTitleInput"
           />
         </div>
@@ -124,7 +129,7 @@ export default function UpdatePost() {
           <textarea
             type="text"
             maxLength="200"
-            onChange={handleOnChangeContent}
+            onChange={handleChangeContent}
             rows="10"
             value={content}
             id="boardContentInput"
@@ -143,7 +148,7 @@ export default function UpdatePost() {
           <input
             type="file"
             src={postImage}
-            onChange={handleOnChangePostImage}
+            onChange={handleChangePostImage}
             id="boardInputImage"
             accept="image/*"
           />
@@ -156,7 +161,7 @@ export default function UpdatePost() {
               : { backgroundColor: "" }
           }
           disabled={!title || !content}
-          onClick={handleOnClickUpdatePost}
+          onClick={handleClickUpdatePost}
           className="updateButton"
         >
           완료

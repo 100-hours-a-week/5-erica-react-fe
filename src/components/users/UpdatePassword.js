@@ -7,14 +7,49 @@ export default function UpdatePassword() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isAble, setIsAble] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
   const handleChangePassword = (event) => {
-    setPassword(event.target.value);
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+    validatePassword(newPassword, passwordCheck);
   };
 
   const handleChangePasswordCheck = (event) => {
-    setPasswordCheck(event.target.value);
+    const newPasswordCheck = event.target.value;
+    setPasswordCheck(newPasswordCheck);
+    validatePassword(password, newPasswordCheck);
+  };
+
+  //비밀번호 유효성 검사
+  const validatePassword = (newPassword, newPasswordCheck) => {
+    if (!newPassword || !newPasswordCheck) {
+      setErrorMessage("* 비밀번호를 입력해주세요.");
+      setIsAble(false);
+      return;
+    }
+
+    if (newPassword !== newPasswordCheck) {
+      setErrorMessage("* 비밀번호가 다릅니다.");
+      setIsAble(false);
+      return;
+    }
+
+    const passwordRegExp =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
+
+    if (!passwordRegExp.test(newPassword)) {
+      setErrorMessage(
+        "* 비밀번호는 대문자, 소문자, 숫자, 특수문자가 들어가야 합니다 (8자 이상 20자 이하)"
+      );
+      setIsAble(false);
+      return;
+    }
+
+    setErrorMessage("");
+    setIsAble(true);
   };
 
   const handleClickUpdatePassword = async () => {
@@ -30,7 +65,6 @@ export default function UpdatePassword() {
 
     switch (updateResponse.status) {
       case 201:
-        document.querySelector(".helperText").style.display = "none";
         setIsAble(true);
         setTimeout(() => {
           alert("비밀번호가 수정되었습니다.");
@@ -75,18 +109,15 @@ export default function UpdatePassword() {
             placeholder="비밀번호를 한번 더 입력하세요"
           />
           <div className="helperTextContainer">
-            <div className="helperText passwordCheckText"></div>
+            <div className="helperText passwordCheckText">{errorMessage}</div>
           </div>
         </div>
         <button
           type="button"
-          style={
-            isAble || (password && passwordCheck)
-              ? { backgroundColor: "#7f6aee" }
-              : null
-          }
+          style={isAble ? { backgroundColor: "#7f6aee" } : null}
           onClick={handleClickUpdatePassword}
           className="updateButton"
+          disabled={!isAble}
         >
           완료
         </button>
