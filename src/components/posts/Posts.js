@@ -61,6 +61,7 @@ export default function Posts() {
         {posts.map((post) => (
           <MiniPost key={post.postId} data={post} />
         ))}
+        <div style={{ width: "100%", height: "10px" }} className="target"></div>
       </div>
     </section>
   );

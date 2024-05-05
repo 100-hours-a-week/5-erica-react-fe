@@ -16,8 +16,11 @@ export default function SignUp() {
   const [emailNull, setEmailNull] = useState(false);
   const [emailNotCorrect, setEmailNotCorrect] = useState(false);
   const [emailDuplicate, setEmailDuplicate] = useState(false);
+  const [passwordNull, setPasswordNull] = useState(false);
+  const [passwordCheckNull, setPasswordCheckNull] = useState(false);
   const [passwordNotSame, setPasswordNotSame] = useState(false);
   const [passwordNotMatch, setPasswordNotMatch] = useState(false);
+  const [nicknameNull, setNicknameNull] = useState(false);
   const [nicknameSpace, setNicknameSpace] = useState(false);
   const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
 
@@ -43,18 +46,21 @@ export default function SignUp() {
   const handleBlurPassword = (event) => {
     const password = event.target.value;
     setPassword(password);
+    setPasswordNull(!password);
     checkPasswordValidation(password, passwordCheck);
   };
 
   const handleBlurPasswordCheck = (event) => {
     const passwordCheck = event.target.value;
     setPasswordCheck(passwordCheck);
+    setPasswordCheckNull(!passwordCheck);
     checkPasswordValidation(password, passwordCheck);
   };
 
   const handleBlurNickname = async (event) => {
     const nickname = event.target.value;
     setNickname(nickname);
+    setNicknameNull(!nickname);
     await checkNicknameValidation(nickname);
   };
 
@@ -251,11 +257,13 @@ export default function SignUp() {
             />
             <div className="helperTextContainer">
               <div className="helperText emailText">
-                {emailNull ? "* 이메일을 입력해주세요." : null}
-                {emailNotCorrect
+                {emailNull
+                  ? "* 이메일을 입력해주세요"
+                  : emailNotCorrect
                   ? "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)"
+                  : emailDuplicate
+                  ? "*중복된 이메일 입니다."
                   : null}
-                {emailDuplicate ? "* 중복된 이메일입니다." : null}
               </div>
             </div>
           </div>
@@ -272,9 +280,11 @@ export default function SignUp() {
             />
             <div className="helperTextContainer">
               <div className="helperText passwordText">
-                {!password ? "* 비밀번호를 입력해주세요." : null}
-                {passwordNotSame ? "* 비밀번호가 다릅니다." : null}
-                {passwordNotMatch
+                {passwordNull
+                  ? "* 비밀번호를 입력해주세요."
+                  : passwordNotSame
+                  ? "* 비밀번호가 다릅니다."
+                  : passwordNotMatch
                   ? "* 비밀번호는 대문자, 소문자, 숫자, 특수문자가 들어가야 합니다 (8자 이상 20자 이하)"
                   : null}
               </div>
@@ -293,8 +303,11 @@ export default function SignUp() {
             />
             <div className="helperTextContainer">
               <div className="helperText passwordCheckText">
-                {!passwordCheck ? "* 비밀번호를 한번 더 입력해주세요." : null}
-                {passwordNotSame ? "* 비밀번호가 다릅니다." : null}
+                {passwordCheckNull
+                  ? "* 비밀번호를 한번 더 입력해주세요."
+                  : passwordNotSame
+                  ? "* 비밀번호가 다릅니다."
+                  : null}
               </div>
             </div>
           </div>
@@ -312,9 +325,13 @@ export default function SignUp() {
             />
             <div className="helperTextContainer">
               <div className="helperText nicknameText">
-                {!nickname ? "* 닉네임을 입력해주세요." : null}
-                {nicknameSpace ? "* 띄어쓰기를 없애주세요." : null}
-                {nicknameDuplicate ? "* 중복된 닉네임입니다." : null}
+                {nicknameNull
+                  ? "* 닉네임을 입력해주세요."
+                  : nicknameSpace
+                  ? "* 띄어쓰기를 없애주세요"
+                  : nicknameDuplicate
+                  ? "* 중복된 닉네임입니다."
+                  : null}
               </div>
             </div>
           </div>

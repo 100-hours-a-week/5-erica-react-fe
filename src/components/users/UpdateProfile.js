@@ -12,33 +12,33 @@ export default function UpdateProfile() {
   const [isDelete, setIsDelete] = useState(false);
   const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const reader = new FileReader();
   const navigate = useNavigate();
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${backHost}/api/users/user`, {
-        headers,
-        credentials: "include",
-      });
-      const userData = await response.json();
-
-      if (userData.status === 200) {
-        setEmail(userData.data.email);
-        setNickname(userData.data.nickname);
-        setProfile(userData.data.profile_image);
-      } else {
-        alert("등록되지 않은 유저입니다.");
-        navigate("/posts");
-      }
-    } catch (error) {
-      console.error("유저 데이터 가져오는데 실패했습니다.:", error);
-    }
-  };
+  const reader = new FileReader();
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${backHost}/api/users/user`, {
+          headers,
+          credentials: "include",
+        });
+        const userData = await response.json();
+
+        if (userData.status === 200) {
+          setEmail(userData.data.email);
+          setNickname(userData.data.nickname);
+          setProfile(userData.data.profile_image);
+          console.log("setProfile");
+        } else {
+          alert("등록되지 않은 유저입니다.");
+          navigate("/posts");
+        }
+      } catch (error) {
+        console.error("유저 데이터 가져오는데 실패했습니다.:", error);
+      }
+    };
     fetchData();
-  });
+  }, [navigate]);
 
   const handleChangeNickname = (event) => {
     setNickname(event.target.value);
@@ -138,6 +138,7 @@ export default function UpdateProfile() {
                   onChange={handleChangeProfileImage}
                   type="file"
                   accept="image/*"
+                  src={profile}
                 />
               </div>
             </div>

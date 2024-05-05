@@ -31,7 +31,7 @@ function UserProfile() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, [navigate]);
 
   const handleClickLogOut = async () => {
     try {
