@@ -91,6 +91,7 @@ hr {
 
 .miniWriterImage {
   border-radius: 50%;
+  object-fit: cover;
   border: 0.1rem solid black;
 }
 
