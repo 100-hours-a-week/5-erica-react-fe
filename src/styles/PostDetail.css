@@ -184,6 +184,7 @@ hr {
 .commentWriterImage {
   width: 4rem;
   height: 4rem;
+  object-fit: cover;
   border-radius: 50%;
   border: 0.1rem solid black;
 }

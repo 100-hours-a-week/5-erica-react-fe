@@ -45,7 +45,7 @@ export default function Posts() {
   });
 
   return (
-    <section className="main">
+    <section className="postsMain">
       <span className="postsTitle">
         <p>
           안녕하세요, <br />
@@ -57,11 +57,11 @@ export default function Posts() {
           게시글 작성
         </Link>
       </div>
-      <div className="wrapper">
+      <div className="profileWrapper">
         {posts.map((post) => (
           <MiniPost key={post.postId} data={post} />
         ))}
-        <div style={{ width: "100%", height: "10px" }} className="target"></div>
+        <div className="target"></div>
       </div>
     </section>
   );
