@@ -2,6 +2,7 @@ import styles from "../../styles/SignUp.module.css";
 import { backHost, headers } from "../../static";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { SignUpError, passwordNotMatchError } from "../../utils/errorMessage";
 
 const reader = new FileReader();
 
@@ -16,13 +17,26 @@ export default function SignUp() {
   const [emailNull, setEmailNull] = useState(false);
   const [emailNotCorrect, setEmailNotCorrect] = useState(false);
   const [emailDuplicate, setEmailDuplicate] = useState(false);
+
   const [passwordNull, setPasswordNull] = useState(false);
   const [passwordCheckNull, setPasswordCheckNull] = useState(false);
   const [passwordNotSame, setPasswordNotSame] = useState(false);
   const [passwordNotMatch, setPasswordNotMatch] = useState(false);
+
   const [nicknameNull, setNicknameNull] = useState(false);
   const [nicknameSpace, setNicknameSpace] = useState(false);
   const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
+
+  const isValid =
+    !imageNull &&
+    !emailNull &&
+    !emailNotCorrect &&
+    !emailDuplicate &&
+    !passwordNotSame &&
+    !passwordNotMatch &&
+    !nicknameSpace &&
+    !nicknameDuplicate &&
+    profileImage;
 
   //이미지 변경 시
   const handleChangeProfileImage = (event) => {
@@ -63,7 +77,6 @@ export default function SignUp() {
   const handleBlurNickname = async (event) => {
     const nickname = event.target.value;
     setNickname(nickname);
-    setNicknameNull(!nickname);
     await checkNicknameValidation(nickname);
   };
 
@@ -155,7 +168,7 @@ export default function SignUp() {
       setNicknameNull(true);
       return false;
     }
-    setNicknameNull(true);
+    setNicknameNull(false);
 
     if (String(nickname).includes(" ")) {
       setNicknameSpace(true);
@@ -247,7 +260,7 @@ export default function SignUp() {
           <p className={styles.inputTitle}>프로필 사진</p>
           <div className={styles.helperTextContainer}>
             <div className={styles.helperText}>
-              {imageNull ? "* 프로필 사진을 추가해주세요." : null}
+              {imageNull && SignUpError.imageNullError}
             </div>
           </div>
           <div className={styles.imageContainer}>
@@ -286,10 +299,9 @@ export default function SignUp() {
             />
             <div className={styles.helperTextContainer}>
               <div className={styles.helperText}>
-                {emailNull && "* 이메일을 입력해주세요"}
-                {emailNotCorrect &&
-                  "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)"}
-                {emailDuplicate && "*중복된 이메일 입니다."}
+                {emailNull && SignUpError.emailNullError}
+                {emailNotCorrect && SignUpError.emailNotValidError}
+                {emailDuplicate && SignUpError.emailDuplicateError}
               </div>
             </div>
           </div>
@@ -306,13 +318,9 @@ export default function SignUp() {
             />
             <div className={styles.helperTextContainer}>
               <div className={styles.helperText}>
-                {passwordNull
-                  ? "* 비밀번호를 입력해주세요."
-                  : passwordNotSame
-                  ? "* 비밀번호가 다릅니다."
-                  : passwordNotMatch
-                  ? "* 비밀번호는 대문자, 소문자, 숫자, 특수문자가 들어가야 합니다 (8자 이상 20자 이하)"
-                  : null}
+                {passwordNull && SignUpError.passwordNullError}
+                {passwordNotSame && SignUpError.passwordNotSameError}
+                {passwordNotMatch && passwordNotMatchError}
               </div>
             </div>
           </div>
@@ -329,11 +337,8 @@ export default function SignUp() {
             />
             <div className={styles.helperTextContainer}>
               <div className={styles.helperText}>
-                {passwordCheckNull
-                  ? "* 비밀번호를 한번 더 입력해주세요."
-                  : passwordNotSame
-                  ? "* 비밀번호가 다릅니다."
-                  : null}
+                {passwordCheckNull && SignUpError.passwordCheckNullError}
+                {passwordNotSame && SignUpError.passwordNotSameError}
               </div>
             </div>
           </div>
@@ -351,13 +356,9 @@ export default function SignUp() {
             />
             <div className={styles.helperTextContainer}>
               <div className={styles.helperText}>
-                {nicknameNull
-                  ? "* 닉네임을 입력해주세요."
-                  : nicknameSpace
-                  ? "* 띄어쓰기를 없애주세요"
-                  : nicknameDuplicate
-                  ? "* 중복된 닉네임입니다."
-                  : null}
+                {nicknameNull && SignUpError.nicknameNullError}
+                {nicknameSpace && SignUpError.nicknameSpaceError}
+                {nicknameDuplicate && SignUpError.nicknameDuplicateError}
               </div>
             </div>
           </div>
@@ -366,30 +367,7 @@ export default function SignUp() {
           type="button"
           onClick={handleClickSignUp}
           className={
-            !imageNull &&
-            !emailNull &&
-            !emailNotCorrect &&
-            !emailDuplicate &&
-            !passwordNotSame &&
-            !passwordNotMatch &&
-            !nicknameSpace &&
-            !nicknameDuplicate &&
-            profileImage
-              ? styles.signUpButton
-              : styles.signUpButtonDisabled
-          }
-          disabled={
-            !imageNull &&
-            !emailNull &&
-            !emailNotCorrect &&
-            !emailDuplicate &&
-            !passwordNotSame &&
-            !passwordNotMatch &&
-            !nicknameSpace &&
-            !nicknameDuplicate &&
-            profileImage
-              ? false
-              : true
+            isValid ? styles.signUpButton : styles.signUpButtonDisabled
           }
         >
           회원가입

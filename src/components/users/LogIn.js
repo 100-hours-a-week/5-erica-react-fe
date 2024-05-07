@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
 import styles from "../../styles/LogIn.module.css";
+import { emailNotValidErrorLine } from "../../utils/errorMessage";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -98,8 +99,7 @@ export default function LogIn() {
           />
           <div className={styles.helperTextContainer}>
             <div className={styles.helperText}>
-              {emailNotValid &&
-                "* 올바른 이메일 주소 형식을 입력해주세요. \n (예: example@example.com)"}
+              {emailNotValid && emailNotValidErrorLine}
             </div>
           </div>
         </div>

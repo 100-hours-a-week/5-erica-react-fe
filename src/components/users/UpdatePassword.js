@@ -2,54 +2,74 @@ import styles from "../../styles/UpdatePassword.module.css";
 import { useState } from "react";
 import { backHost, headers } from "../../static";
 import { useNavigate } from "react-router-dom";
+import {
+  passwordCheckNullError,
+  passwordNotMatchError,
+  passwordNullError,
+  passwordNotSameError,
+} from "../../utils/errorMessage";
 
 export default function UpdatePassword() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [isAble, setIsAble] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
+  const [passwordNull, setPasswordNull] = useState(true);
+  const [passwordCheckNull, setPasswordCheckNull] = useState(false);
+  const [passwordNotSame, setPasswordNotSame] = useState(false);
+  const [passwordNotMatch, setPasswordNotMatch] = useState(false);
 
   const navigate = useNavigate();
+
+  const isAble =
+    !passwordNull &&
+    !passwordCheckNull &&
+    !passwordNotSame &&
+    !passwordNotMatch;
 
   const handleChangePassword = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
-    validatePassword(newPassword, passwordCheck);
+    setPasswordNull(!newPassword);
+    checkPasswordValidation(newPassword, passwordCheck);
   };
 
   const handleChangePasswordCheck = (event) => {
     const newPasswordCheck = event.target.value;
     setPasswordCheck(newPasswordCheck);
-    validatePassword(password, newPasswordCheck);
+    setPasswordCheckNull(!newPasswordCheck);
+    checkPasswordValidation(password, newPasswordCheck);
   };
 
   //비밀번호 유효성 검사
-  const validatePassword = (newPassword, newPasswordCheck) => {
-    if (!newPassword || !newPasswordCheck) {
-      setErrorMessage("* 비밀번호를 입력해주세요.");
-      setIsAble(false);
-      return;
+  const checkPasswordValidation = (password, passwordCheck) => {
+    if (!password) {
+      setPasswordNull(true);
+      return false;
     }
-
-    if (newPassword !== newPasswordCheck) {
-      setErrorMessage("* 비밀번호가 다릅니다.");
-      setIsAble(false);
-      return;
-    }
+    setPasswordNull(false);
 
     const passwordRegExp =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
-
-    if (!passwordRegExp.test(newPassword)) {
-      setErrorMessage(
-        "* 비밀번호는 대문자, 소문자, 숫자, 특수문자가 들어가야 합니다 (8자 이상 20자 이하)"
-      );
-      setIsAble(false);
-      return;
+    if (!passwordRegExp.test(password)) {
+      setPasswordNotMatch(true);
+      return false;
     }
 
-    setErrorMessage("");
-    setIsAble(true);
+    setPasswordNotMatch(false);
+
+    if (!passwordCheck) {
+      setPasswordCheckNull(true);
+      return false;
+    }
+    setPasswordCheckNull(false);
+
+    if (password !== passwordCheck) {
+      setPasswordNotSame(true);
+      return false;
+    }
+    setPasswordNotSame(false);
+
+    return true;
   };
 
   const handleClickUpdatePassword = async () => {
@@ -65,12 +85,8 @@ export default function UpdatePassword() {
 
     switch (updateResponse.status) {
       case 201:
-        setIsAble(true);
-        setTimeout(() => {
-          alert("비밀번호가 수정되었습니다.");
-          setIsAble(false);
-          navigate("/");
-        }, 3000);
+        alert("비밀번호가 수정되었습니다.");
+        navigate("/");
         return;
       default:
         alert("비밀번호 수정실패");
@@ -94,9 +110,11 @@ export default function UpdatePassword() {
             placeholder="비밀번호를 입력하세요"
           />
           <div className={styles.helperTextContainer}>
-            <div
-              className={`${styles.helperText} ${styles.passwordText}`}
-            ></div>
+            <div className={`${styles.helperText} ${styles.passwordText}`}>
+              {passwordNull && passwordNullError}
+              {passwordNotSame && passwordNotSameError}
+              {passwordNotMatch && passwordNotMatchError}
+            </div>
           </div>
         </div>
         <div className={styles.passwordCheck}>
@@ -112,7 +130,8 @@ export default function UpdatePassword() {
           />
           <div className={styles.helperTextContainer}>
             <div className={`${styles.helperText} ${styles.passwordCheckText}`}>
-              {errorMessage}
+              {passwordCheckNull && passwordCheckNullError}
+              {passwordNotSame && passwordNotSameError}
             </div>
           </div>
         </div>
