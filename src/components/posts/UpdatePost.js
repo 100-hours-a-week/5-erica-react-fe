@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "../../styles/UpdatePost.module.css";
 import { backHost, headers } from "../../static";
+import { postError } from "../../utils/errorMessage";
 
 export default function UpdatePost() {
   const postId = Number(useParams().id);
@@ -138,7 +139,7 @@ export default function UpdatePost() {
         <hr />
         <div className={styles.helperTextContainer}>
           <div className={styles.helperText}>
-            {!title || !content ? "* 제목, 내용을 모두 작성해주세요." : ""}
+            {(!title || !content) && postError}
           </div>
         </div>
         <div className={styles.updateBoardImage}>
@@ -155,11 +156,6 @@ export default function UpdatePost() {
         </div>
         <button
           type="button"
-          style={
-            title && content
-              ? { backgroundColor: "#7f6aee" }
-              : { backgroundColor: "" }
-          }
           disabled={!title || !content}
           onClick={handleClickUpdatePost}
           className={

@@ -4,44 +4,91 @@ import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
 import { disableScroll } from "../../utils/scroll";
 import DeleteUserModal from "../modals/DeleteUserModal";
+import {
+  nicknameNullError,
+  nicknameSpaceError,
+  nicknameDuplicateError,
+} from "../../utils/errorMessage";
 
 export default function UpdateProfile() {
   const [profile, setProfile] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [isDelete, setIsDelete] = useState(false);
-  const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
+
+  const [nicknameNull, setNicknameNull] = useState(false);
+  const [nicknameSpace, setNicknameSpace] = useState(false);
+  const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
+
   const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
   const reader = new FileReader();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${backHost}/api/users/user`, {
-          headers,
-          credentials: "include",
-        });
-        const userData = await response.json();
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${backHost}/api/users/user`, {
+        headers,
+        credentials: "include",
+      });
+      const userData = await response.json();
 
-        if (userData.status === 200) {
-          setEmail(userData.data.email);
-          setNickname(userData.data.nickname);
-          setProfile(userData.data.profile_image);
-          console.log("setProfile");
-        } else {
-          alert("등록되지 않은 유저입니다.");
-          navigate("/posts");
-        }
-      } catch (error) {
-        console.error("유저 데이터 가져오는데 실패했습니다.:", error);
+      if (userData.status === 200) {
+        setEmail(userData.data.email);
+        setNickname(userData.data.nickname);
+        setProfile(userData.data.profile_image);
+        console.log("setProfile");
+      } else {
+        alert("등록되지 않은 유저입니다.");
+        navigate("/posts");
       }
-    };
+    } catch (error) {
+      console.error("유저 데이터 가져오는데 실패했습니다.:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [navigate]);
 
   const handleChangeNickname = (event) => {
     setNickname(event.target.value);
+  };
+
+  //닉네임 유효성 검사
+  const checkNicknameValidation = async (nickname) => {
+    if (!nickname) {
+      setNicknameNull(true);
+      return false;
+    }
+    setNicknameNull(true);
+
+    if (String(nickname).includes(" ")) {
+      setNicknameSpace(true);
+      return false;
+    }
+    setNicknameSpace(false);
+
+    const isNicknameDuplicate = await fetch(
+      `${backHost}/api/users/signup/nickname/${nickname}`,
+      {
+        headers,
+        credentials: "include",
+        method: "POST",
+      }
+    ).then(async (response) => {
+      const data = await response.json();
+      if (data.status === 400) {
+        return true;
+      }
+      return false;
+    });
+
+    if (isNicknameDuplicate) {
+      setNicknameDuplicate(true);
+      return false;
+    }
+    setNicknameDuplicate(false);
+    return true;
   };
 
   const handleChangeProfileImage = (event) => {
@@ -51,35 +98,10 @@ export default function UpdateProfile() {
     reader.readAsDataURL(event.target.files[0]);
   };
 
-  const checkNicknameDuplicate = async () => {
-    try {
-      const response = await fetch(
-        `${backHost}/api/users/nickname/${nickname}`,
-        {
-          headers,
-          credentials: "include",
-          method: "POST",
-        }
-      );
-      const responseData = await response.json();
-
-      if (responseData.status !== 200) {
-        setIsNicknameDuplicate(true);
-        return false;
-      } else {
-        setIsNicknameDuplicate(false);
-        return true;
-      }
-    } catch (error) {
-      console.error("중복성 검사 실패:", error);
-      return false;
-    }
-  };
-
   const handleClickUpdateButton = async () => {
-    const isDuplicate = await checkNicknameDuplicate();
+    const isValid = await checkNicknameValidation();
 
-    if (!isDuplicate) return;
+    if (!isValid) return;
 
     try {
       const updateResponse = await fetch(`${backHost}/api/users/user/profile`, {
@@ -161,7 +183,11 @@ export default function UpdateProfile() {
           />
           <div className={styles.helperTextContainer}>
             <div className={styles.helperText}>
-              {isNicknameDuplicate ? "* 중복된 닉네임입니다." : null}
+              <div className={styles.helperText}>
+                {nicknameNull && nicknameNullError}
+                {nicknameSpace && nicknameSpaceError}
+                {nicknameDuplicate && nicknameDuplicateError}
+              </div>
             </div>
           </div>
         </div>

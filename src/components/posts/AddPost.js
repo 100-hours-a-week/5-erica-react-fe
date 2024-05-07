@@ -2,6 +2,7 @@ import styles from "../../styles/AddPost.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
+import { postError } from "../../utils/errorMessage";
 
 export default function AddPost() {
   const [title, setTitle] = useState("");
@@ -83,7 +84,7 @@ export default function AddPost() {
         <hr />
         <div className={styles.helperTextContainer}>
           <div className={styles.helperText}>
-            {!title || !content ? "* 제목, 내용을 모두 작성해주세요" : null}
+            {(!title || !content) && postError}
           </div>
         </div>
         <div className={styles.updateBoardImage}>
