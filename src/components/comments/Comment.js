@@ -2,6 +2,7 @@ import { DeleteCommentModal } from "../modals/Modals";
 import { disableScroll } from "../../utils/scroll.js";
 import { checkCommentOwner } from "../../utils/checkOwner.js";
 import { useState } from "react";
+import styles from "../../styles/PostDetail.module.css";
 
 export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
   const [isCommentDelete, setIsCommentDelete] = useState(false);
@@ -25,34 +26,34 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
 
   return (
     <>
-      <div className="comment">
-        <div className="commentHeader">
-          <div className="commentWriter">
+      <div className={styles.comment}>
+        <div className={styles.commentHeader}>
+          <div className={styles.commentWriter}>
             <input type="hidden" id="commentId" value={data.commentId} />
             <img
               src={data.profile_image}
               alt="profile"
-              className="commentWriterImage"
+              className={styles.commentWriterImage}
             ></img>
-            <div className="commentWriterName">{data.nickname}</div>
-            <div className="commentWriterDate">{data.created_at}</div>
+            <div className={styles.commentWriterName}>{data.nickname}</div>
+            <div className={styles.commentWriterDate}>{data.created_at}</div>
           </div>
-          <div className="commentButton">
+          <div className={styles.commentButton}>
             <button
               onClick={() => handleOnClick("update")}
-              className="commentUpdate"
+              className={styles.commentUpdate}
             >
               수정
             </button>
             <button
               onClick={() => handleOnClick("delete")}
-              className="commentDelete"
+              className={styles.commentDelete}
             >
               삭제
             </button>
           </div>
         </div>
-        <div className="commentBody">{data.comment}</div>
+        <div className={styles.commentBody}>{data.comment}</div>
       </div>
       <DeleteCommentModal
         postId={postId}

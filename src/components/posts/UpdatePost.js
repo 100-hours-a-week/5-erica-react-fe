@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../../styles/UpdatePost.css";
+import styles from "../../styles/UpdatePost.module.css";
 import { backHost, headers } from "../../static";
 
 export default function UpdatePost() {
@@ -106,11 +106,11 @@ export default function UpdatePost() {
   };
 
   return (
-    <section className="main updatePost">
-      <p className="pageTitle">게시글 수정</p>
-      <form className="boardContainer">
-        <div className="boardTitle">
-          <label htmlFor="boardTitleInput" className="inputTitle">
+    <>
+      <p className={styles.pageTitle}>게시글 수정</p>
+      <form className={styles.boardContainer}>
+        <div className={styles.boardTitle}>
+          <label htmlFor="boardTitleInput" className={styles.inputTitle}>
             제목*
           </label>
           <input
@@ -118,12 +118,12 @@ export default function UpdatePost() {
             maxLength="26"
             value={title}
             onChange={handleChangeTitle}
-            id="boardTitleInput"
+            id={styles.boardTitleInput}
           />
         </div>
         <hr />
-        <div className="boardContent">
-          <label htmlFor="boardContentInput" className="inputTitle">
+        <div className={styles.boardContent}>
+          <label htmlFor="boardContentInput" className={styles.inputTitle}>
             내용*
           </label>
           <textarea
@@ -132,24 +132,24 @@ export default function UpdatePost() {
             onChange={handleChangeContent}
             rows="10"
             value={content}
-            id="boardContentInput"
+            id={styles.boardContentInput}
           ></textarea>
         </div>
         <hr />
-        <div className="helperTextContainer">
-          <div className="helperText">
+        <div className={styles.helperTextContainer}>
+          <div className={styles.helperText}>
             {!title || !content ? "* 제목, 내용을 모두 작성해주세요." : ""}
           </div>
         </div>
-        <div className="updateBoardImage">
-          <label htmlFor="boardInputImage" className="inputTitle">
+        <div className={styles.updateBoardImage}>
+          <label htmlFor="boardInputImage" className={styles.inputTitle}>
             이미지
           </label>
           <input
             type="file"
             src={postImage}
             onChange={handleChangePostImage}
-            id="boardInputImage"
+            id={styles.boardInputImage}
             accept="image/*"
           />
         </div>
@@ -162,11 +162,11 @@ export default function UpdatePost() {
           }
           disabled={!title || !content}
           onClick={handleClickUpdatePost}
-          className="updateButton"
+          className={styles.updateButton}
         >
           완료
         </button>
       </form>
-    </section>
+    </>
   );
 }

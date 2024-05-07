@@ -1,4 +1,4 @@
-import "../../styles/UpdateProfile.css";
+import styles from "../../styles/UpdateProfile.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
@@ -114,79 +114,77 @@ export default function UpdateProfile() {
   };
 
   return (
-    <>
-      <section className="updateMain">
-        <p className="pageTitle">회원정보 수정</p>
-        <form className="wrapper">
-          <div className="profileTitle">
-            <p className="inputTitle">프로필 사진*</p>
-            <div className="imageContainer">
-              {profile ? (
-                <img className="imageShow" alt="profile" src={profile} />
-              ) : (
-                <div
-                  className="imageShow"
-                  style={{ backgroundColor: "#f4f5f7" }}
-                ></div>
-              )}
-              <div className="imageUpdate">
-                <label htmlFor="imageInput" className="imageUpdateButton">
-                  변경
-                </label>
-                <input
-                  id="imageInput"
-                  onChange={handleChangeProfileImage}
-                  type="file"
-                  accept="image/*"
-                  src={profile}
-                />
-              </div>
+    <section className={styles.updateMain}>
+      <p className={styles.pageTitle}>회원정보 수정</p>
+      <form className={styles.wrapper}>
+        <div className={styles.profileTitle}>
+          <p className={styles.inputTitle}>프로필 사진*</p>
+          <div className={styles.imageContainer}>
+            {profile ? (
+              <img className={styles.imageShow} alt="profile" src={profile} />
+            ) : (
+              <div
+                className={styles.imageShow}
+                style={{ backgroundColor: "#f4f5f7" }}
+              ></div>
+            )}
+            <div className={styles.imageUpdate}>
+              <label htmlFor="imageInput" className={styles.imageUpdateButton}>
+                변경
+              </label>
+              <input
+                id={styles.imageInput}
+                onChange={handleChangeProfileImage}
+                type="file"
+                accept="image/*"
+                src={profile}
+              />
             </div>
           </div>
-          <div className="profileEmail">
-            <label htmlFor="emailInput" className="inputTitle">
-              이메일
-            </label>
-            <div id="updateEmailInput">{email || "불러오는 중"}</div>
-          </div>
-          <div className="profileNickname">
-            <label htmlFor="nicknameInput" className="inputTitle">
-              닉네임
-            </label>
-            <input
-              type="text"
-              id="nicknameInput"
-              maxLength="10"
-              value={nickname ?? "불러오는 중"}
-              onChange={handleChangeNickname}
-            />
-            <div className="helperTextContainer">
-              <div className="helperText">
-                {isNicknameDuplicate ? "* 중복된 닉네임입니다." : null}
-              </div>
+        </div>
+        <div className={styles.profileEmail}>
+          <label htmlFor="emailInput" className={styles.inputTitle}>
+            이메일
+          </label>
+          <div id={styles.updateEmailInput}>{email || "불러오는 중"}</div>
+        </div>
+        <div className={styles.profileNickname}>
+          <label htmlFor="nicknameInput" className={styles.inputTitle}>
+            닉네임
+          </label>
+          <input
+            type="text"
+            id={styles.nicknameInput}
+            maxLength="10"
+            value={nickname ?? "불러오는 중"}
+            onChange={handleChangeNickname}
+          />
+          <div className={styles.helperTextContainer}>
+            <div className={styles.helperText}>
+              {isNicknameDuplicate ? "* 중복된 닉네임입니다." : null}
             </div>
           </div>
-        </form>
-        <div className="profilebutton">
-          <button
-            type="button"
-            className="profileUpdateButton"
-            onClick={handleClickUpdateButton}
-          >
-            수정하기
-          </button>
         </div>
-        <div className="profilebutton">
-          <button
-            onClick={handleClickUserDelete}
-            className="profileDeleteButton"
-          >
-            회원 탈퇴
-          </button>
-        </div>
-        {showToast ? <div className="updateMessage">수정완료</div> : null}
-      </section>
+      </form>
+      <div className={styles.profilebutton}>
+        <button
+          type="button"
+          className={styles.profileUpdateButton}
+          onClick={handleClickUpdateButton}
+        >
+          수정하기
+        </button>
+      </div>
+      <div className={styles.profilebutton}>
+        <button
+          onClick={handleClickUserDelete}
+          className={styles.profileDeleteButton}
+        >
+          회원 탈퇴
+        </button>
+      </div>
+      {showToast ? <div className={styles.updateMessage}>수정완료</div> : null}
       <DeleteUserModal isDelete={isDelete} setIsDelete={setIsDelete} />
-    </>
+    </section>
   );
 }

@@ -1,17 +1,13 @@
 .postsMain {
-  margin: 10rem auto 0;
   max-width: 60rem;
   width: 100%;
-  height: calc(100vh - 120px);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  height: calc(100vh - 100px);
 }
 
 .profileWrapper {
   margin-top: 2rem;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 240px);
   overflow-y: scroll;
   max-width: 70rem;
   display: flex;

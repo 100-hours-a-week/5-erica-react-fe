@@ -1,4 +1,4 @@
-import "../../styles/UpdatePassword.css";
+import styles from "../../styles/UpdatePassword.module.css";
 import { useState } from "react";
 import { backHost, headers } from "../../static";
 import { useNavigate } from "react-router-dom";
@@ -79,11 +79,11 @@ export default function UpdatePassword() {
   };
 
   return (
-    <section className="passwordMain">
-      <p className="pageTitle">비밀번호 수정</p>
-      <form className="passwordWrapper">
-        <div className="password">
-          <p className="inputTitle">비밀번호</p>
+    <section className={styles.passwordMain}>
+      <p className={styles.pageTitle}>비밀번호 수정</p>
+      <form className={styles.passwordWrapper}>
+        <div className={styles.password}>
+          <p className={styles.inputTitle}>비밀번호</p>
           <input
             type="password"
             id="passwordInput"
@@ -93,12 +93,14 @@ export default function UpdatePassword() {
             onChange={handleChangePassword}
             placeholder="비밀번호를 입력하세요"
           />
-          <div className="helperTextContainer">
-            <div className="helperText passwordText"></div>
+          <div className={styles.helperTextContainer}>
+            <div
+              className={`${styles.helperText} ${styles.passwordText}`}
+            ></div>
           </div>
         </div>
-        <div className="passwordCheck">
-          <p className="inputTitle">비밀번호 확인</p>
+        <div className={styles.passwordCheck}>
+          <p className={styles.inputTitle}>비밀번호 확인</p>
           <input
             type="password"
             maxLength="20"
@@ -108,15 +110,17 @@ export default function UpdatePassword() {
             id="passwordCheckInput"
             placeholder="비밀번호를 한번 더 입력하세요"
           />
-          <div className="helperTextContainer">
-            <div className="helperText passwordCheckText">{errorMessage}</div>
+          <div className={styles.helperTextContainer}>
+            <div className={`${styles.helperText} ${styles.passwordCheckText}`}>
+              {errorMessage}
+            </div>
           </div>
         </div>
         <button
           type="button"
           style={isAble ? { backgroundColor: "#7f6aee" } : null}
           onClick={handleClickUpdatePassword}
-          className="updateButton"
+          className={styles.updateButton}
           disabled={!isAble}
         >
           완료

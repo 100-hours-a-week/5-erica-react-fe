@@ -5,7 +5,7 @@ import { checkPostOwner } from "../../utils/checkOwner.js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { viewToK, commentToK } from "../../utils/numberToK";
-import "../../styles/PostDetail.css";
+import styles from "../../styles/PostDetail.module.css";
 import { DeletePostModal } from "../modals/Modals";
 import { disableScroll } from "../../utils/scroll.js";
 
@@ -70,55 +70,63 @@ export default function PostDetail() {
 
   return (
     <>
-      <section className="main">
-        <div className="detailBoard">
-          <div className="boardHeader">
-            <p className="detailBoardTitle">{post.title}</p>
-            <div className="boardHeaderBottom">
-              <div className="writer">
-                <img
-                  className="writerImage"
-                  alt="profile"
-                  src={post.userImage}
-                  style={{ width: "30px", height: "30px" }}
-                />
-                <p className="postWriterName">{post.nickname}</p>
-                <div className="postWriteDate">{post.created_at}</div>
-              </div>
-              <div className="boardButton">
-                <button onClick={handleClickUpdate} className="updateBoard">
-                  수정
-                </button>
-                <button onClick={handleClickDelete} className="deleteBoard">
-                  삭제
-                </button>
-              </div>
+      <div className={styles.detailBoard}>
+        <div className={styles.boardHeader}>
+          <p className={styles.detailBoardTitle}>{post.title}</p>
+          <div className={styles.boardHeaderBottom}>
+            <div className={styles.writer}>
+              <img
+                className={styles.writerImage}
+                alt="profile"
+                src={post.userImage}
+                style={{ width: "30px", height: "30px" }}
+              />
+              <p className={styles.postWriterName}>{post.nickname}</p>
+              <div className={styles.postWriteDate}>{post.created_at}</div>
             </div>
-          </div>
-          <div className="boardBody">
-            {post.postImage ? (
-              <div className="boardImageContainer">
-                <img className="boardImage" src={post.postImage} alt="board" />
-              </div>
-            ) : null}
-            <div className="boardDetailContent">{post.content}</div>
-          </div>
-          <div className="boardAction">
-            <div className="readCount">
-              <strong className="readNumber">{viewToK(post.view)}</strong>
-              <div>조회수</div>
-            </div>
-            <div className="commentCount">
-              <strong className="commentNumber">
-                {commentToK(post.comment_count)}
-              </strong>
-              <div>댓글수</div>
+            <div className={styles.boardButton}>
+              <button
+                onClick={handleClickUpdate}
+                className={styles.updateBoard}
+              >
+                수정
+              </button>
+              <button
+                onClick={handleClickDelete}
+                className={styles.deleteBoard}
+              >
+                삭제
+              </button>
             </div>
           </div>
         </div>
-        <hr />
-        <Comments postId={postId} />
-      </section>
+        <div className={styles.boardBody}>
+          {post.postImage ? (
+            <div className={styles.boardImageContainer}>
+              <img
+                className={styles.boardImage}
+                src={post.postImage}
+                alt="board"
+              />
+            </div>
+          ) : null}
+          <div className={styles.boardDetailContent}>{post.content}</div>
+        </div>
+        <div className={styles.boardAction}>
+          <div className={styles.readCount}>
+            <strong className={styles.readNumber}>{viewToK(post.view)}</strong>
+            <div>조회수</div>
+          </div>
+          <div className={styles.commentCount}>
+            <strong className={styles.commentNumber}>
+              {commentToK(post.comment_count)}
+            </strong>
+            <div>댓글수</div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <Comments postId={postId} />
       <DeletePostModal
         postId={postId}
         isPostDelete={isPostDelete}

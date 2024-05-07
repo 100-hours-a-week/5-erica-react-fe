@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
-import "../../styles/LogIn.css";
+import styles from "../../styles/LogIn.module.css";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -69,11 +69,11 @@ export default function LogIn() {
   };
 
   return (
-    <section className="logIn">
-      <div className="title">로그인</div>
-      <form className="logInContent">
-        <div className="emailLogInContainer">
-          <label htmlFor="email" className="logInTitle">
+    <section className={styles.logIn}>
+      <div className={styles.title}>로그인</div>
+      <form className={styles.logInContent}>
+        <div className={styles.emailLogInContainer}>
+          <label htmlFor="email" className={styles.logInTitle}>
             이메일
           </label>
           <input
@@ -85,8 +85,8 @@ export default function LogIn() {
             onChange={handleOnChangeEmail}
           />
         </div>
-        <div className="passwordLogInContainer">
-          <label htmlFor="password" className="logInTitle">
+        <div className={styles.passwordLogInContainer}>
+          <label htmlFor="password" className={styles.logInTitle}>
             비밀번호
           </label>
           <input
@@ -96,8 +96,8 @@ export default function LogIn() {
             onChange={handleOnChangePassword}
             placeholder="비밀번호를 입력하세요"
           />
-          <div className="helperTextContainer">
-            <div className="helperText">
+          <div className={styles.helperTextContainer}>
+            <div className={styles.helperText}>
               {emailNotValid &&
                 "* 올바른 이메일 주소 형식을 입력해주세요. \n (예: example@example.com)"}
             </div>
@@ -106,7 +106,7 @@ export default function LogIn() {
         <button
           type="button"
           onClick={handleOnClickLogIn}
-          className="logInButton"
+          className={styles.logInButton}
           style={
             logInSuccess
               ? { backgroundColor: "#7f6aee" }
@@ -117,7 +117,7 @@ export default function LogIn() {
           로그인
         </button>
       </form>
-      <Link to="/signUp" className="goSignUpButton">
+      <Link to="/signUp" className={styles.goSignUpButton}>
         회원가입
       </Link>
     </section>

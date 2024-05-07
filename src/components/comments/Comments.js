@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { backHost, headers } from "../../static";
 import AddComment from "./AddComment.js";
 import Comment from "./Comment.js";
+import styles from "../../styles/PostDetail.module.css";
 
 export default function Comments({ postId }) {
   const [comments, setComments] = useState([]);
@@ -32,14 +33,14 @@ export default function Comments({ postId }) {
   }, [postId, isAdd]);
 
   return (
-    <div className="commentContainer">
+    <div className={styles.commentContainer}>
       <AddComment
         postId={postId}
         setIsAdd={setIsAdd}
         isAdd={isAdd}
         updateTarget={updateTarget}
       />
-      <div className="commentList">
+      <div className={styles.commentList}>
         {comments.map((comment) => (
           <Comment
             setUpdateTarget={setUpdateTarget}

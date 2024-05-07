@@ -5,6 +5,7 @@
 }
 
 .boardContainer {
+  max-width: 60rem;
   width: 100%;
 }
 
@@ -69,4 +70,18 @@ hr {
   font-size: 1.4rem;
   font-weight: 700;
   text-decoration: none;
+}
+
+.helperText {
+  color: #ff0000;
+  font-size: 1.2rem;
+  font-weight: 400;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.helperTextContainer {
+  margin-top: 0.2rem;
+  height: 2rem;
+  width: 100%;
 }

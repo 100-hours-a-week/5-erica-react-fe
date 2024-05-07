@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { backHost, headers } from "../../static";
+import styles from "../../styles/PostDetail.module.css";
 
 export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
@@ -58,17 +59,17 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   };
 
   return (
-    <form className="writeComment">
+    <form className={styles.writeComment}>
       <label htmlFor="commentInput"></label>
       <textarea
-        id="commentInput"
+        id={styles.commentInput}
         rows="4"
         value={comment}
         onInput={handleOnInputComment}
         placeholder="댓글을 남겨주세요!"
       ></textarea>
-      <div className="line"></div>
-      <div className="commentPostButton">
+      <div className={styles.line}></div>
+      <div className={styles.commentPostButton}>
         <button
           onClick={handleOnClickComment}
           style={{
@@ -76,7 +77,7 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
           }}
           disabled={!isAble}
           type="button"
-          className="writeButton"
+          className={styles.writeButton}
         >
           {isAdd ? "댓글 등록" : "댓글 수정"}
         </button>

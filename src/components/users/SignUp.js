@@ -1,4 +1,4 @@
-import "../../styles/SignUp.css";
+import styles from "../../styles/SignUp.module.css";
 import { backHost, headers } from "../../static";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -216,26 +216,30 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signUpMain">
-      <p className="mainTitle">회원가입</p>
-      <form className="signUpContainer">
-        <div className="topContainer">
-          <p className="inputTitle">프로필 사진</p>
-          <div className="helperTextContainer">
-            <div className="helperText profileImageText">
+    <>
+      <p className={styles.mainTitle}>회원가입</p>
+      <form className={styles.signUpContainer}>
+        <div className={styles.topContainer}>
+          <p className={styles.inputTitle}>프로필 사진</p>
+          <div className={styles.helperTextContainer}>
+            <div className={`${styles.helperText} ${styles.profileImageText}`}>
               {imageNull ? "* 프로필 사진을 추가해주세요." : null}
             </div>
           </div>
-          <div className="imageContainer">
+          <div className={styles.imageContainer}>
             {profileImage ? (
-              <img className="imageShow" alt="profile" src={profileImage} />
+              <img
+                className={styles.imageShow}
+                alt="profile"
+                src={profileImage}
+              />
             ) : null}
-            <div className="imageUpdate">
-              <label htmlFor="imageInput" className="imageUpdateButton">
+            <div className={styles.imageUpdate}>
+              <label htmlFor="imageInput" className={styles.imageUpdateButton}>
                 +
               </label>
               <input
-                id="imageInput"
+                id={styles.imageInput}
                 onChange={handleChangeProfileImage}
                 type="file"
                 accept="image/*"
@@ -243,20 +247,20 @@ export default function SignUp() {
             </div>
           </div>
         </div>
-        <div className="bottomContainer">
-          <div className="emailContainer">
-            <label htmlFor="emailInput" className="inputTitle">
+        <div className={styles.bottomContainer}>
+          <div className={styles.emailContainer}>
+            <label htmlFor="emailInput" className={styles.inputTitle}>
               이메일*
             </label>
             <input
               required
               type="email"
-              id="emailInput"
+              id={styles.emailInput}
               onBlur={handleBlurEmail}
               placeholder="이메일을 입력하세요"
             />
-            <div className="helperTextContainer">
-              <div className="helperText emailText">
+            <div className={styles.helperTextContainer}>
+              <div className={`${styles.helperText} ${styles.emailText}`}>
                 {emailNull
                   ? "* 이메일을 입력해주세요"
                   : emailNotCorrect
@@ -267,19 +271,19 @@ export default function SignUp() {
               </div>
             </div>
           </div>
-          <div className="passwordContainer">
-            <label htmlFor="passwordInput" className="inputTitle">
+          <div className={styles.passwordContainer}>
+            <label htmlFor="passwordInput" className={styles.inputTitle}>
               비밀번호*
             </label>
             <input
               required
               type="password"
-              id="passwordInput"
+              id={styles.passwordInput}
               onBlur={handleBlurPassword}
               placeholder="비밀번호를 입력하세요"
             />
-            <div className="helperTextContainer">
-              <div className="helperText passwordText">
+            <div className={styles.helperTextContainer}>
+              <div className={`${styles.helperText} ${styles.passwordText}`}>
                 {passwordNull
                   ? "* 비밀번호를 입력해주세요."
                   : passwordNotSame
@@ -290,19 +294,21 @@ export default function SignUp() {
               </div>
             </div>
           </div>
-          <div className="passwordCheckContainer">
-            <label htmlFor="passwordCheckInput" className="inputTitle">
+          <div className={styles.passwordCheckContainer}>
+            <label htmlFor="passwordCheckInput" className={styles.inputTitle}>
               비밀번호 확인*
             </label>
             <input
               required
               type="password"
-              id="passwordCheckInput"
+              id={styles.passwordCheckInput}
               onBlur={handleBlurPasswordCheck}
               placeholder="비밀번호를 한번 더 입력하세요"
             />
-            <div className="helperTextContainer">
-              <div className="helperText passwordCheckText">
+            <div className={styles.helperTextContainer}>
+              <div
+                className={`${styles.helperText} ${styles.passwordCheckText}`}
+              >
                 {passwordCheckNull
                   ? "* 비밀번호를 한번 더 입력해주세요."
                   : passwordNotSame
@@ -311,20 +317,20 @@ export default function SignUp() {
               </div>
             </div>
           </div>
-          <div className="nicknameContainer">
-            <label htmlFor="nicknameInput" className="inputTitle">
+          <div className={styles.nicknameContainer}>
+            <label htmlFor="nicknameInput" className={styles.inputTitle}>
               닉네임*
             </label>
             <input
               type="text"
-              id="nicknameSignUpInput"
+              id={styles.nicknameSignUpInput}
               maxLength="10"
               required
               onBlur={handleBlurNickname}
               placeholder="닉네임을 입력하세요"
             />
-            <div className="helperTextContainer">
-              <div className="helperText nicknameText">
+            <div className={styles.helperTextContainer}>
+              <div className={`${styles.helperText} ${styles.nicknameText}`}>
                 {nicknameNull
                   ? "* 닉네임을 입력해주세요."
                   : nicknameSpace
@@ -339,7 +345,7 @@ export default function SignUp() {
         <button
           type="button"
           onClick={handleClickSignUp}
-          className="signUpButton"
+          className={styles.signUpButton}
           style={{
             backgroundColor:
               !imageNull &&
@@ -369,9 +375,9 @@ export default function SignUp() {
           회원가입
         </button>
       </form>
-      <Link to="/" className="goLoginButton">
+      <Link to="/" className={styles.goLoginButton}>
         로그인하러 가기
       </Link>
-    </div>
+    </>
   );
 }

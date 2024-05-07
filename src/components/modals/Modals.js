@@ -1,4 +1,4 @@
-import "../../styles/PostModal.css";
+import styles from "../../styles/PostModal.module.css";
 import { backHost, headers } from "../../static.js";
 import { useNavigate } from "react-router-dom";
 import { enableScroll } from "../../utils/scroll.js";
@@ -44,22 +44,24 @@ export function DeletePostModal({ postId, setIsPostDelete, isPostDelete }) {
   return isPostDelete ? (
     <div
       style={{ top: `${position}px` }}
-      className="boardModalContainer modalContainer"
+      className={`${styles.boardModalContainer} ${styles.modalContainer}`}
     >
-      <div className="deem"></div>
-      <div className="boardDeleteModal modal">
-        <p className="title">게시글을 삭제하시겠습니까?</p>
-        <div className="description">삭제한 내용은 복구 할 수 없습니다.</div>
-        <div className="buttonContainer">
+      <div className={styles.deem}></div>
+      <div className={`${styles.boardDeleteModal} ${styles.modal}`}>
+        <p className={styles.title}>게시글을 삭제하시겠습니까?</p>
+        <div className={styles.description}>
+          삭제한 내용은 복구 할 수 없습니다.
+        </div>
+        <div className={styles.buttonContainer}>
           <button
             onClick={handleOnClickDeleteCancel}
-            className="cancelButton button"
+            className={`${styles.cancelButton} ${styles.button}`}
           >
             취소
           </button>
           <button
             onClick={handleOnClickDeleteConfirm}
-            className="submitButton button"
+            className={`${styles.submitButton} ${styles.button}`}
           >
             확인
           </button>
@@ -116,22 +118,24 @@ export function DeleteCommentModal({
   return isCommentDelete ? (
     <div
       style={{ top: `${position}px` }}
-      className="commentModalContainer modalContainer"
+      className={`${styles.commentModalContainer} ${styles.modalContainer}`}
     >
-      <div className="deem"></div>
-      <div className="commentDeleteModal modal">
-        <p className="title">댓글을 삭제하시겠습니까?</p>
-        <div className="description">삭제한 내용은 복구 할 수 없습니다.</div>
-        <div className="buttonContainer">
+      <div className={styles.deem}></div>
+      <div className={`${styles.commentDeleteModal} ${styles.modal}`}>
+        <p className={styles.title}>댓글을 삭제하시겠습니까?</p>
+        <div className={styles.description}>
+          삭제한 내용은 복구 할 수 없습니다.
+        </div>
+        <div className={styles.buttonContainer}>
           <button
             onClick={handleOnClickDeleteCancel}
-            className="cancelButton button"
+            className={`${styles.cancelButton} ${styles.button}`}
           >
             취소
           </button>
           <button
             onClick={handleOnClickDeleteConfirm}
-            className="submitButton button"
+            className={`${styles.submitButton} ${styles.button}`}
           >
             확인
           </button>
@@ -178,21 +182,23 @@ export function DeleteUserModal({ isDelete, setIsDelete }) {
   };
 
   return isDelete ? (
-    <div className="modalContainer" style={{ top: `${position}px` }}>
-      <div className="deem"></div>
-      <div className="memberDelete modal">
-        <p className="title">회원탈퇴 하시겠습니까?</p>
-        <div className="description">작성된 게시글과 댓글은 삭제됩니다.</div>
-        <div className="buttonContainer">
+    <div className={styles.modalContainer} style={{ top: `${position}px` }}>
+      <div className={styles.deem}></div>
+      <div className={`${styles.memberDelete} ${styles.modal}`}>
+        <p className={styles.title}>회원탈퇴 하시겠습니까?</p>
+        <div className={styles.description}>
+          작성된 게시글과 댓글은 삭제됩니다.
+        </div>
+        <div className={styles.buttonContainer}>
           <button
             onClick={handleOnClickDeleteUserCancel}
-            className="cancelButton button"
+            className={`${styles.cancelButton} ${styles.button}`}
           >
             취소
           </button>
           <button
             onClick={handleOnClickDeleteUserConfirm}
-            className="submitButton button"
+            className={`${styles.submitButton} ${styles.button}`}
           >
             확인
           </button>

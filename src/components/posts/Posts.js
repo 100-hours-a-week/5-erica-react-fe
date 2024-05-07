@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
 import MiniPost from "./MiniPost";
-import "../../styles/Posts.css";
+import styles from "../../styles/Posts.module.css";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -45,23 +45,23 @@ export default function Posts() {
   });
 
   return (
-    <section className="postsMain">
-      <span className="postsTitle">
+    <section className={styles.postsMain}>
+      <span className={styles.postsTitle}>
         <p>
           안녕하세요, <br />
           아무 말 대잔치 <strong>게시판</strong> 입니다.
         </p>
       </span>
-      <div className="writeContainer">
-        <Link className="writeBtn" to="/posts/write">
+      <div className={styles.writeContainer}>
+        <Link className={styles.writeBtn} to="/posts/write">
           게시글 작성
         </Link>
       </div>
-      <div className="profileWrapper">
+      <div className={styles.profileWrapper}>
         {posts.map((post) => (
           <MiniPost key={post.postId} data={post} />
         ))}
-        <div className="target"></div>
+        <div className={styles.target}></div>
       </div>
     </section>
   );
