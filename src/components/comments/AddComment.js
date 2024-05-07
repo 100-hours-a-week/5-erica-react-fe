@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { backHost, headers } from "../../static";
 import styles from "../../styles/AddComment.module.css";
+
 export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
   const [isAble, setIsAble] = useState(false);
