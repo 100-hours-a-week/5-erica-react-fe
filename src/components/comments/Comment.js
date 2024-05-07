@@ -1,8 +1,9 @@
-import { DeleteCommentModal } from "../modals/Modals";
+import DeleteCommentModal from "../modals/DeleteCommentModal.js";
 import { disableScroll } from "../../utils/scroll.js";
 import { checkCommentOwner } from "../../utils/checkOwner.js";
 import { useState } from "react";
-import styles from "../../styles/PostDetail.module.css";
+import styles from "../../styles/Comment.module.css";
+import UserProfileImage from "../users/UserProfileImage.js";
 
 export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
   const [isCommentDelete, setIsCommentDelete] = useState(false);
@@ -30,11 +31,7 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
         <div className={styles.commentHeader}>
           <div className={styles.commentWriter}>
             <input type="hidden" id="commentId" value={data.commentId} />
-            <img
-              src={data.profile_image}
-              alt="profile"
-              className={styles.commentWriterImage}
-            ></img>
+            <UserProfileImage image={data.profile_image} size={36} />
             <div className={styles.commentWriterName}>{data.nickname}</div>
             <div className={styles.commentWriterDate}>{data.created_at}</div>
           </div>

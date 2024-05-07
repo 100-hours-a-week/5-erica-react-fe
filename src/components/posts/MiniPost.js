@@ -1,6 +1,7 @@
 import { viewToK, commentToK } from "../../utils/numberToK";
-import styles from "../../styles/Posts.module.css";
+import styles from "../../styles/MiniPost.module.css";
 import { Link } from "react-router-dom";
+import UserProfileImage from "../users/UserProfileImage";
 
 export default function MiniPost({ data }) {
   const postTitle = data.title.slice(0, 26);
@@ -22,14 +23,9 @@ export default function MiniPost({ data }) {
           <div className={styles.date}>{data.created_at}</div>
         </div>
       </div>
-      <hr />
+      <hr className={styles.miniBoardHr} />
       <div className={styles.miniBoardWriter}>
-        <img
-          alt="profile"
-          src={data.userImage}
-          style={{ width: "30px", height: "30px" }}
-          className={styles.miniWriterImage}
-        />
+        <UserProfileImage image={data.userImage} />
         <p className={styles.miniWriterName}>{data.nickname}</p>
       </div>
     </Link>

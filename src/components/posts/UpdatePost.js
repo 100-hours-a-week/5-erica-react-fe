@@ -162,7 +162,9 @@ export default function UpdatePost() {
           }
           disabled={!title || !content}
           onClick={handleClickUpdatePost}
-          className={styles.updateButton}
+          className={
+            title && content ? styles.updateButton : styles.updateButtonDisabled
+          }
         >
           완료
         </button>

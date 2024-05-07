@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { backHost, headers } from "../../static";
 import AddComment from "./AddComment.js";
 import Comment from "./Comment.js";
-import styles from "../../styles/PostDetail.module.css";
+import styles from "../../styles/Comments.module.css";
 
 export default function Comments({ postId }) {
   const [comments, setComments] = useState([]);

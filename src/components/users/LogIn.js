@@ -106,11 +106,8 @@ export default function LogIn() {
         <button
           type="button"
           onClick={handleOnClickLogIn}
-          className={styles.logInButton}
-          style={
-            logInSuccess
-              ? { backgroundColor: "#7f6aee" }
-              : { backgroundColor: "#aca0eb", disabled: true }
+          className={
+            logInSuccess ? styles.logInButton : styles.logInButtonDisabled
           }
           disabled={!email || !password}
         >

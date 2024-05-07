@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../../static";
 import { disableScroll } from "../../utils/scroll";
-import { DeleteUserModal } from "../modals/Modals";
+import DeleteUserModal from "../modals/DeleteUserModal";
 
 export default function UpdateProfile() {
   const [profile, setProfile] = useState("");

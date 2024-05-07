@@ -56,7 +56,24 @@ hr {
 
 .updateButton {
   width: 40rem;
-  height: 6rem;
+  height: 5rem;
+  cursor: pointer;
+  color: white;
+  background-color: var(--button-enabled);
+  border: 0;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.updateButtonDisabled {
+  width: 40rem;
+  height: 5rem;
   cursor: pointer;
   color: white;
   background-color: var(--button-disabled);
@@ -80,7 +97,7 @@ hr {
 }
 
 .helperTextContainer {
-  margin-top: 0.2rem;
+  margin-bottom: 2rem;
   height: 2rem;
   width: 100%;
 }

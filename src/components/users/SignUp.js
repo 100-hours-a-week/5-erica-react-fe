@@ -28,9 +28,11 @@ export default function SignUp() {
   const handleChangeProfileImage = (event) => {
     if (event.target.files.length === 0) {
       setProfileImage(null);
+      setImageNull(false);
       return;
     }
     reader.onload = (data) => {
+      setImageNull(false);
       setProfileImage(data.target.result);
     };
     reader.readAsDataURL(event.target.files[0]);
@@ -40,6 +42,7 @@ export default function SignUp() {
   const handleBlurEmail = async (event) => {
     const email = event.target.value;
     setEmail(email);
+    setEmailNull(!email);
     await checkEmailValidation(email);
   };
 
@@ -78,6 +81,7 @@ export default function SignUp() {
   const checkEmailValidation = async (email) => {
     if (!email) {
       setEmailNull(true);
+      setEmailNotCorrect(false);
       return false;
     }
     setEmailNull(false);
@@ -108,18 +112,18 @@ export default function SignUp() {
       setEmailDuplicate(true);
       return false;
     }
-
     setEmailDuplicate(false);
+
     return true;
   };
 
   //비밀번호 유효성 검사
   const checkPasswordValidation = (password, passwordCheck) => {
-    if (!password || !passwordCheck || password !== passwordCheck) {
-      setPasswordNotSame(true);
+    if (!password) {
+      setPasswordNull(true);
       return false;
     }
-    setPasswordNotSame(false);
+    setPasswordNull(false);
 
     const passwordRegExp =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
@@ -127,13 +131,33 @@ export default function SignUp() {
       setPasswordNotMatch(true);
       return false;
     }
+
     setPasswordNotMatch(false);
+
+    if (!passwordCheck) {
+      setPasswordCheckNull(true);
+      return false;
+    }
+    setPasswordCheckNull(false);
+
+    if (password !== passwordCheck) {
+      setPasswordNotSame(true);
+      return false;
+    }
+    setPasswordNotSame(false);
+
     return true;
   };
 
   //닉네임 유효성 검사
   const checkNicknameValidation = async (nickname) => {
-    if (!nickname || nickname.indexOf(" ") !== -1) {
+    if (!nickname) {
+      setNicknameNull(true);
+      return false;
+    }
+    setNicknameNull(true);
+
+    if (String(nickname).includes(" ")) {
       setNicknameSpace(true);
       return false;
     }
@@ -216,13 +240,13 @@ export default function SignUp() {
   };
 
   return (
-    <>
+    <section className={styles.signUpMain}>
       <p className={styles.mainTitle}>회원가입</p>
       <form className={styles.signUpContainer}>
         <div className={styles.topContainer}>
           <p className={styles.inputTitle}>프로필 사진</p>
           <div className={styles.helperTextContainer}>
-            <div className={`${styles.helperText} ${styles.profileImageText}`}>
+            <div className={styles.helperText}>
               {imageNull ? "* 프로필 사진을 추가해주세요." : null}
             </div>
           </div>
@@ -239,7 +263,8 @@ export default function SignUp() {
                 +
               </label>
               <input
-                id={styles.imageInput}
+                className={styles.imageInput}
+                id="imageInput"
                 onChange={handleChangeProfileImage}
                 type="file"
                 accept="image/*"
@@ -260,14 +285,11 @@ export default function SignUp() {
               placeholder="이메일을 입력하세요"
             />
             <div className={styles.helperTextContainer}>
-              <div className={`${styles.helperText} ${styles.emailText}`}>
-                {emailNull
-                  ? "* 이메일을 입력해주세요"
-                  : emailNotCorrect
-                  ? "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)"
-                  : emailDuplicate
-                  ? "*중복된 이메일 입니다."
-                  : null}
+              <div className={styles.helperText}>
+                {emailNull && "* 이메일을 입력해주세요"}
+                {emailNotCorrect &&
+                  "* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)"}
+                {emailDuplicate && "*중복된 이메일 입니다."}
               </div>
             </div>
           </div>
@@ -283,7 +305,7 @@ export default function SignUp() {
               placeholder="비밀번호를 입력하세요"
             />
             <div className={styles.helperTextContainer}>
-              <div className={`${styles.helperText} ${styles.passwordText}`}>
+              <div className={styles.helperText}>
                 {passwordNull
                   ? "* 비밀번호를 입력해주세요."
                   : passwordNotSame
@@ -306,9 +328,7 @@ export default function SignUp() {
               placeholder="비밀번호를 한번 더 입력하세요"
             />
             <div className={styles.helperTextContainer}>
-              <div
-                className={`${styles.helperText} ${styles.passwordCheckText}`}
-              >
+              <div className={styles.helperText}>
                 {passwordCheckNull
                   ? "* 비밀번호를 한번 더 입력해주세요."
                   : passwordNotSame
@@ -330,7 +350,7 @@ export default function SignUp() {
               placeholder="닉네임을 입력하세요"
             />
             <div className={styles.helperTextContainer}>
-              <div className={`${styles.helperText} ${styles.nicknameText}`}>
+              <div className={styles.helperText}>
                 {nicknameNull
                   ? "* 닉네임을 입력해주세요."
                   : nicknameSpace
@@ -345,31 +365,31 @@ export default function SignUp() {
         <button
           type="button"
           onClick={handleClickSignUp}
-          className={styles.signUpButton}
-          style={{
-            backgroundColor:
-              !imageNull &&
-              !emailNull &&
-              !emailNotCorrect &&
-              !emailDuplicate &&
-              !passwordNotSame &&
-              !passwordNotMatch &&
-              !nicknameSpace &&
-              !nicknameDuplicate &&
-              profileImage
-                ? "#7f6aee"
-                : "lightgray",
-          }}
+          className={
+            !imageNull &&
+            !emailNull &&
+            !emailNotCorrect &&
+            !emailDuplicate &&
+            !passwordNotSame &&
+            !passwordNotMatch &&
+            !nicknameSpace &&
+            !nicknameDuplicate &&
+            profileImage
+              ? styles.signUpButton
+              : styles.signUpButtonDisabled
+          }
           disabled={
-            imageNull ||
-            emailNull ||
-            emailNotCorrect ||
-            emailDuplicate ||
-            passwordNotSame ||
-            passwordNotMatch ||
-            nicknameSpace ||
-            nicknameDuplicate ||
-            !profileImage
+            !imageNull &&
+            !emailNull &&
+            !emailNotCorrect &&
+            !emailDuplicate &&
+            !passwordNotSame &&
+            !passwordNotMatch &&
+            !nicknameSpace &&
+            !nicknameDuplicate &&
+            profileImage
+              ? false
+              : true
           }
         >
           회원가입
@@ -378,6 +398,6 @@ export default function SignUp() {
       <Link to="/" className={styles.goLoginButton}>
         로그인하러 가기
       </Link>
-    </>
+    </section>
   );
 }

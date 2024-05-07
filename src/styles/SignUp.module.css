@@ -1,3 +1,14 @@
+.signUpMain {
+  margin-top: 10rem;
+  max-width: 40rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
 .imageContainer,
 .bottomContainer {
   width: 100%;
@@ -7,11 +18,14 @@
 .bottomContainer {
   width: 100%;
   margin-top: 2rem;
+  gap: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .mainTitle {
+  width: fit-content;
+  margin: 0 auto;
   font-weight: 600;
   font-size: 1.8rem;
 }
@@ -30,7 +44,7 @@ input {
   margin-top: 1rem;
 }
 
-#imageInput {
+.imageInput {
   display: none;
 }
 
@@ -103,6 +117,24 @@ input {
   max-width: 30rem;
   width: 100%;
   height: 4rem;
+  background-color: var(--button-enabled);
+  border: 0;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signUpButtonDisabled {
+  margin: 2rem auto 0;
+  max-width: 30rem;
+  width: 100%;
+  height: 4rem;
   background-color: var(--button-disabled);
   border: 0;
   border-radius: 2rem;
@@ -125,5 +157,19 @@ input {
 }
 
 .topContainer {
+  width: 100%;
+}
+
+.helperText {
+  color: #ff0000;
+  font-size: 1.2rem;
+  font-weight: 400;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.helperTextContainer {
+  margin-top: 0.2rem;
+  height: 2rem;
   width: 100%;
 }

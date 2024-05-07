@@ -99,14 +99,13 @@ export default function AddPost() {
         </div>
         <button
           type="button"
-          style={
-            isEnable && title && content
-              ? { backgroundColor: "#7f6aee" }
-              : { backgroundColor: "" }
-          }
           disabled={!isEnable || !title || !content}
           onClick={handleOnClickAddPost}
-          className={styles.updateButton}
+          className={
+            isEnable && title && content
+              ? styles.updateButton
+              : styles.updateButtonDisabled
+          }
         >
           완료
         </button>

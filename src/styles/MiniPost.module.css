@@ -1,0 +1,41 @@
+.miniBoardContainer {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+
+.miniBoardContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.miniBoardHr {
+  margin: 1.5rem 0;
+  border: 1px solid lightgray;
+}
+
+.miniBoardWriter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.action,
+.date,
+.miniWriterName {
+  font-size: 1.2rem;
+  font-weight: 400;
+}

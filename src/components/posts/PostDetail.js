@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { viewToK, commentToK } from "../../utils/numberToK";
 import styles from "../../styles/PostDetail.module.css";
-import { DeletePostModal } from "../modals/Modals";
+import DeletePostModal from "../modals/DeletePostModal.js";
 import { disableScroll } from "../../utils/scroll.js";
+import UserProfileImage from "../users/UserProfileImage.js";
 
 export default function PostDetail() {
   const postId = Number(useParams().id);
@@ -75,12 +76,7 @@ export default function PostDetail() {
           <p className={styles.detailBoardTitle}>{post.title}</p>
           <div className={styles.boardHeaderBottom}>
             <div className={styles.writer}>
-              <img
-                className={styles.writerImage}
-                alt="profile"
-                src={post.userImage}
-                style={{ width: "30px", height: "30px" }}
-              />
+              <UserProfileImage image={post.userImage} />
               <p className={styles.postWriterName}>{post.nickname}</p>
               <div className={styles.postWriteDate}>{post.created_at}</div>
             </div>

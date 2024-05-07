@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { backHost, headers } from "../../static";
-import styles from "../../styles/PostDetail.module.css";
-
+import styles from "../../styles/AddComment.module.css";
 export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
   const [isAble, setIsAble] = useState(false);
@@ -72,12 +71,9 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
       <div className={styles.commentPostButton}>
         <button
           onClick={handleOnClickComment}
-          style={{
-            backgroundColor: isAble ? "#7f6aee" : null,
-          }}
           disabled={!isAble}
           type="button"
-          className={styles.writeButton}
+          className={isAble ? styles.writeButton : styles.writeButtonUnable}
         >
           {isAdd ? "댓글 등록" : "댓글 수정"}
         </button>

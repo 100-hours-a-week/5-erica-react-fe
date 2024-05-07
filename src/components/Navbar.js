@@ -2,6 +2,7 @@ import { backHost, headers } from "../static";
 import BackButton from "./BackButton";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import UserProfileImage from "./users/UserProfileImage";
 
 import styles from "../styles/Navbar.module.css";
 
@@ -60,7 +61,7 @@ function UserProfile() {
   return (
     <div className={styles.userSetting}>
       {profileImage ? (
-        <img alt="profile" className={styles.profileImage} src={profileImage} />
+        <UserProfileImage image={profileImage} size={36} />
       ) : (
         <div
           className={styles.profileImage}
