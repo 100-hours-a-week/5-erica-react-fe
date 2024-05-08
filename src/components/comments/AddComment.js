@@ -6,11 +6,18 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
   const [isAble, setIsAble] = useState(false);
 
+  //comment유무에 따른 버튼 비/활성화
   useEffect(() => {
     if (!isAdd && updateTarget) {
       setComment(updateTarget.comment);
     }
   }, [updateTarget, isAdd]);
+
+  //comment유무에 따른 버튼 비/활성화
+  useEffect(() => {
+    if (comment) setIsAble(true);
+    else setIsAble(false);
+  }, [comment]);
 
   const handleChangeComment = (event) => {
     const inputComment = event.target.value;
@@ -19,11 +26,6 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   };
 
   const handleClickComment = async () => {
-    if (!comment) {
-      setIsAble(false);
-      return;
-    }
-
     const url = isAdd
       ? `${backHost}/api/posts/${postId}/comments`
       : `${backHost}/api/posts/${postId}/comments/${updateTarget.commentId}`;
@@ -43,12 +45,12 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
       if (responseData.status === 201 && isAdd) {
         alert("댓글이 등록되었습니다.");
         setComment("");
-        setIsAble(false);
         window.location.reload();
       } else if (responseData.status === 200 && !isAdd) {
         alert("댓글이 수정되었습니다.");
         setIsAdd(true);
         setComment("");
+        window.location.reload();
       } else {
         alert("댓글 작성 실패");
       }

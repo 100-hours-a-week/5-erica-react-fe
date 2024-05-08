@@ -1,5 +1,5 @@
 import styles from "../styles/UpdatePassword.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { backHost, headers } from "../static";
 import { useNavigate } from "react-router-dom";
 import {
@@ -13,18 +13,21 @@ export default function UpdatePassword() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const [passwordNull, setPasswordNull] = useState(true);
+  const [passwordNull, setPasswordNull] = useState(false);
   const [passwordCheckNull, setPasswordCheckNull] = useState(false);
   const [passwordNotSame, setPasswordNotSame] = useState(false);
   const [passwordNotMatch, setPasswordNotMatch] = useState(false);
 
+  const [isAble, setIsAble] = useState(false);
   const navigate = useNavigate();
 
-  const isAble =
-    !passwordNull &&
-    !passwordCheckNull &&
-    !passwordNotSame &&
-    !passwordNotMatch;
+
+  useEffect(function enableButton() {
+    setIsAble( password && passwordCheck && !passwordNull &&
+      !passwordCheckNull &&
+      !passwordNotSame &&
+      !passwordNotMatch);
+  }, [password, passwordCheck, passwordNull, passwordCheckNull, passwordNotSame, passwordNotMatch])
 
   const handleChangePassword = (event) => {
     const newPassword = event.target.value;
@@ -42,34 +45,33 @@ export default function UpdatePassword() {
 
   //비밀번호 유효성 검사
   const checkPasswordValidation = (password, passwordCheck) => {
+    const passwordRegExp =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
+    if (password && !passwordRegExp.test(password)) {
+      setPasswordNotMatch(true);
+      return;
+    }
+    setPasswordNotMatch(false);
+    
     if (!password) {
       setPasswordNull(true);
-      return false;
+      return;
     }
     setPasswordNull(false);
 
-    const passwordRegExp =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
-    if (!passwordRegExp.test(password)) {
-      setPasswordNotMatch(true);
-      return false;
-    }
-
-    setPasswordNotMatch(false);
-
     if (!passwordCheck) {
       setPasswordCheckNull(true);
-      return false;
+      return;
     }
     setPasswordCheckNull(false);
 
     if (password !== passwordCheck) {
       setPasswordNotSame(true);
-      return false;
+      return;
     }
     setPasswordNotSame(false);
 
-    return true;
+    return;
   };
 
   const handleClickUpdatePassword = async () => {
@@ -137,9 +139,8 @@ export default function UpdatePassword() {
         </div>
         <button
           type="button"
-          style={isAble ? { backgroundColor: "#7f6aee" } : null}
           onClick={handleClickUpdatePassword}
-          className={styles.updateButton}
+          className={isAble ? styles.updateButton : styles.updateButtonDisabled}
           disabled={!isAble}
         >
           완료

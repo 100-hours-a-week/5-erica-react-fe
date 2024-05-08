@@ -1,5 +1,5 @@
 import styles from "../styles/AddPost.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
@@ -10,6 +10,11 @@ export default function AddPost() {
   const [postImage, setPostImage] = useState();
   const navigate = useNavigate();
   const [isEnable, setIsEnable] = useState(true);
+
+  useEffect(function enableButton()  {
+    if(title && content) setIsEnable(true);
+    else setIsEnable(false);
+  }, [title, content])
 
   const handleChangePostImage = (event) => {
     const reader = new FileReader();
