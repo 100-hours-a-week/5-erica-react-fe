@@ -3,62 +3,43 @@ import { useState, useEffect } from "react";
 import styles from "../styles/UpdatePost.module.css";
 import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
+import { useFetch } from "react-async";
+
 
 export default function UpdatePost() {
   const postId = Number(useParams().id);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [postImage, setPostImage] = useState("");
+  const [isEnable, setIsEnable] = useState(false);
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    try {
-      const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
-        headers,
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({ postId }),
-      });
-
-      const checkResponseData = await checkData.json();
-
-      if (checkResponseData.status === 403) {
-        navigate(`/posts/${postId}`);
-        alert("본인이 작성한 게시물이 아닙니다.");
-        return;
-      }
-
-      const postResponse = await fetch(`${backHost}/api/posts/${postId}`, {
-        headers,
-        credentials: "include",
-      });
-      const postResponseData = await postResponse.json();
-
-      switch (postResponseData.status) {
-        case 200:
-          setTitle(postResponseData.data.title);
-          setContent(postResponseData.data.content);
-          setPostImage(postResponseData.data.postImage ?? "");
-          break;
-        case 401:
-          navigate("/");
-          break;
-        default:
-          alert("해당 게시물이 없습니다");
-          navigate("/board");
-          break;
-      }
-    } catch (error) {
-      console.error("게시물을 불러오는 중 에러가 발생했습니다:", error);
-      alert(
-        "게시물을 불러오는 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요."
-      );
-    }
-  };
+  const {data, loading, error} = useFetch(`${backHost}/api/posts/${postId}/update`, {
+    headers,
+    credentials: "include",
+  });
 
   useEffect(() => {
-    fetchData();
-  }, [postId]);
+    if (data && !error && !loading) {
+      setTitle(data.data.title);
+      setContent(data.data.content);
+    }
+  }, [data, error, loading]);
+
+
+  useEffect(() => {
+    if(title && content) setIsEnable(true);
+    else setIsEnable(false);
+  }, [title, content])
+
+
+  if(!data || error || loading) {
+    return null;
+  }
+
+  if(error) {
+    console.log(error);
+  }
 
   const handleChangePostImage = (event) => {
     const reader = new FileReader();
@@ -156,10 +137,10 @@ export default function UpdatePost() {
         </div>
         <button
           type="button"
-          disabled={!title || !content}
+          disabled={!isEnable}
           onClick={handleClickUpdatePost}
           className={
-            title && content ? styles.updateButton : styles.updateButtonDisabled
+            isEnable ? styles.updateButton : styles.updateButtonDisabled
           }
         >
           완료

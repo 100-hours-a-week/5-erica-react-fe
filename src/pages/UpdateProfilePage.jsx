@@ -1,6 +1,5 @@
 import styles from "../styles/UpdateProfile.module.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../static";
 import { disableScroll } from "../utils/scroll";
 import DeleteUserModal from "../components/modals/DeleteUserModal";
@@ -9,11 +8,11 @@ import {
   nicknameSpaceError,
   nicknameDuplicateError,
 } from "../utils/errorMessage";
+import useFetch from "../hooks/useFetch";
 
 export default function UpdateProfile() {
   const [profile, setProfile] = useState("");
   const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
   const [isDelete, setIsDelete] = useState(false);
 
   const [nicknameNull, setNicknameNull] = useState(false);
@@ -21,37 +20,37 @@ export default function UpdateProfile() {
   const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
 
   const [showToast, setShowToast] = useState(false);
-  const navigate = useNavigate();
+  const [isAble, setIsAble] = useState(false);
   const reader = new FileReader();
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${backHost}/api/users/user`, {
-        headers,
-        credentials: "include",
-      });
-      const userData = await response.json();
+  const {data, loading, error} = useFetch(`${backHost}/api/users/user`, {
+    headers,
+    credentials: "include",
+  })
 
-      if (userData.status === 200) {
-        setEmail(userData.data.email);
-        setNickname(userData.data.nickname);
-        setProfile(userData.data.profile_image);
-        console.log("setProfile");
-      } else {
-        alert("등록되지 않은 유저입니다.");
-        navigate("/posts");
-      }
-    } catch (error) {
-      console.error("유저 데이터 가져오는데 실패했습니다.:", error);
+  useEffect(function userProfile() {
+    if (data && !error && !loading) {
+      setProfile(data.profile_image);
+      setNickname(data.nickname);
     }
-  };
+  }, [data, error, loading]);
 
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
 
+  useEffect(function enableButton() {
+    if(profile && nickname && !nicknameNull && !nicknameSpace && !nicknameDuplicate) setIsAble(true);
+    else setIsAble(false);
+
+  }, [profile, nickname, nicknameNull, nicknameSpace, nicknameDuplicate])
+
+  if(!data || loading || error) {
+    return null;
+  }
+
+  
   const handleChangeNickname = (event) => {
+    if(!event.target.value) setNicknameNull(true);
     setNickname(event.target.value);
+    setNicknameNull(false);
   };
 
   //닉네임 유효성 검사
@@ -120,7 +119,7 @@ export default function UpdateProfile() {
         setShowToast(true);
         setTimeout(() => {
           setShowToast(false);
-          navigate("/posts");
+          window.location.href = "/posts";
         }, 2000);
       } else {
         alert("수정 실패");
@@ -146,8 +145,7 @@ export default function UpdateProfile() {
               <img className={styles.imageShow} alt="profile" src={profile} />
             ) : (
               <div
-                className={styles.imageShow}
-                style={{ backgroundColor: "#f4f5f7" }}
+                className={styles.imageNone}
               ></div>
             )}
             <div className={styles.imageUpdate}>
@@ -155,7 +153,8 @@ export default function UpdateProfile() {
                 변경
               </label>
               <input
-                id={styles.imageInput}
+                className={styles.imageInput}
+                id="imageInput"
                 onChange={handleChangeProfileImage}
                 type="file"
                 accept="image/*"
@@ -168,7 +167,7 @@ export default function UpdateProfile() {
           <label htmlFor="emailInput" className={styles.inputTitle}>
             이메일
           </label>
-          <div id={styles.updateEmailInput}>{email || "불러오는 중"}</div>
+          <div id={styles.updateEmailInput}>{data.email}</div>
         </div>
         <div className={styles.profileNickname}>
           <label htmlFor="nicknameInput" className={styles.inputTitle}>
@@ -178,7 +177,7 @@ export default function UpdateProfile() {
             type="text"
             id={styles.nicknameInput}
             maxLength="10"
-            value={nickname ?? "불러오는 중"}
+            value={nickname}
             onChange={handleChangeNickname}
           />
           <div className={styles.helperTextContainer}>
@@ -195,7 +194,8 @@ export default function UpdateProfile() {
       <div className={styles.profilebutton}>
         <button
           type="button"
-          className={styles.profileUpdateButton}
+          className={isAble ? styles.profileUpdateButton : styles.profileUpdateButtonDisabled}
+          disabled={!isAble}
           onClick={handleClickUpdateButton}
         >
           수정하기

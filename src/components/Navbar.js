@@ -3,38 +3,25 @@ import BackButton from "./BackButton";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserProfileImage from "./users/UserProfileImage";
+import useFetch from "../hooks/useFetch";
 
 import styles from "../styles/Navbar.module.css";
 
 function UserProfile() {
-  const [profileImage, setProfileImage] = useState("");
   const navigate = useNavigate();
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${backHost}/api/users/user`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "ngrok-skip-browser-warning": "69420",
-        },
-        credentials: "include",
-      });
-      const responseData = await response.json();
-      if (responseData.status === 401) {
-        alert("로그인 하십시오");
-        navigate("/");
-        return;
-      }
-      setProfileImage(responseData.data.profile_image);
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  };
+  const { data, error, loading } = useFetch(`${backHost}/api/users/user`, {
+    headers,
+    credentials: "include",
+  });
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (!data || loading || error) {
+    return null;
+  }
+
+  if (error) {
+    console.log(error);
+  }
 
   const handleClickLogOut = async () => {
     try {
@@ -60,8 +47,8 @@ function UserProfile() {
 
   return (
     <div className={styles.userSetting}>
-      {profileImage ? (
-        <UserProfileImage image={profileImage} size={36} />
+      {data?.profile_image ? (
+        <UserProfileImage image={data.profile_image} size={36} />
       ) : (
         <div
           className={styles.profileImage}

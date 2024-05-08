@@ -1,36 +1,31 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { backHost, headers } from "../../static";
 import AddComment from "./AddComment.js";
 import Comment from "./Comment.js";
 import styles from "../../styles/Comments.module.css";
+import useFetch from "../../hooks/useFetch.js";
 
 export default function Comments({ postId }) {
-  const [comments, setComments] = useState([]);
   const [isAdd, setIsAdd] = useState(true);
   const [updateTarget, setUpdateTarget] = useState();
 
   const id = Number(postId);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`${backHost}/api/posts/${postId}/comments`, {
-        headers,
-        credentials: "include",
-      });
-      const responseData = await response.json();
-
-      if (response.status === 200) {
-        setComments(responseData.data);
-      }
-    } catch (error) {
-      console.error("댓글 데이터를 불러오는 중 에러 발생:", error);
+  const { data, loading, error } = useFetch(
+    `${backHost}/api/posts/${postId}/comments`,
+    {
+      headers,
+      credentials: "include",
     }
-  };
+  );
 
-  useEffect(() => {
-    fetchData();
-    console.log("Comments.js");
-  }, [postId, isAdd]);
+  if (!data || loading || error) {
+    return null;
+  }
+
+  if (error) {
+    console.log(error);
+  }
 
   return (
     <div className={styles.commentContainer}>
@@ -41,7 +36,7 @@ export default function Comments({ postId }) {
         updateTarget={updateTarget}
       />
       <div className={styles.commentList}>
-        {comments.map((comment) => (
+        {data?.map((comment) => (
           <Comment
             setUpdateTarget={setUpdateTarget}
             key={comment.commentId}
