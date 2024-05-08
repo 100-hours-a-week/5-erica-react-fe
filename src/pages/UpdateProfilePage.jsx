@@ -55,12 +55,12 @@ export default function UpdateProfile() {
   };
 
   //닉네임 유효성 검사
-  const checkNicknameValidation = async (nickname) => {
+  const checkNicknameValidation = async () => {
     if (!nickname) {
       setNicknameNull(true);
       return false;
     }
-    setNicknameNull(true);
+    setNicknameNull(false);
 
     if (String(nickname).includes(" ")) {
       setNicknameSpace(true);
@@ -69,7 +69,7 @@ export default function UpdateProfile() {
     setNicknameSpace(false);
 
     const isNicknameDuplicate = await fetch(
-      `${backHost}/api/users/signup/nickname/${nickname}`,
+      `${backHost}/api/users/nickname/${nickname}`,
       {
         headers,
         credentials: "include",
