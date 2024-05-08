@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { backHost, headers } from "../../static";
-import MiniPost from "./MiniPost";
-import styles from "../../styles/Posts.module.css";
+import { backHost, headers } from "../static";
+import MiniPost from "../components/posts/MiniPost";
+import styles from "../styles/Posts.module.css";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);

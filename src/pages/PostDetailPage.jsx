@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
-import Comments from "../comments/Comments";
-import { backHost, headers } from "../../static";
-import { checkPostOwner } from "../../utils/checkOwner.js";
+import Comments from "../components/comments/Comments.js";
+import { backHost, headers } from "../static.js";
+import { checkPostOwner } from "../utils/checkOwner.js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { viewToK, commentToK } from "../../utils/numberToK";
-import styles from "../../styles/PostDetail.module.css";
-import DeletePostModal from "../modals/DeletePostModal.js";
-import { disableScroll } from "../../utils/scroll.js";
-import UserProfileImage from "../users/UserProfileImage.js";
+import { viewToK, commentToK } from "../utils/numberToK.js";
+import styles from "../styles/PostDetail.module.css";
+import DeletePostModal from "../components/modals/DeletePostModal.js";
+import { disableScroll } from "../utils/scroll.js";
+import UserProfileImage from "../components/users/UserProfileImage.js";
 
 export default function PostDetail() {
   const postId = Number(useParams().id);

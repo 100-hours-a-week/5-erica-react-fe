@@ -1,14 +1,14 @@
-import styles from "../../styles/UpdateProfile.module.css";
+import styles from "../styles/UpdateProfile.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { backHost, headers } from "../../static";
-import { disableScroll } from "../../utils/scroll";
-import DeleteUserModal from "../modals/DeleteUserModal";
+import { backHost, headers } from "../static";
+import { disableScroll } from "../utils/scroll";
+import DeleteUserModal from "../components/modals/DeleteUserModal";
 import {
   nicknameNullError,
   nicknameSpaceError,
   nicknameDuplicateError,
-} from "../../utils/errorMessage";
+} from "../utils/errorMessage";
 
 export default function UpdateProfile() {
   const [profile, setProfile] = useState("");

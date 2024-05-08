@@ -1,8 +1,8 @@
-import styles from "../../styles/AddPost.module.css";
+import styles from "../styles/AddPost.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { backHost, headers } from "../../static";
-import { postError } from "../../utils/errorMessage";
+import { backHost, headers } from "../static";
+import { postError } from "../utils/errorMessage";
 
 export default function AddPost() {
   const [title, setTitle] = useState("");

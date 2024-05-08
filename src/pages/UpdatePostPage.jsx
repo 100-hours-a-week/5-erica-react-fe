@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import styles from "../../styles/UpdatePost.module.css";
-import { backHost, headers } from "../../static";
-import { postError } from "../../utils/errorMessage";
+import styles from "../styles/UpdatePost.module.css";
+import { backHost, headers } from "../static";
+import { postError } from "../utils/errorMessage";
 
 export default function UpdatePost() {
   const postId = Number(useParams().id);

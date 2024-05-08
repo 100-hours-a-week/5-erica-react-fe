@@ -1,13 +1,13 @@
-import styles from "../../styles/UpdatePassword.module.css";
+import styles from "../styles/UpdatePassword.module.css";
 import { useState } from "react";
-import { backHost, headers } from "../../static";
+import { backHost, headers } from "../static";
 import { useNavigate } from "react-router-dom";
 import {
   passwordCheckNullError,
   passwordNotMatchError,
   passwordNullError,
   passwordNotSameError,
-} from "../../utils/errorMessage";
+} from "../utils/errorMessage";
 
 export default function UpdatePassword() {
   const [password, setPassword] = useState("");

@@ -1,8 +1,8 @@
-import styles from "../../styles/SignUp.module.css";
-import { backHost, headers } from "../../static";
+import styles from "../styles/SignUp.module.css";
+import { backHost, headers } from "../static";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { SignUpError, passwordNotMatchError } from "../../utils/errorMessage";
+import { SignUpError, passwordNotMatchError } from "../utils/errorMessage";
 
 const reader = new FileReader();
 

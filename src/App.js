@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LogIn from "./components/users/LogIn";
-import SignUp from "./components/users/SignUp";
-import Posts from "./components/posts/Posts";
+import LogInPage from "./pages/LogInPage";
+import SignUpPage from "./pages/SignUpPage";
+import PostsPage from "./pages/PostsPage";
 import Navbar from "./components/Navbar";
-import PostDetail from "./components/posts/PostDetail";
-import UpdatePost from "./components/posts/UpdatePost";
-import AddPost from "./components/posts/AddPost";
-import UpdateProfile from "./components/users/UpdateProfile";
-import UpdatePassword from "./components/users/UpdatePassword";
+import PostDetailPage from "./pages/PostDetailPage";
+import UpdatePostPage from "./pages/UpdatePostPage";
+import AddPostPage from "./pages/AddPostPage";
+import UpdateProfilePage from "./pages/UpdateProfilePage";
+import UpdatePasswordPage from "./pages/UpdatePasswordPage";
 
 import styles from "./App.module.css";
 
@@ -27,14 +27,17 @@ function App() {
         <Navbar />
         <section className={styles.main}>
           <Routes>
-            <Route path={logIn} element={<LogIn />}></Route>
-            <Route path={signUp} element={<SignUp />}></Route>
-            <Route path={posts} element={<Posts />}></Route>
-            <Route path={addPost} element={<AddPost />}></Route>
-            <Route path={postDetail} element={<PostDetail />}></Route>
-            <Route path={updatePost} element={<UpdatePost />}></Route>
-            <Route path={updateProfile} element={<UpdateProfile />}></Route>
-            <Route path={updatePassword} element={<UpdatePassword />}></Route>
+            <Route path={logIn} element={<LogInPage />}></Route>
+            <Route path={signUp} element={<SignUpPage />}></Route>
+            <Route path={posts} element={<PostsPage />}></Route>
+            <Route path={addPost} element={<AddPostPage />}></Route>
+            <Route path={postDetail} element={<PostDetailPage />}></Route>
+            <Route path={updatePost} element={<UpdatePostPage />}></Route>
+            <Route path={updateProfile} element={<UpdateProfilePage />}></Route>
+            <Route
+              path={updatePassword}
+              element={<UpdatePasswordPage />}
+            ></Route>
           </Routes>
         </section>
       </div>
