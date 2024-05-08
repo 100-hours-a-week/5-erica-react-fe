@@ -11,16 +11,16 @@ export default function LogInPage() {
   const [logInSuccess, setLogInSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleOnChangeEmail = (event) => {
+  const handleChangeEmail = (event) => {
     setEmail(event.target.value);
     checkEmailValidation(event.target.value);
   };
 
-  const handleOnChangePassword = (event) => {
+  const handleChangePassword = (event) => {
     setPassword(event.target.value);
   };
 
-  const handleOnClickLogIn = async () => {
+  const handleClickLogIn = async () => {
     const isEmailValid = checkEmailValidation(email);
 
     if (!isEmailValid) {
@@ -83,7 +83,7 @@ export default function LogInPage() {
             id="email"
             required
             placeholder="이메일을 입력하세요"
-            onChange={handleOnChangeEmail}
+            onChange={handleChangeEmail}
           />
         </div>
         <div className={styles.passwordLogInContainer}>
@@ -94,7 +94,7 @@ export default function LogInPage() {
             type="password"
             id="password"
             required
-            onChange={handleOnChangePassword}
+            onChange={handleChangePassword}
             placeholder="비밀번호를 입력하세요"
           />
           <div className={styles.helperTextContainer}>
@@ -105,7 +105,7 @@ export default function LogInPage() {
         </div>
         <button
           type="button"
-          onClick={handleOnClickLogIn}
+          onClick={handleClickLogIn}
           className={
             logInSuccess ? styles.logInButton : styles.logInButtonDisabled
           }

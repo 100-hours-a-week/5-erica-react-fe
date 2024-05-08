@@ -11,7 +11,7 @@ export default function AddPost() {
   const navigate = useNavigate();
   const [isEnable, setIsEnable] = useState(true);
 
-  const handleOnChangePostImage = (event) => {
+  const handleChangePostImage = (event) => {
     const reader = new FileReader();
     reader.onload = (data) => {
       setPostImage(data.target.result);
@@ -19,7 +19,7 @@ export default function AddPost() {
     reader.readAsDataURL(event.target.files[0]);
   };
 
-  const handleOnClickAddPost = async () => {
+  const handleClickAddPost = async () => {
     setIsEnable(false);
 
     try {
@@ -94,14 +94,14 @@ export default function AddPost() {
           <input
             type="file"
             id={styles.boardInputImage}
-            onChange={handleOnChangePostImage}
+            onChange={handleChangePostImage}
             accept="image/*"
           />
         </div>
         <button
           type="button"
           disabled={!isEnable || !title || !content}
-          onClick={handleOnClickAddPost}
+          onClick={handleClickAddPost}
           className={
             isEnable && title && content
               ? styles.updateButton

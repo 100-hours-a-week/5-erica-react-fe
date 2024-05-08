@@ -8,7 +8,7 @@ import UserProfileImage from "../users/UserProfileImage.js";
 export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
   const [isCommentDelete, setIsCommentDelete] = useState(false);
 
-  const handleOnClick = async (action) => {
+  const handleClick = async (action) => {
     const checkResponseData = await checkCommentOwner(postId, data.commentId);
 
     if (checkResponseData.status === 403) {
@@ -37,13 +37,13 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
           </div>
           <div className={styles.commentButton}>
             <button
-              onClick={() => handleOnClick("update")}
+              onClick={() => handleClick("update")}
               className={styles.commentUpdate}
             >
               수정
             </button>
             <button
-              onClick={() => handleOnClick("delete")}
+              onClick={() => handleClick("delete")}
               className={styles.commentDelete}
             >
               삭제

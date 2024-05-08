@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function BackButton() {
   const navigate = useNavigate();
-  const handleOnClickBackButton = () => {
+  const handleClickBackButton = () => {
     navigate(-1);
   };
 
   return (
-    <button onClick={handleOnClickBackButton} className={styles.beforeBtn}>
+    <button onClick={handleClickBackButton} className={styles.beforeBtn}>
       <img src={backButton} alt="backbutton" className={styles.backImage} />
     </button>
   );

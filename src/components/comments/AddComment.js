@@ -12,13 +12,13 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
     }
   }, [updateTarget, isAdd]);
 
-  const handleOnInputComment = (event) => {
+  const handleChangeComment = (event) => {
     const inputComment = event.target.value;
     setComment(inputComment);
     setIsAble(!!inputComment);
   };
 
-  const handleOnClickComment = async () => {
+  const handleClickComment = async () => {
     if (!comment) {
       setIsAble(false);
       return;
@@ -65,13 +65,13 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
         id={styles.commentInput}
         rows="4"
         value={comment}
-        onInput={handleOnInputComment}
+        onChange={handleChangeComment}
         placeholder="댓글을 남겨주세요!"
       ></textarea>
       <div className={styles.line}></div>
       <div className={styles.commentPostButton}>
         <button
-          onClick={handleOnClickComment}
+          onClick={handleClickComment}
           disabled={!isAble}
           type="button"
           className={isAble ? styles.writeButton : styles.writeButtonUnable}

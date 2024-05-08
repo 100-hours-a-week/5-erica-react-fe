@@ -9,12 +9,12 @@ export default function DeleteUserModal({ isDelete, setIsDelete }) {
   const title = "회원탈퇴 하시겞습니까?";
   const description = "작성된 게시글과 댓글은 삭제됩니다.";
 
-  const handleOnClickDeleteUserCancel = () => {
+  const handleClickDeleteUserCancel = () => {
     setIsDelete(false);
     enableScroll();
   };
 
-  const handleOnClickDeleteUserConfirm = async () => {
+  const handleClickDeleteUserConfirm = async () => {
     try {
       const deleteResponse = await fetch(`${backHost}/api/users/user`, {
         headers,
@@ -41,8 +41,8 @@ export default function DeleteUserModal({ isDelete, setIsDelete }) {
       isShow={isDelete}
       title={title}
       description={description}
-      handleCancel={handleOnClickDeleteUserCancel}
-      handleConfirm={handleOnClickDeleteUserConfirm}
+      handleCancel={handleClickDeleteUserCancel}
+      handleConfirm={handleClickDeleteUserConfirm}
     />
   );
 }

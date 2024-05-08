@@ -12,12 +12,12 @@ export default function DeletePostModal({
   const title = "게시글을 삭제하시겠습니까?";
   const description = "삭제한 내용은 복구할 수 없습니다.";
 
-  const handleOnClickDeleteCancel = () => {
+  const handleClickDeleteCancel = () => {
     enableScroll();
     setIsPostDelete(false);
   };
 
-  const handleOnClickDeleteConfirm = async () => {
+  const handleClickDeleteConfirm = async () => {
     try {
       const deleteResponse = await fetch(`${backHost}/api/posts/${postId}`, {
         headers,
@@ -45,8 +45,8 @@ export default function DeletePostModal({
       isShow={isPostDelete}
       title={title}
       description={description}
-      handleCancel={handleOnClickDeleteCancel}
-      handleConfirm={handleOnClickDeleteConfirm}
+      handleCancel={handleClickDeleteCancel}
+      handleConfirm={handleClickDeleteConfirm}
     />
   );
 }

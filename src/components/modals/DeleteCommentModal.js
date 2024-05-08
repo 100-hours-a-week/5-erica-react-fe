@@ -11,7 +11,7 @@ export default function DeleteCommentModal({
   const title = "댓글을 삭제하시겠습니까?";
   const description = "삭제한 내용은 복구할 수 없습니다.";
 
-  const handleOnClickDeleteConfirm = async () => {
+  const handleClickDeleteConfirm = async () => {
     try {
       const response = await fetch(
         `${backHost}/api/posts/${postId}/comments/${commentId}`,
@@ -38,7 +38,7 @@ export default function DeleteCommentModal({
     }
   };
 
-  const handleOnClickDeleteCancel = () => {
+  const handleClickDeleteCancel = () => {
     enableScroll();
     setIsCommentDelete(false);
   };
@@ -48,8 +48,8 @@ export default function DeleteCommentModal({
       isShow={isCommentDelete}
       title={title}
       description={description}
-      handleCancel={handleOnClickDeleteCancel}
-      handleConfirm={handleOnClickDeleteConfirm}
+      handleCancel={handleClickDeleteCancel}
+      handleConfirm={handleClickDeleteConfirm}
     />
   );
 }
