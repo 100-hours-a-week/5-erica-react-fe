@@ -22,59 +22,71 @@
 
 - Front-end
   ```
-    ├── README.md
-    ├── .gitignore
-    ├── package-lock.json
-    ├── package.json
-    ├── public
-    │    ├── index.html
-    │    ├── manifest.json
-    │    └── robots.txt
-    └── src
-         ├── App.js
-         ├── App.test.js
-         ├── index.css
-         ├── index.js
-         ├── logo.svg
-         ├── reportWebVitals.js
-         ├── setupTests.js
-         ├── static.js
-         ├── components
-         │     ├── comments
-         │     │     ├── AddComment.js
-         │     │     └── Comments.js
-         │     ├── modals
-         │     │     └── Modals.js
-         │     ├── posts
-         │     │     ├── AddPost.js
-         │     │     ├── MiniPost.js
-         │     │     ├── PostDetail.js
-         │     │     ├── Posts.js
-         │     │     └── UpdatePost.js
-         │     ├── users
-         │     │     ├── LogIn.js
-         │     │     ├── SignUp.js
-         │     │     ├── UpdatePassword.js
-         │     │     └── UpdateProfile.js
-         │     ├── BackButton.js
-         │     └── Navbar.js
-         ├── images
-         │     ├── back.png
-         │     └── profile_img.webp
-         ├── utils
-         │     ├── numberToK.js
-         │     └── scroll.js
-         └── styles
-               ├── AddPost.css
-               ├── LogIn.css
-               ├── Navbar.css
-               ├── PostDetail.css
-               ├── PostModal.css
-               ├── Posts.css
-               ├── SignUp.css
-               ├── UpdatePassword.css
-               ├── UpdatePost.css
-               └── UpdateProfile.css
+  ├── README.md
+  ├── .gitignore
+  ├── package-lock.json
+  ├── package.json
+  ├── public
+  │    ├── index.html
+  │    ├── manifest.json
+  │    └── robots.txt
+  └── src
+       ├── App.js
+       ├── App.test.js
+       ├── index.css
+       ├── index.js
+       ├── logo.svg
+       ├── reportWebVitals.js
+       ├── setupTests.js
+       ├── static.js
+       ├── components
+       │     ├── comments
+       │     │     ├── AddComment.js
+       │     │     ├── Comment.js
+       │     │     └── Comments.js
+       │     ├── modals
+       │     │     ├── DeleteCommentModal.js
+       │     │     ├── DeletePostModal.js
+       │     │     └── Modals.js
+       │     ├── posts
+       │     │     └── MiniPost.js
+       │     ├── users
+       │     │     └── UpdateProfileImage.js
+       │     ├── BackButton.js
+       │     └── Navbar.js
+       ├── pages
+       │     ├── AddPostPage.jsx
+       │     ├── LogInPage.jsx
+       │     ├── PostDetailPage.jsx
+       │     ├── PostPage.jsx
+       │     ├── SignUpPage.jsx
+       │     ├── UpdatePasswordPage.jsx
+       │     ├── UpdatePostPage.jsx
+       │     └── UpdateProfilePage.jsx
+       ├── images
+       │     ├── back.png
+       │     └── profile_img.webp
+       ├── hooks
+       │     └── useFetch.js
+       ├── utils
+       │     ├── numberToK.js
+       │     └── scroll.js
+       └── styles
+             ├── AddComment.module.css
+             ├── AddPost.module.css
+             ├── Comment.module.css
+             ├── Comments.module.css
+             ├── LogIn.module.css
+             ├── MiniPost.module.css
+             ├── Navbar.module.css
+             ├── PostDetail.module.css
+             ├── PostModal.module.css
+             ├── Posts.module.css
+             ├── SignUp.module.css
+             ├── UpdatePassword.module.css
+             ├── UpdatePost.module.css
+             ├── UpdateProfile.module.css
+             └── UserImage.module.css
   ```
   <br/>
 
