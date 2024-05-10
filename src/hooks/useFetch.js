@@ -10,6 +10,16 @@ export default function useFetch(url, options) {
     try {
       const res = await fetch(url, options);
       const json = await res.json();
+
+      if (json.status === "403" || json.status === "401") {
+        alert("권한이 없습니다.");
+        return;
+      }
+
+      if (json.status === "404") {
+        alert("해당하는 페이지가 존재하지 않습니다.");
+      }
+
       setData(json.data);
       setLodaing(false);
     } catch (err) {

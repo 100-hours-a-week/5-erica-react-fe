@@ -2,6 +2,7 @@ import { viewToK, commentToK } from "../../utils/numberToK";
 import styles from "../../styles/MiniPost.module.css";
 import { Link } from "react-router-dom";
 import UserProfileImage from "../users/UserProfileImage";
+import { navUrl } from "../../utils/navigate";
 
 export default function MiniPost({ data }) {
   const postTitle = data.title.slice(0, 26);
@@ -11,7 +12,10 @@ export default function MiniPost({ data }) {
   const postCommentCount = commentToK(data.comment_count);
 
   return (
-    <Link className={styles.miniBoardContainer} to={`/posts/${data.postId}`}>
+    <Link
+      className={styles.miniBoardContainer}
+      to={`${navUrl.posts}/${data.postId}`}
+    >
       <div className={styles.miniBoard}>
         <h2 className={styles.miniBoardTitle}>{postTitle}</h2>
         <div className={styles.miniBoardContent}>
