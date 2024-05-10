@@ -1,0 +1,21 @@
+.updateBoard,
+.deleteBoard {
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.1rem 1rem;
+  font-size: 1.3rem;
+  color: black;
+  cursor: pointer;
+  border: 0.1rem solid black;
+  height: 3rem;
+  box-sizing: border-box;
+}
+
+.boardButton {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}

@@ -7,28 +7,6 @@
   font-weight: 800;
 }
 
-.updateBoard,
-.deleteBoard {
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  padding: 0.1rem 1rem;
-  font-size: 1.3rem;
-  color: black;
-  cursor: pointer;
-  border: 0.1rem solid black;
-  height: 3rem;
-  box-sizing: border-box;
-}
-
-.boardButton {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
 .boardHeaderBottom {
   display: flex;
   justify-content: space-between;
@@ -69,24 +47,4 @@ hr {
   margin-top: 2rem;
   font-size: 1.5rem;
   font-weight: 500;
-}
-
-.boardAction {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-}
-
-.readCount,
-.commentCount {
-  background-color: lightgrey;
-  width: 8rem;
-  height: 8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  border-radius: 1rem;
 }
