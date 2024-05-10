@@ -10,9 +10,12 @@ export default function Modal({
   handleConfirm,
 }) {
   const [position, setPosition] = useState("");
-  useEffect(() => {
-    setPosition(getScrollPosition().scrollPosition);
-  }, [isShow]);
+  useEffect(
+    function getPosition() {
+      setPosition(getScrollPosition().scrollPosition);
+    },
+    [isShow]
+  );
 
   return isShow ? (
     <div className={styles.modalContainer} style={{ top: `${position}px` }}>

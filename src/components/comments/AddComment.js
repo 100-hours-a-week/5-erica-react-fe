@@ -6,18 +6,23 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
   const [isAble, setIsAble] = useState(false);
 
-  //comment유무에 따른 버튼 비/활성화
-  useEffect(() => {
-    if (!isAdd && updateTarget) {
-      setComment(updateTarget.comment);
-    }
-  }, [updateTarget, isAdd]);
+  useEffect(
+    function getUpdateComment() {
+      if (!isAdd && updateTarget) {
+        setComment(updateTarget.comment);
+      }
+    },
+    [updateTarget, isAdd]
+  );
 
   //comment유무에 따른 버튼 비/활성화
-  useEffect(() => {
-    if (comment) setIsAble(true);
-    else setIsAble(false);
-  }, [comment]);
+  useEffect(
+    function disableButton() {
+      if (comment) setIsAble(true);
+      else setIsAble(false);
+    },
+    [comment]
+  );
 
   const handleChangeComment = (event) => {
     const inputComment = event.target.value;

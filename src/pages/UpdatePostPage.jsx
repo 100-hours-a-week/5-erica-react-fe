@@ -4,6 +4,7 @@ import styles from "../styles/UpdatePost.module.css";
 import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
 import { useFetch } from "react-async";
+import { navUrl } from "../utils/navigate";
 
 
 export default function UpdatePost() {
@@ -19,7 +20,7 @@ export default function UpdatePost() {
     credentials: "include",
   });
 
-  useEffect(() => {
+  useEffect(function addPostInfo() {
     if (data && !error && !loading) {
       setTitle(data.data.title);
       setContent(data.data.content);
@@ -27,7 +28,7 @@ export default function UpdatePost() {
   }, [data, error, loading]);
 
 
-  useEffect(() => {
+  useEffect(function enableButton() {
     if(title && content) setIsEnable(true);
     else setIsEnable(false);
   }, [title, content])
@@ -75,7 +76,7 @@ export default function UpdatePost() {
       switch (responseData.status) {
         case 200:
           alert("게시글 수정이 완료되었습니다.");
-          navigate(`/posts/${postId}`);
+          navigate(`${navUrl.posts}/${postId}`);
           break;
         default:
           alert("수정 실패: 이미지가 너무 크거나 다른 오류로 실패했습니다.");

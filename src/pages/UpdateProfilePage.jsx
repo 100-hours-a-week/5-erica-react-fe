@@ -9,6 +9,7 @@ import {
   nicknameDuplicateError,
 } from "../utils/errorMessage";
 import useFetch from "../hooks/useFetch";
+import { navUrl } from "../utils/navigate";
 
 export default function UpdateProfile() {
   const [profile, setProfile] = useState("");
@@ -119,7 +120,7 @@ export default function UpdateProfile() {
         setShowToast(true);
         setTimeout(() => {
           setShowToast(false);
-          window.location.href = "/posts";
+          window.location.href = navUrl.posts;
         }, 2000);
       } else {
         alert("수정 실패");
@@ -182,11 +183,9 @@ export default function UpdateProfile() {
           />
           <div className={styles.helperTextContainer}>
             <div className={styles.helperText}>
-              <div className={styles.helperText}>
-                {nicknameNull && nicknameNullError}
-                {nicknameSpace && nicknameSpaceError}
-                {nicknameDuplicate && nicknameDuplicateError}
-              </div>
+              {nicknameNull && nicknameNullError}
+              {nicknameSpace && nicknameSpaceError}
+              {nicknameDuplicate && nicknameDuplicateError}
             </div>
           </div>
         </div>

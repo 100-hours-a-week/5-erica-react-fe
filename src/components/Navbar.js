@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import UserProfileImage from "./users/UserProfileImage";
 import useFetch from "../hooks/useFetch";
+import { navUrl } from "../utils/navigate";
 
 import styles from "../styles/Navbar.module.css";
 
@@ -39,7 +40,7 @@ function UserProfile() {
       }
 
       alert("로그아웃 됐습니다.");
-      navigate("/");
+      navigate(navUrl.logIn);
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -84,19 +85,22 @@ export default function Navbar() {
   const [showBackButton, setShowBackButton] = useState(false);
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (pathname !== "/" && pathname !== "/signUp") {
-      setShowProfile(true);
-    } else {
-      setShowProfile(false);
-    }
+  useEffect(
+    function showProfile() {
+      if (pathname !== "/" && pathname !== "/signUp") {
+        setShowProfile(true);
+      } else {
+        setShowProfile(false);
+      }
 
-    if (pathname === "/signUp" || pathname.includes("/posts")) {
-      setShowBackButton(true);
-    } else {
-      setShowBackButton(false);
-    }
-  }, [pathname]);
+      if (pathname === "/signUp" || pathname.includes("/posts")) {
+        setShowBackButton(true);
+      } else {
+        setShowBackButton(false);
+      }
+    },
+    [pathname]
+  );
 
   return (
     <section className={styles.navbar}>

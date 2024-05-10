@@ -11,31 +11,33 @@ import UpdatePasswordPage from "./pages/UpdatePasswordPage";
 
 import styles from "./App.module.css";
 
-function App() {
-  const logIn = "/";
-  const signUp = "/signUp";
-  const posts = "/posts";
-  const postDetail = "/posts/:id";
-  const addPost = "/posts/write";
-  const updatePost = "/posts/:id/update";
-  const updateProfile = "/user/update";
-  const updatePassword = "/user/password";
+import { navUrl } from "./utils/navigate";
 
+function App() {
   return (
     <BrowserRouter>
       <div className={styles.App}>
         <Navbar />
         <section className={styles.main}>
           <Routes>
-            <Route path={logIn} element={<LogInPage />}></Route>
-            <Route path={signUp} element={<SignUpPage />}></Route>
-            <Route path={posts} element={<PostsPage />}></Route>
-            <Route path={addPost} element={<AddPostPage />}></Route>
-            <Route path={postDetail} element={<PostDetailPage />}></Route>
-            <Route path={updatePost} element={<UpdatePostPage />}></Route>
-            <Route path={updateProfile} element={<UpdateProfilePage />}></Route>
+            <Route path={navUrl.logIn} element={<LogInPage />}></Route>
+            <Route path={navUrl.signUp} element={<SignUpPage />}></Route>
+            <Route path={navUrl.posts} element={<PostsPage />}></Route>
+            <Route path={navUrl.addPost} element={<AddPostPage />}></Route>
             <Route
-              path={updatePassword}
+              path={navUrl.postDetail}
+              element={<PostDetailPage />}
+            ></Route>
+            <Route
+              path={navUrl.updatePost}
+              element={<UpdatePostPage />}
+            ></Route>
+            <Route
+              path={navUrl.updateProfile}
+              element={<UpdateProfilePage />}
+            ></Route>
+            <Route
+              path={navUrl.updatePassword}
               element={<UpdatePasswordPage />}
             ></Route>
           </Routes>

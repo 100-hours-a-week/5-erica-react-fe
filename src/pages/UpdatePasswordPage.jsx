@@ -8,6 +8,7 @@ import {
   passwordNullError,
   passwordNotSameError,
 } from "../utils/errorMessage";
+import { navUrl } from "../utils/navigate";
 
 export default function UpdatePassword() {
   const [password, setPassword] = useState("");
@@ -88,7 +89,7 @@ export default function UpdatePassword() {
     switch (updateResponse.status) {
       case 201:
         alert("비밀번호가 수정되었습니다.");
-        navigate("/");
+        navigate(navUrl.logIn);
         return;
       default:
         alert("비밀번호 수정실패");

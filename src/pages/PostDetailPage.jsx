@@ -10,6 +10,7 @@ import DeletePostModal from "../components/modals/DeletePostModal.js";
 import { disableScroll } from "../utils/scroll.js";
 import UserProfileImage from "../components/users/UserProfileImage.js";
 import useFetch from "../hooks/useFetch.js";
+import { navUrl } from "../utils/navigate.js";
 
 export default function PostDetail() {
   const postId = Number(useParams().id);
@@ -35,7 +36,7 @@ export default function PostDetail() {
       alert("본인이 작성한 게시물이 아닙니다.");
       return;
     }
-    navigate(`/posts/${postId}/update`);
+    navigate(`${navUrl.posts}/${postId}/update`);
   };
 
   const handleClickDelete = async () => {

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
+import { navUrl } from "../utils/navigate";
 
 export default function AddPost() {
   const [title, setTitle] = useState("");
@@ -44,7 +45,7 @@ export default function AddPost() {
       switch (responseData.status) {
         case 201:
           alert("게시글 작성이 완성됐습니다.");
-          navigate(`/posts/${responseData.data.postId}`);
+          navigate(`${navUrl.posts}/${responseData.data.postId}`);
           return;
         default:
           alert("작성 오류");

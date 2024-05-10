@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { backHost, headers } from "../static";
 import styles from "../styles/LogIn.module.css";
 import { emailNotValidErrorLine } from "../utils/errorMessage";
+import { navUrl } from "../utils/navigate";
 
 export default function LogInPage() {
   const [email, setEmail] = useState("");
@@ -23,9 +24,7 @@ export default function LogInPage() {
   const handleClickLogIn = async () => {
     const isEmailValid = checkEmailValidation(email);
 
-    if (!isEmailValid) {
-      return;
-    }
+    if (!isEmailValid) return;
 
     try {
       const response = await fetch(`${backHost}/api/users/login`, {
@@ -44,7 +43,7 @@ export default function LogInPage() {
         case 200:
           setLogInSuccess(true);
           setTimeout(() => {
-            navigate("/posts");
+            navigate(navUrl.posts);
           }, 3000);
           break;
         default:
