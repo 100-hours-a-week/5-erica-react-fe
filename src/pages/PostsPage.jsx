@@ -3,6 +3,7 @@ import { backHost, headers } from "../static";
 import MiniPost from "../components/posts/MiniPost";
 import styles from "../styles/Posts.module.css";
 import useFetch from "../hooks/useFetch";
+import { navUrl } from "../utils/navigate";
 
 export default function Posts() {
 
@@ -29,7 +30,7 @@ export default function Posts() {
         </p>
       </span>
       <div className={styles.writeContainer}>
-        <Link className={styles.writeBtn} to="/posts/write">
+        <Link className={styles.writeBtn} to={navUrl.addPost}>
           게시글 작성
         </Link>
       </div>

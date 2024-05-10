@@ -113,7 +113,7 @@ export default function LogInPage() {
           로그인
         </button>
       </form>
-      <Link to="/signUp" className={styles.goSignUpButton}>
+      <Link to={navUrl.signUp} className={styles.goSignUpButton}>
         회원가입
       </Link>
     </section>
