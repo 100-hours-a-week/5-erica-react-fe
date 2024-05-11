@@ -1,7 +1,7 @@
 import DeleteCommentModal from "../modals/DeleteCommentModal.js";
 import { disableScroll } from "../../utils/scroll.js";
 import { checkCommentOwner } from "../../utils/checkOwner.js";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import styles from "../../styles/Comment.module.css";
 import UserProfileImage from "../users/UserProfileImage.js";
 
@@ -25,6 +25,11 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
     }
   };
 
+  const memoizedHandleClick = useMemo(
+    () => handleClick,
+    [postId, data, setIsAdd, setUpdateTarget]
+  );
+
   return (
     <>
       <div className={styles.comment}>
@@ -37,13 +42,13 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
           </div>
           <div className={styles.commentButton}>
             <button
-              onClick={() => handleClick("update")}
+              onClick={() => memoizedHandleClick("update")}
               className={styles.commentUpdate}
             >
               수정
             </button>
             <button
-              onClick={() => handleClick("delete")}
+              onClick={() => memoizedHandleClick("delete")}
               className={styles.commentDelete}
             >
               삭제
