@@ -1,4 +1,6 @@
 import styles from "../../styles/input/passwordInput.module.css";
+import { PASSWORD_CHECK_STATUS } from "../../utils/status";
+import { PASSWORD_STATUS } from "../../utils/status";
 
 export default function PasswordInput({
   password,
@@ -23,32 +25,32 @@ export default function PasswordInput({
   //비밀번호 유효성 검사
   const checkPasswordValidation = (password, passwordCheck) => {
     if (!password) {
-      passwordDispatcher({ type: "passwordNull" });
+      passwordDispatcher({ type: PASSWORD_STATUS.Null });
       return false;
     }
-    passwordDispatcher({ type: "reset" });
+    passwordDispatcher({ type: PASSWORD_STATUS.Reset });
 
     const passwordRegExp =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
     if (password && !passwordRegExp.test(password)) {
-      passwordDispatcher({ type: "passwordNotMatch" });
+      passwordDispatcher({ type: PASSWORD_STATUS.NotMatch });
       return false;
     }
-    passwordDispatcher({ type: "reset" });
+    passwordDispatcher({ type: PASSWORD_STATUS.Reset });
 
     if (!passwordCheck) {
-      passwordCheckDispatcher({ type: "passwordCheckNull" });
+      passwordCheckDispatcher({ type: PASSWORD_CHECK_STATUS.Null });
       return false;
     }
-    passwordCheckDispatcher({ type: "reset" });
+    passwordCheckDispatcher({ type: PASSWORD_CHECK_STATUS.Reset });
 
     if (password !== passwordCheck) {
-      passwordDispatcher({ type: "passwordNotSame" });
-      passwordCheckDispatcher({ type: "passwordNotSame" });
+      passwordDispatcher({ type: PASSWORD_STATUS.NotSame });
+      passwordCheckDispatcher({ type: PASSWORD_CHECK_STATUS.NotSame });
       return false;
     }
-    passwordDispatcher({ type: "reset" });
-    passwordCheckDispatcher({ type: "reset" });
+    passwordDispatcher({ type: PASSWORD_STATUS.Reset });
+    passwordCheckDispatcher({ type: PASSWORD_CHECK_STATUS.Reset });
 
     return true;
   };

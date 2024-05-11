@@ -1,5 +1,6 @@
 import styles from "../../styles/input/emailInput.module.css";
 import { headers, backHost } from "../../static";
+import { EMAIL_STATUS } from "../../utils/status";
 
 export default function EmailInput({
   email,
@@ -16,17 +17,17 @@ export default function EmailInput({
   //이메일 유효성 검사
   const checkEmailValidation = async (email) => {
     if (!email) {
-      emailDispatcher({ type: "emailNull" });
+      emailDispatcher({ type: EMAIL_STATUS.Null });
       return false;
     }
-    emailDispatcher({ type: "reset" });
+    emailDispatcher({ type: EMAIL_STATUS.Reset });
 
     const emailForm = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email && (!emailForm.test(email) || email.length < 5)) {
-      emailDispatcher({ type: "emailNotValid" });
+      emailDispatcher({ type: EMAIL_STATUS.NotValid });
       return false;
     }
-    emailDispatcher({ type: "reset" });
+    emailDispatcher({ type: EMAIL_STATUS.Reset });
 
     const isEmailDuplicate = await fetch(
       `${backHost}/api/users/email/${email}`,
@@ -44,10 +45,10 @@ export default function EmailInput({
     });
 
     if (isEmailDuplicate) {
-      emailDispatcher({ type: "emailDuplicate" });
+      emailDispatcher({ type: EMAIL_STATUS.Duplicate });
       return false;
     }
-    emailDispatcher({ type: "reset" });
+    emailDispatcher({ type: EMAIL_STATUS.Reset });
 
     return true;
   };

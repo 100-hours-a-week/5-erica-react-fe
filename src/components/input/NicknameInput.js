@@ -1,5 +1,6 @@
 import styles from "../../styles/input/nicknameInput.module.css";
 import { backHost, headers } from "../../static";
+import { NICKNAME_STATUS } from "../../utils/status";
 
 export default function NicknameInput({
   nickname,
@@ -15,16 +16,16 @@ export default function NicknameInput({
   //닉네임 유효성 검사
   const checkNicknameValidation = async (nickname) => {
     if (!nickname) {
-      nicknameDispatcher({ type: "nicknameNull" });
+      nicknameDispatcher({ type: NICKNAME_STATUS.Null });
       return false;
     }
-    nicknameDispatcher({ type: "reset" });
+    nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
 
     if (String(nickname).includes(" ")) {
-      nicknameDispatcher({ type: "nicknameSpace" });
+      nicknameDispatcher({ type: NICKNAME_STATUS.Space });
       return false;
     }
-    nicknameDispatcher({ type: "reset" });
+    nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
 
     const isNicknameDuplicate = await fetch(
       `${backHost}/api/users/signup/nickname/${nickname}`,
@@ -42,10 +43,10 @@ export default function NicknameInput({
     });
 
     if (isNicknameDuplicate) {
-      nicknameDispatcher({ type: "nicknameDuplicate" });
+      nicknameDispatcher({ type: NICKNAME_STATUS.Duplicate });
       return false;
     }
-    nicknameDispatcher({ type: "reset" });
+    nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
     return true;
   };
 

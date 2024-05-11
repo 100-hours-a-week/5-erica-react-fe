@@ -3,19 +3,20 @@ import {
   nicknameNullError,
   nicknameSpaceError,
 } from "../utils/errorMessage";
+import { NICKNAME_STATUS } from "../utils/status";
 
 export const nicknameInitialMessage = { nicknameMessage: "" };
 
 //닉네임 hyperText
 export function nicknameReduer(_, action) {
   switch (action.type) {
-    case "nicknameNull":
+    case NICKNAME_STATUS.Null:
       return { nicknameMessage: nicknameNullError };
-    case "nicknameSpace":
+    case NICKNAME_STATUS.Space:
       return { nicknameMessage: nicknameSpaceError };
-    case "nicknameDuplicate":
+    case NICKNAME_STATUS.Duplicate:
       return { nicknameMessage: nicknameDuplicateError };
-    case "reset":
+    case NICKNAME_STATUS.Reset:
       return nicknameInitialMessage;
     default:
       throw new Error(`Unexpected action type ${action.type}`);
