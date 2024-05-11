@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import styles from "../styles/UpdatePost.module.css";
 import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
-import { useFetch } from "react-async";
+import useFetch from "../hooks/useFetch";
 import { navUrl } from "../utils/navigate";
-
 
 export default function UpdatePost() {
   const postId = Number(useParams().id);
@@ -22,15 +21,14 @@ export default function UpdatePost() {
 
   useEffect(function addPostInfo() {
     if (data && !error && !loading) {
-      setTitle(data.data.title);
-      setContent(data.data.content);
+      setTitle(data.title);
+      setContent(data.content);
     }
   }, [data, error, loading]);
 
 
-  useEffect(function enableButton() {
-    if(title && content) setIsEnable(true);
-    else setIsEnable(false);
+  useEffect(function enableButton()  {
+    setIsEnable(title && content)
   }, [title, content])
 
 
@@ -50,13 +48,6 @@ export default function UpdatePost() {
     reader.readAsDataURL(event.target.files[0]);
   };
 
-  const handleChangeTitle = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleChangeContent = (event) => {
-    setContent(event.target.value);
-  };
 
   const handleClickUpdatePost = async () => {
     try {
@@ -100,7 +91,7 @@ export default function UpdatePost() {
             type="text"
             maxLength="26"
             value={title}
-            onChange={handleChangeTitle}
+            onChange={(event) => setTitle(event.target.value)}
             id={styles.boardTitleInput}
           />
         </div>
@@ -112,7 +103,7 @@ export default function UpdatePost() {
           <textarea
             type="text"
             maxLength="200"
-            onChange={handleChangeContent}
+            onChange={(event) => setContent(event.target.value)}
             rows="10"
             value={content}
             id={styles.boardContentInput}

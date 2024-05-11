@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { getScrollPosition } from "../../utils/scroll.js";
+import { usePosition } from "../../hooks/usePosition.js";
 import styles from "../../styles/PostModal.module.css";
 
 export default function Modal({
@@ -9,13 +8,7 @@ export default function Modal({
   handleCancel,
   handleConfirm,
 }) {
-  const [position, setPosition] = useState("");
-  useEffect(
-    function getPosition() {
-      setPosition(getScrollPosition().scrollPosition);
-    },
-    [isShow]
-  );
+  const position = usePosition(isShow);
 
   return isShow ? (
     <div className={styles.modalContainer} style={{ top: `${position}px` }}>

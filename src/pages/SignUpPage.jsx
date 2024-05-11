@@ -1,13 +1,14 @@
 import styles from "../styles/SignUp.module.css";
 import { backHost, headers } from "../static";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useReducer } from "react";
 import { SignUpError } from "../utils/errorMessage";
 import { navUrl } from "../utils/navigate";
 import { emailInitialMessage, emailMessageReducer  } from "../reducer/emailReducer";
 import { passwordInitialMessage, passwordMessageReducer } from "../reducer/passwordReducer";
 import { passwordCheckInitialMessage,passwordCheckMessageReducer } from "../reducer/passwordCheckReducer";
 import { nicknameReduer, nicknameInitialMessage } from "../reducer/nicknameReducer";
+import { useSignUpValidation } from "../hooks/useSignUpValidation";
 
 import EmailInput from "../components/input/EmailInput";
 import PasswordInput from "../components/input/PasswordInput";
@@ -29,11 +30,17 @@ export default function SignUp() {
 
   const [imageNull, setImageNull] = useState(true);
 
-  const [isValid, setIsValid] = useState(false);
+  const isValid = useSignUpValidation(email,
+    password,
+    passwordCheck,
+    nickname,
+    profileImage,
+    emailState,
+    passwordState,
+    passwordCheckState,
+    nicknameState)
 
-  useEffect(function checkValid() {
-    setIsValid(profileImage && email && password && passwordCheck && nickname && !emailState.emailMessage && !passwordState.passwordMessage && !passwordCheckState.passwordCheckMessage && !nicknameState.nicknameMessage);
-  }, [profileImage, email, nickname, password, passwordCheck, emailState, passwordState, passwordCheckState, nicknameState]);
+  
 
   //이미지 변경 시
   const handleChangeProfileImage = (event) => {

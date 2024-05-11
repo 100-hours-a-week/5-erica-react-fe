@@ -13,8 +13,7 @@ export default function AddPost() {
   const [isEnable, setIsEnable] = useState(true);
 
   useEffect(function enableButton()  {
-    if(title && content) setIsEnable(true);
-    else setIsEnable(false);
+    setIsEnable(title && content)
   }, [title, content])
 
   const handleChangePostImage = (event) => {
@@ -109,8 +108,7 @@ export default function AddPost() {
           disabled={!isEnable || !title || !content}
           onClick={handleClickAddPost}
           className={
-            isEnable && title && content
-              ? styles.updateButton
+            isEnable ? styles.updateButton
               : styles.updateButtonDisabled
           }
         >
