@@ -25,10 +25,7 @@ export default function UserProfile() {
       {data?.profile_image ? (
         <UserProfileImage image={data.profile_image} size={36} />
       ) : (
-        <div
-          className={styles.profileImage}
-          style={{ backgroundColor: "#f4f5f7" }}
-        ></div>
+        <div className={styles.profileImage}></div>
       )}
       <div className={styles.settingList}>
         <Link

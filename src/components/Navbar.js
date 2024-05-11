@@ -34,7 +34,7 @@ export default function Navbar() {
         {showBackButton ? (
           <BackButton />
         ) : (
-          <div style={{ width: "36px", height: "1px" }}></div>
+          <div className={styles.emptyBackButton}></div>
         )}
         <Link
           className={styles.navbarTitle}
@@ -49,7 +49,7 @@ export default function Navbar() {
         {showProfile ? (
           <UserProfile />
         ) : (
-          <div style={{ width: "36px", height: "1px" }}></div>
+          <div className={styles.emptyUserProfile}></div>
         )}
       </div>
     </section>
