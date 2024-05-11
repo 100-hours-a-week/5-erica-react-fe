@@ -48,12 +48,6 @@ export default function SignUp() {
     };
     reader.readAsDataURL(event.target.files[0]);
   };
-
-
-
-
-
-
   //프로필 이미지 유효성 검사
   // const checkImageValidation = () => {
   //   if (!profileImage) {
@@ -63,8 +57,6 @@ export default function SignUp() {
   //   setImageNull(false);
   //   return true;
   // };
-
-
 
 
   //회원가입 버튼 클릭 시
