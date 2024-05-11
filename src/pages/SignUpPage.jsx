@@ -1,13 +1,26 @@
 import styles from "../styles/SignUp.module.css";
 import { backHost, headers } from "../static";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { SignUpError, passwordNotMatchError } from "../utils/errorMessage";
+import { useState, useEffect, useReducer } from "react";
+import { SignUpError } from "../utils/errorMessage";
 import { navUrl } from "../utils/navigate";
+import { emailInitialMessage, emailMessageReducer  } from "../reducer/emailReducer";
+import { passwordInitialMessage, passwordMessageReducer } from "../reducer/passwordReducer";
+import { passwordCheckInitialMessage,passwordCheckMessageReducer } from "../reducer/passwordCheckReducer";
+import { nicknameReduer, nicknameInitialMessage } from "../reducer/nicknameReducer";
+
+import EmailInput from "../components/input/EmailInput";
+import PasswordInput from "../components/input/PasswordInput";
+import NicknameInput from "../components/input/NicknameInput";
 
 const reader = new FileReader();
 
 export default function SignUp() {
+  const [emailState, emailDispatcher] = useReducer(emailMessageReducer, emailInitialMessage);
+  const [passwordState, passwordDispatcher] = useReducer(passwordMessageReducer,passwordInitialMessage)
+  const [passwordCheckState, passwordCheckDispatcher] = useReducer(passwordCheckMessageReducer, passwordCheckInitialMessage)
+  const [nicknameState, nicknameDispatcher] = useReducer(nicknameReduer, nicknameInitialMessage, )
+
   const [profileImage, setProfileImage] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,23 +29,11 @@ export default function SignUp() {
 
   const [imageNull, setImageNull] = useState(true);
 
-  const [emailNull, setEmailNull] = useState(false);
-  const [emailNotCorrect, setEmailNotCorrect] = useState(false);
-  const [emailDuplicate, setEmailDuplicate] = useState(false);
-
-  const [passwordNull, setPasswordNull] = useState(false);
-  const [passwordCheckNull, setPasswordCheckNull] = useState(false);
-  const [passwordNotSame, setPasswordNotSame] = useState(false);
-  const [passwordNotMatch, setPasswordNotMatch] = useState(false);
-
-  const [nicknameNull, setNicknameNull] = useState(false);
-  const [nicknameSpace, setNicknameSpace] = useState(false);
-  const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(function checkValid() {
-    setIsValid(profileImage && email && password && passwordCheck && nickname && !imageNull && !emailNull &&!emailNotCorrect &&!emailDuplicate &&!passwordNotSame &&!passwordNotMatch &&!nicknameSpace &&!nicknameDuplicate &&profileImage);
-  }, [email, password, passwordCheck, nickname, imageNull, emailNull, emailNotCorrect, emailDuplicate, passwordNotSame, passwordNotMatch, nicknameSpace, nicknameDuplicate, profileImage]);
+    setIsValid(profileImage && email && password && passwordCheck && nickname && !emailState.emailMessage && !passwordState.passwordMessage && !passwordCheckState.passwordCheckMessage && !nicknameState.nicknameMessage);
+  }, [profileImage, email, nickname, password, passwordCheck, emailState, passwordState, passwordCheckState, nicknameState]);
 
   //이미지 변경 시
   const handleChangeProfileImage = (event) => {
@@ -48,26 +49,10 @@ export default function SignUp() {
     reader.readAsDataURL(event.target.files[0]);
   };
 
-  //인풋값을 입력하다가 포커스 아웃될 때
-  const handleChangeEmail = async (event) => {
-    setEmail(event.target.value);
-    await checkEmailValidation(event.target.value);
-  };
 
-  const handleChangePassword = (event) => {
-      setPassword(event.target.value);
-      checkPasswordValidation(event.target.value, passwordCheck);
-    }
- 
-  const handleChangePasswordCheck = (event) => {
-    setPasswordCheck(event.target.value);
-    checkPasswordValidation(password, event.target.value);
-  };
 
-  const handleChangeNickname = async (event) => {
-    setNickname(event.target.value);
-    await checkNicknameValidation(event.target.value);
-  };
+
+
 
   //프로필 이미지 유효성 검사
   // const checkImageValidation = () => {
@@ -79,122 +64,8 @@ export default function SignUp() {
   //   return true;
   // };
 
-  //이메일 유효성 검사
-  const checkEmailValidation = async (email) => {
-    console.log(email);
-  
-    if (!email) {
-      console.log("setEmailNull");
-      setEmailNull(true);
-      setEmailNotCorrect(false);
-      return false;
-    }
-    setEmailNull(false);
-    console.log("setEmailNull false");
 
-    const emailForm = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && (!emailForm.test(email) || email.length < 5)) {
-      setEmailNotCorrect(true);
-      setEmailNull(false);
-      console.log("setEmailNotCorrect");
-      return false;
-    }
-    setEmailNotCorrect(false);
-    console.log("setEmailNotCorrect false");
 
-    const isEmailDuplicate = await fetch(
-      `${backHost}/api/users/email/${email}`,
-      {
-        headers,
-        credentials: "include",
-        method: "POST",
-      }
-    ).then(async (response) => {
-      const data = await response.json();
-      if (data.status === 400) {
-        return true;
-      }
-      return false;
-    });
-
-    if (isEmailDuplicate) {
-      setEmailDuplicate(true);
-      return false;
-    }
-    setEmailDuplicate(false);
-
-    return true;
-  };
-
-  //비밀번호 유효성 검사
-  const checkPasswordValidation = (password, passwordCheck) => {
-    if (!password) {
-      setPasswordNull(true);
-      setPasswordNotMatch(false);
-      return false;
-    }
-    setPasswordNull(false);
-
-    const passwordRegExp =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
-    if (password && !passwordRegExp.test(password)) {
-      setPasswordNotMatch(true);
-      setPasswordNull(false);
-      return false;
-    }
-    setPasswordNotMatch(false);
-
-    if (!passwordCheck) {
-      setPasswordCheckNull(true);
-      return false;
-    }
-    setPasswordCheckNull(false);
-
-    if (password !== passwordCheck) {
-      setPasswordNotSame(true);
-      return false;
-    }
-    setPasswordNotSame(false);
-
-    return true;
-  };
-
-  //닉네임 유효성 검사
-  const checkNicknameValidation = async (nickname) => {
-    if (!nickname) {
-      setNicknameNull(true);
-      return false;
-    }
-    setNicknameNull(false);
-
-    if (String(nickname).includes(" ")) {
-      setNicknameSpace(true);
-      return false;
-    }
-    setNicknameSpace(false);
-
-    const isNicknameDuplicate = await fetch(
-      `${backHost}/api/users/signup/nickname/${nickname}`,
-      {
-        headers,
-        credentials: "include",
-        method: "POST",
-      }
-    ).then(async (response) => {
-      const data = await response.json();
-      if (data.status === 400) {
-        return true;
-      }
-      return false;
-    });
-
-    if (isNicknameDuplicate) {
-      setNicknameDuplicate(true);
-      return false;
-    }
-    setNicknameDuplicate(false);
-    return true;
-  };
 
   //회원가입 버튼 클릭 시
   const handleClickSignUp = async () => {
@@ -266,86 +137,9 @@ export default function SignUp() {
           </div>
         </div>
         <div className={styles.bottomContainer}>
-          <div className={styles.emailContainer}>
-            <label htmlFor="emailInput" className={styles.inputTitle}>
-              이메일*
-            </label>
-            <input
-              required
-              value={email}
-              type="email"
-              id={styles.emailInput}
-              onChange={handleChangeEmail}
-              placeholder="이메일을 입력하세요"
-            />
-            <div className={styles.helperTextContainer}>
-              <div className={styles.helperText}>
-                {emailNull && SignUpError.emailNullError}
-                {emailDuplicate && SignUpError.emailDuplicateError}
-                {emailNotCorrect && SignUpError.emailNotValidError}
-              </div>
-            </div>
-          </div>
-          <div className={styles.passwordContainer}>
-            <label htmlFor="passwordInput" className={styles.inputTitle}>
-              비밀번호*
-            </label>
-            <input
-              required
-              type="password"
-              value={password}
-              id={styles.passwordInput}
-              onChange={handleChangePassword}
-              placeholder="비밀번호를 입력하세요"
-            />
-            <div className={styles.helperTextContainer}>
-              <div className={styles.helperText}>
-                {passwordNull && SignUpError.passwordNullError}
-                {passwordNotSame && SignUpError.passwordNotSameError}
-                {passwordNotMatch && passwordNotMatchError}
-              </div>
-            </div>
-          </div>
-          <div className={styles.passwordCheckContainer}>
-            <label htmlFor="passwordCheckInput" className={styles.inputTitle}>
-              비밀번호 확인*
-            </label>
-            <input
-              required
-              value={passwordCheck}
-              type="password"
-              id={styles.passwordCheckInput}
-              onChange={handleChangePasswordCheck}
-              placeholder="비밀번호를 한번 더 입력하세요"
-            />
-            <div className={styles.helperTextContainer}>
-              <div className={styles.helperText}>
-                {passwordCheckNull && SignUpError.passwordCheckNullError}
-                {passwordNotSame && SignUpError.passwordNotSameError}
-              </div>
-            </div>
-          </div>
-          <div className={styles.nicknameContainer}>
-            <label htmlFor="nicknameInput" className={styles.inputTitle}>
-              닉네임*
-            </label>
-            <input
-              value={nickname}
-              type="text"
-              id={styles.nicknameSignUpInput}
-              maxLength="10"
-              required
-              onChange={handleChangeNickname}
-              placeholder="닉네임을 입력하세요"
-            />
-            <div className={styles.helperTextContainer}>
-              <div className={styles.helperText}>
-                {nicknameNull && SignUpError.nicknameNullError}
-                {nicknameSpace && SignUpError.nicknameSpaceError}
-                {nicknameDuplicate && SignUpError.nicknameDuplicateError}
-              </div>
-            </div>
-          </div>
+          <EmailInput email={email} setEmail={setEmail} emailState={emailState} emailDispatcher={emailDispatcher} />
+          <PasswordInput password={password} setPassword={setPassword} passwordCheck={passwordCheck} setPasswordCheck={setPasswordCheck} passwordState={passwordState} passwordDispatcher={passwordDispatcher} passwordCheckState={passwordCheckState} passwordCheckDispatcher={passwordCheckDispatcher} />
+          <NicknameInput nickname={nickname} setNickname={setNickname} nicknameState={nicknameState} nicknameDispatcher={nicknameDispatcher} />
         </div>
         <button
           type="button"
