@@ -54,9 +54,6 @@ input {
   font-size: 1.5rem;
 }
 
-#emailInput,
-#passwordInput,
-#passwordCheckInput,
 #nicknameSignUpInput {
   width: 100%;
   box-sizing: border-box;

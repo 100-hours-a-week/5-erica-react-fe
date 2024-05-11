@@ -25,6 +25,10 @@
   display: flex;
 }
 
+.profileImage {
+  background-color: "#f4f5f7";
+}
+
 .setting {
   cursor: pointer;
   text-decoration: none;
