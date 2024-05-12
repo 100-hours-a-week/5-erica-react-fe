@@ -43,7 +43,7 @@ export default function LogInPage() {
         case 200:
           setLogInSuccess(true);
           setTimeout(() => {
-            navigate(navUrl.posts);
+            navigate(navUrl.posts, {replace: true});
           }, 3000);
           break;
         default:

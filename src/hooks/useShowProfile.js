@@ -14,7 +14,7 @@ export function useShowProfile() {
         setShowProfile(false);
       }
 
-      if (pathname === "/signUp" || pathname.includes("/posts")) {
+      if (pathname === "/signUp" || pathname.includes("/posts/")) {
         setShowBackButton(true);
       } else {
         setShowBackButton(false);
