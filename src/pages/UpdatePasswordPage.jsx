@@ -7,8 +7,9 @@ import { usePasswordValidation } from "../hooks/usePasswordValidation";
 import { passwordInitialMessage, passwordMessageReducer } from "../reducer/passwordReducer";
 import { passwordCheckInitialMessage,passwordCheckMessageReducer } from "../reducer/passwordCheckReducer";
 import PasswordInput from "../components/input/PasswordInput";
+import withLogIn from "../hoc/withLogIn";
 
-export default function UpdatePassword() {
+function UpdatePassword() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const navigate = useNavigate();
@@ -57,3 +58,5 @@ export default function UpdatePassword() {
     </section>
   );
 }
+
+export const AuthUpdatePassword = withLogIn(UpdatePassword)

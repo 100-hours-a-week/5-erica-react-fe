@@ -10,8 +10,9 @@ import {
 } from "../utils/errorMessage";
 import useFetch from "../hooks/useFetch";
 import { navUrl } from "../utils/navigate";
+import withLogIn from "../hoc/withLogIn";
 
-export default function UpdateProfile() {
+ function UpdateProfile() {
   const [profile, setProfile] = useState("");
   const [nickname, setNickname] = useState("");
   const [isDelete, setIsDelete] = useState(false);
@@ -213,3 +214,5 @@ export default function UpdateProfile() {
     </section>
   );
 }
+
+export const AuthUpdateProfile = withLogIn(UpdateProfile)
