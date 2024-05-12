@@ -3,7 +3,7 @@ import styles from "../../styles/skeleton/PostsSkeleton.module.css";
 export default function PostsSkeleton() {
   return (
     <>
-      {Array.from({ length: 3 }, (_, index) => (
+      {Array.from({ length: 5 }, (_, index) => (
         <MiniPostSkeleton key={index} />
       ))}
     </>

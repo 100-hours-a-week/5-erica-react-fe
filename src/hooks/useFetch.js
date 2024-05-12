@@ -12,7 +12,7 @@ export default function useFetch(url, options) {
     try {
       const res = await fetch(url, options);
       const json = await res.json();
-      if (json.status === 403 || json.status === 401) {
+      if (json.status === 403 || json.status === 401 || json.status === 404) {
         setData(null);
         setLodaing(false);
         return;
