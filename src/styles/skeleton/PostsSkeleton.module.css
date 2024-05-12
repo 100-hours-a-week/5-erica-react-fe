@@ -1,0 +1,54 @@
+.miniBoardContainer {
+  display: block;
+  margin: 2rem auto 0;
+  width: 100%;
+  height: 17.57rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+
+.miniBoardTitle {
+  height: 2.16rem;
+  width: 30rem;
+  border-radius: 1rem;
+  margin: 1.2rem 0;
+  background-color: lightgray;
+}
+
+.miniBoardContent {
+  display: flex;
+  border-radius: 1rem;
+  justify-content: space-between;
+}
+
+.miniBoardHr {
+  margin: 1.5rem 0;
+  border: 1px solid lightgray;
+}
+
+.miniBoardWriter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.miniWriterImage {
+  background-color: lightgray;
+  border-radius: 50%;
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.action,
+.date,
+.miniWriterName {
+  background-color: lightgray;
+  border-radius: 1rem;
+  height: 1.68rem;
+  width: 16rem;
+}
