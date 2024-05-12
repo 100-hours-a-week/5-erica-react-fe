@@ -5,8 +5,9 @@ import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
 import useFetch from "../hooks/useFetch";
 import { navUrl } from "../utils/navigate";
+import withLogIn from "../hoc/withLogIn";
 
-export default function UpdatePost() {
+export function UpdatePost() {
   const postId = Number(useParams().id);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -141,3 +142,7 @@ export default function UpdatePost() {
     </>
   );
 }
+
+const AuthUpdatePost = withLogIn(UpdatePost)
+
+export {AuthUpdatePost}

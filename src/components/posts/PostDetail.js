@@ -20,6 +20,7 @@ export default function PostDetail({ data, setIsPostDelete }) {
           {data.postImage ? (
             <div className={styles.boardImageContainer}>
               <img
+                loading="eager"
                 className={styles.boardImage}
                 src={data.postImage}
                 alt="board"

@@ -1,9 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function useFetch(url, options) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLodaing] = useState(false);
+  const navigate = useNavigate();
 
   const fetchApi = useCallback(async () => {
     setLodaing(true);
@@ -11,12 +13,17 @@ export default function useFetch(url, options) {
       const res = await fetch(url, options);
       const json = await res.json();
       if (json.status === 403 || json.status === 401) {
-        alert("권한이 없습니다.");
+        setData(null);
+        setLodaing(false);
         return;
       }
 
       if (json.status === 404) {
-        alert("해당하는 페이지가 존재하지 않습니다.");
+        setData(null);
+        setLodaing(false);
+        alert("존재하지 않은 주소입니다.");
+        navigate(-1);
+        return;
       }
 
       setData(json.data);

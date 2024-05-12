@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { backHost, headers } from "../static";
 import { postError } from "../utils/errorMessage";
 import { navUrl } from "../utils/navigate";
+import withLogIn from "../hoc/withLogIn";
 
-export default function AddPost() {
+export function AddPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [postImage, setPostImage] = useState();
@@ -118,3 +119,7 @@ export default function AddPost() {
     </>
   );
 }
+
+const AuthAddPost = withLogIn(AddPost);
+
+export {AuthAddPost}

@@ -1,26 +1,11 @@
 import { Link } from "react-router-dom";
-import { backHost, headers } from "../static";
 import MiniPost from "../components/posts/MiniPost";
 import styles from "../styles/Posts.module.css";
-import useFetch from "../hooks/useFetch";
 import { navUrl } from "../utils/navigate";
+import withLogIn from "../hoc/withLogIn";
+import withLoading from "../hoc/withLoading"
 
-export default function Posts() {
-
-  const {data, loading, error} = useFetch(`${backHost}/api/posts`, {
-    headers,
-    credentials: "include",
-  })
-
-  if(!data || loading || error) {
-    return null;
-  }
-
-  if(error) {
-    console.error("게시물을 불러오는 중 에러가 발생했습니다:", error);
-    alert("게시물을 불러오는 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
-  }
-
+export  function Posts() {
   return (
     <section className={styles.postsMain}>
       <span className={styles.postsTitle}>
@@ -34,12 +19,23 @@ export default function Posts() {
           게시글 작성
         </Link>
       </div>
-      <div className={styles.profileWrapper}>
-        {data.map((post) => (
-          <MiniPost key={post.postId} data={post} />
-        ))}
-        <div className={styles.target}></div>
-      </div>
+      <LoadingMiniPosts />
     </section>
   );
 }
+
+function MiniPostList({data}) {
+  return (
+    <div className={styles.profileWrapper}>
+    {data.map((post) => (
+      <MiniPost key={post.postId} data={post} />
+    ))}
+    <div className={styles.target}></div>
+  </div>
+  )
+}
+
+const LoadingMiniPosts = withLoading(MiniPostList, "posts")
+const AuthPosts = withLogIn(Posts);
+
+export {AuthPosts};
