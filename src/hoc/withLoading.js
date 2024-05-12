@@ -4,67 +4,46 @@ import { useState, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
 import PostSkeleton from "../components/posts/PostSkeleton";
 import PostsSkeleton from "../components/posts/PostsSkeleton";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { navUrl } from "../utils/navigate";
 
 export default function withLoading(Component, type) {
-  switch (type) {
-    case "posts":
-      return function (props) {
-        const [isLoadded, setIsLoadded] = useState(null);
+  return function (props) {
+    const [isLoadded, setIsLoadded] = useState(null);
+    const postId = type === "post" ? Number(useParams().id) : null;
+    const navigate = useNavigate();
 
-        const { data, error } = useFetch(`${backHost}/api/posts`, {
-          headers,
-          credentials: "include",
-        });
+    const url =
+      type === "posts"
+        ? `${backHost}/api/posts`
+        : `${backHost}/api/posts/${postId}`;
 
-        useEffect(() => {
-          if (data) {
-            setIsLoadded(true);
-            if (data.length === 0) alert("게시글이 없습니다.");
-          }
-        }, [data]);
+    const { data, error } = useFetch(url, {
+      headers,
+      credentials: "include",
+    });
 
-        useEffect(() => {
-          if (error) setIsLoadded(false);
-        }, [error]);
+    useEffect(() => {
+      if (data) {
+        setIsLoadded(true);
+        if (data.length === 0) {
+          alert("게시글이 없습니다.");
+          navigate(navUrl.addPost);
+        }
+      }
+    }, [data]);
 
-        if (isLoadded === null) return <PostsSkeleton />;
+    useEffect(() => {
+      if (error) setIsLoadded(false);
+    }, [error]);
 
-        return isLoadded ? (
-          <Component {...props} data={data} />
-        ) : (
-          <Navigate to={navUrl.addPost} />
-        );
-      };
+    if (isLoadded === null)
+      return type === "posts" ? <PostsSkeleton /> : <PostSkeleton />;
 
-    case "post":
-      return function (props) {
-        const postId = Number(useParams().id);
-        const [isLoadded, setIsLoadded] = useState(null);
-
-        const { data, error } = useFetch(`${backHost}/api/posts/${postId}`, {
-          headers,
-          credentials: "include",
-        });
-
-        useEffect(() => {
-          if (data) setIsLoadded(true);
-        }, [data]);
-
-        useEffect(() => {
-          if (error) setIsLoadded(false);
-        }, [error]);
-
-        if (isLoadded === null) return <PostSkeleton />;
-
-        return isLoadded ? (
-          <Component {...props} data={data} />
-        ) : (
-          <Navigate to={navUrl.posts} />
-        );
-      };
-    default:
-      return null;
-  }
+    return isLoadded ? (
+      <Component {...props} data={data} />
+    ) : (
+      <Navigate to={navUrl.posts} />
+    );
+  };
 }
