@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
-export function useShowProfile() {
+export function useShowProfile(pathname) {
   const [showProfile, setShowProfile] = useState(false);
   const [showBackButton, setShowBackButton] = useState(false);
-  const { pathname } = useLocation();
 
   useEffect(
     function showProfile() {
@@ -23,5 +21,5 @@ export function useShowProfile() {
     [pathname]
   );
 
-  return { pathname, showProfile, showBackButton };
+  return { showProfile, showBackButton };
 }

@@ -1,36 +1,35 @@
-import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useCallback, useEffect } from "react";
 
 export default function useFetch(url, options) {
-  const [data, setData] = useState(null);
+  const [logIn, setLogIn] = useState(null);
+  const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLodaing] = useState(false);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const fetchApi = useCallback(async () => {
-    setLodaing(true);
+    setLoading(true);
     try {
       const res = await fetch(url, options);
       const json = await res.json();
-      if (json.status === 403 || json.status === 401 || json.status === 404) {
-        setData(null);
-        setLodaing(false);
+      console.log(json);
+      if (json.status === 200 || json.status === 201) {
+        setLogIn(true);
+        setResponseData(json);
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      if (json.status === 401 || json.stats === 403) {
+        setLogIn(false);
         return;
       }
 
-      if (json.status === 404) {
-        setData(null);
-        setLodaing(false);
-        alert("존재하지 않은 주소입니다.");
-        navigate(-1);
-        return;
-      }
-
-      setData(json.data);
-      setLodaing(false);
+      setLogIn(false);
+      alert("존재하지 않은 주소입니다.");
     } catch (err) {
+      setLogIn(false);
       setError(err);
-      setLodaing(false);
+      setLoading(false);
     }
   }, [url, options]);
 
@@ -38,5 +37,5 @@ export default function useFetch(url, options) {
     fetchApi();
   }, []);
 
-  return { data, error, loading };
+  return { responseData, error, loading, logIn };
 }
