@@ -40,8 +40,6 @@ export default function SignUp() {
     passwordCheckState,
     nicknameState)
 
-  
-
   //이미지 변경 시
   const handleChangeProfileImage = (event) => {
     if (event.target.files.length === 0) {
@@ -55,6 +53,7 @@ export default function SignUp() {
     };
     reader.readAsDataURL(event.target.files[0]);
   };
+
   //프로필 이미지 유효성 검사
   // const checkImageValidation = () => {
   //   if (!profileImage) {
@@ -137,7 +136,16 @@ export default function SignUp() {
         </div>
         <div className={styles.bottomContainer}>
           <EmailInput email={email} setEmail={setEmail} emailState={emailState} emailDispatcher={emailDispatcher} />
-          <PasswordInput password={password} setPassword={setPassword} passwordCheck={passwordCheck} setPasswordCheck={setPasswordCheck} passwordState={passwordState} passwordDispatcher={passwordDispatcher} passwordCheckState={passwordCheckState} passwordCheckDispatcher={passwordCheckDispatcher} />
+          <PasswordInput 
+            password={password} 
+            setPassword={setPassword} 
+            passwordCheck={passwordCheck} 
+            setPasswordCheck={setPasswordCheck} 
+            passwordState={passwordState} 
+            passwordDispatcher={passwordDispatcher} 
+            passwordCheckState={passwordCheckState} 
+            passwordCheckDispatcher={passwordCheckDispatcher} 
+          />
           <NicknameInput nickname={nickname} setNickname={setNickname} nicknameState={nicknameState} nicknameDispatcher={nicknameDispatcher} />
         </div>
         <button

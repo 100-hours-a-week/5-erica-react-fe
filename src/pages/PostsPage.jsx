@@ -3,9 +3,16 @@ import MiniPost from "../components/posts/MiniPost";
 import styles from "../styles/Posts.module.css";
 import { navUrl } from "../utils/navigate";
 import withLogIn from "../hoc/withLogIn";
-import withLoading from "../hoc/withLoading"
+import withLoading from "../hoc/withLoading";
+import { backHost, headers } from "../static";
+import useFetch from "../hooks/useFetch";
 
-export  function Posts() {
+export function Posts() {
+  const { responseData, error, logIn, loading } = useFetch(`${backHost}/api/posts`, {
+    headers,
+    credentials: "include",
+  });
+
   return (
     <section className={styles.postsMain}>
       <span className={styles.postsTitle}>
@@ -19,23 +26,23 @@ export  function Posts() {
           게시글 작성
         </Link>
       </div>
-      <LoadingMiniPosts />
+      <AuthLoadingMiniPosts logIn={logIn} error={error} loading={loading} responseData={responseData?.data} />
     </section>
   );
 }
 
-function MiniPostList({data}) {
+function MiniPostList({ responseData }) {
   return (
     <div className={styles.profileWrapper}>
-    {data.map((post) => (
-      <MiniPost key={post.postId} data={post} />
-    ))}
-    <div className={styles.target}></div>
-  </div>
-  )
+      {responseData.map((post) => (
+        <MiniPost key={post.postId} data={post} />
+      ))}
+      <div className={styles.target}></div>
+    </div>
+  );
 }
 
-const LoadingMiniPosts = withLoading(MiniPostList, "posts")
-const AuthPosts = withLogIn(Posts);
+const LoadingMiniPosts = withLoading(MiniPostList, "posts");
+export const AuthLoadingMiniPosts= withLogIn(LoadingMiniPosts);
 
-export {AuthPosts};
+export default Posts;
