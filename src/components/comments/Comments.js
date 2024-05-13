@@ -9,9 +9,7 @@ export default function Comments({ postId }) {
   const [isAdd, setIsAdd] = useState(true);
   const [updateTarget, setUpdateTarget] = useState();
 
-  const id = Number(postId);
-
-  const { data, loading, error } = useFetch(
+  const { responseData, loading, error } = useFetch(
     `${backHost}/api/posts/${postId}/comments`,
     {
       headers,
@@ -19,7 +17,7 @@ export default function Comments({ postId }) {
     }
   );
 
-  if (!data || loading || error) {
+  if (!responseData || loading || error) {
     return null;
   }
 
@@ -36,12 +34,12 @@ export default function Comments({ postId }) {
         updateTarget={updateTarget}
       />
       <div className={styles.commentList}>
-        {data?.map((comment) => (
+        {responseData?.data.map((comment) => (
           <Comment
             setUpdateTarget={setUpdateTarget}
             key={comment.commentId}
             setIsAdd={setIsAdd}
-            postId={id}
+            postId
             data={comment}
           />
         ))}

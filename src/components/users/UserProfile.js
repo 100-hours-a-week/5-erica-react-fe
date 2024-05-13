@@ -7,12 +7,15 @@ import styles from "../../styles/UserProfile.module.css";
 import { navUrl } from "../../utils/navigate";
 
 export default function UserProfile() {
-  const { data, error, loading } = useFetch(`${backHost}/api/users/user`, {
-    headers,
-    credentials: "include",
-  });
+  const { responseData, error, loading } = useFetch(
+    `${backHost}/api/users/user`,
+    {
+      headers,
+      credentials: "include",
+    }
+  );
 
-  if (!data || loading || error) {
+  if (!responseData || loading || error) {
     return null;
   }
 
@@ -22,8 +25,8 @@ export default function UserProfile() {
 
   return (
     <div className={styles.userSetting}>
-      {data?.profile_image ? (
-        <UserProfileImage image={data.profile_image} size={36} />
+      {responseData?.data?.profile_image ? (
+        <UserProfileImage image={responseData.data.profile_image} size={36} />
       ) : (
         <div className={styles.profileImage}></div>
       )}

@@ -2,35 +2,50 @@ import styles from "../../styles/PostDetail.module.css";
 import UserProfileImage from "../../components/users/UserProfileImage.js";
 import PostButton from "../button/PostButton.js";
 import PostAction from "./PostAction.js";
+import withLoading from "../../hoc/withLoading.js";
+import withLogIn from "../../hoc/withLogIn.js";
 
-export default function PostDetail({ data, setIsPostDelete }) {
+function PostDetail({ responseData, setIsPostDelete }) {
   return (
     <div className={styles.detailBoard}>
       <div className={styles.boardHeader}>
-        <p className={styles.detailBoardTitle}>{data.title}</p>
+        <p className={styles.detailBoardTitle}>{responseData.title}</p>
         <div className={styles.boardHeaderBottom}>
           <div className={styles.writer}>
-            <UserProfileImage image={data.userImage} />
-            <p className={styles.postWriterName}>{data.nickname}</p>
-            <div className={styles.postWriteDate}>{data.created_at}</div>
+            <UserProfileImage image={responseData.userImage} />
+            <p className={styles.postWriterName}>{responseData.nickname}</p>
+            <div className={styles.postWriteDate}>
+              {responseData.created_at}
+            </div>
           </div>
-          <PostButton postId={data.postId} setIsPostDelete={setIsPostDelete} />
+          <PostButton
+            postId={responseData.postId}
+            setIsPostDelete={setIsPostDelete}
+          />
         </div>
         <div className={styles.boardBody}>
-          {data.postImage ? (
+          {responseData.postImage ? (
             <div className={styles.boardImageContainer}>
               <img
                 loading="eager"
                 className={styles.boardImage}
-                src={data.postImage}
+                src={responseData.postImage}
                 alt="board"
               />
             </div>
           ) : null}
-          <div className={styles.boardDetailContent}>{data.content}</div>
+          <div className={styles.boardDetailContent}>
+            {responseData.content}
+          </div>
         </div>
       </div>
-      <PostAction view={data.view} comment={data.comment_count} />
+      <PostAction
+        view={responseData.view}
+        comment={responseData.comment_count}
+      />
     </div>
   );
 }
+
+const LoadingPostDetailPage = withLoading(PostDetail, "post");
+export const AuthPostDetailPage = withLogIn(LoadingPostDetailPage);
