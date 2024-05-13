@@ -39,7 +39,7 @@ export default function Comments({ postId }) {
             setUpdateTarget={setUpdateTarget}
             key={comment.commentId}
             setIsAdd={setIsAdd}
-            postId
+            postId={postId}
             data={comment}
           />
         ))}
