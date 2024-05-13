@@ -2,12 +2,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import Navbar from "./components/Navbar";
-import { AuthUpdatePassword } from "./pages/UpdatePasswordPage";
-import { AuthUpdateProfile } from "./pages/UpdateProfilePage";
-import { AuthPosts } from "./pages/PostsPage";
-import { AuthAddPost } from "./pages/AddPostPage";
-import { AuthPostDetailPage } from "./pages/PostDetailPage";
-import { AuthUpdatePost } from "./pages/UpdatePostPage";
+import UpdatePassword from "./pages/UpdatePasswordPage";
+import UpdateProfile from "./pages/UpdateProfilePage";
+import { Posts } from "./pages/PostsPage";
+import { AddPost } from "./pages/AddPostPage";
+import { PostDetailPage } from "./pages/PostDetailPage";
+import { UpdatePost } from "./pages/UpdatePostPage";
 
 import styles from "./App.module.css";
 
@@ -22,23 +22,20 @@ function App() {
           <Routes>
             <Route path={navUrl.logIn} element={<LogInPage />}></Route>
             <Route path={navUrl.signUp} element={<SignUpPage />}></Route>
-            <Route path={navUrl.posts} element={<AuthPosts />}></Route>
-            <Route path={navUrl.addPost} element={<AuthAddPost />}></Route>
+            <Route path={navUrl.posts} element={<Posts />}></Route>
+            <Route path={navUrl.addPost} element={<AddPost />}></Route>
             <Route
               path={navUrl.postDetail}
-              element={<AuthPostDetailPage />}
+              element={<PostDetailPage />}
             ></Route>
-            <Route
-              path={navUrl.updatePost}
-              element={<AuthUpdatePost />}
-            ></Route>
+            <Route path={navUrl.updatePost} element={<UpdatePost />}></Route>
             <Route
               path={navUrl.updateProfile}
-              element={<AuthUpdateProfile />}
+              element={<UpdateProfile />}
             ></Route>
             <Route
               path={navUrl.updatePassword}
-              element={<AuthUpdatePassword />}
+              element={<UpdatePassword />}
             ></Route>
           </Routes>
         </section>
