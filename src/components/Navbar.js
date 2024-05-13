@@ -5,10 +5,11 @@ import { navUrl } from "../utils/navigate";
 import UserProfile from "./users/UserProfile";
 import styles from "../styles/Navbar.module.css";
 import { useShowProfile } from "../hooks/useShowProfile";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
-  const { pathname, showProfile, showBackButton } = useShowProfile();
-
+  const { pathname } = useLocation();
+  const { showProfile, showBackButton } = useShowProfile(pathname);
   return (
     <section className={styles.navbar}>
       <div className={styles.navbarContainer}>
