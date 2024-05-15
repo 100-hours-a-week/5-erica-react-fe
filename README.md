@@ -108,7 +108,7 @@
 
   |                                                             로그인 화면                                                             |                                                            회원가입 화면                                                            |
   | :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
-  | ![ezgif-7-9cf70996a7](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/5cffbb87-102c-42f9-9086-e33cd5494af5) | ![ezgif-7-fd2d32913e](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/76367ca3-b0ed-4c5c-8cb7-dde981e17f90) |
+  |![ezgif-7-9cf70996a7](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/5cffbb87-102c-42f9-9086-e33cd5494af5) | ![ezgif-7-fd2d32913e](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/76367ca3-b0ed-4c5c-8cb7-dde981e17f90) |
 
 ### [ 게시글 ]
 
@@ -156,4 +156,4 @@
 
   |                                                            회원정보 수정                                                            |                                                            비밀번호 수정                                                            |                                                              로그아웃                                                               |
   | :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
-  | ![ezgif-1-ec81877ba0](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/7656b522-f7bb-43b5-860c-9380156e4e86) | ![ezgif-1-ec81877ba0](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/689893ec-6bf7-4191-aa81-450e792962db) | ![ezgif-1-d56452a0bf](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/e6910ec7-4d85-4355-b58b-56256e0d7c72) |
+  | ![ezgif-2-a1373dcb28](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/5111ff19-4eae-4cec-b18a-72964997d7fc)| ![ezgif-1-ec81877ba0](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/689893ec-6bf7-4191-aa81-450e792962db) | ![ezgif-1-d56452a0bf](https://github.com/100-hours-a-week/5-erica-express-all/assets/81230764/e6910ec7-4d85-4355-b58b-56256e0d7c72) |
