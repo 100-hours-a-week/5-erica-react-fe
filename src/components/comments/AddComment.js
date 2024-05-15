@@ -49,12 +49,10 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
 
       if (responseData.status === 201 && isAdd) {
         alert("댓글이 등록되었습니다.");
-        setComment("");
         window.location.reload();
       } else if (responseData.status === 200 && !isAdd) {
         alert("댓글이 수정되었습니다.");
         setIsAdd(true);
-        setComment("");
         window.location.reload();
       } else {
         alert("댓글 작성 실패");
