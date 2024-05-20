@@ -1,10 +1,11 @@
 import styles from "../styles/AddPost.module.css";
-import { backHost, headers } from "../static";
+import { headers } from "../static";
 import { AuthAddPost } from "../components/posts/AddPostContainer";
 import useFetch from "../hooks/useFetch";
+import { FetchUrl } from "../utils/constants";
 
 export function AddPost() {
-  const { responseData, loading, error, logIn } = useFetch(`${backHost}/api/users/logIn`, {
+  const { responseData, loading, error, logIn } = useFetch(FetchUrl.logIn, {
     headers,
     credentials: "include",
   });

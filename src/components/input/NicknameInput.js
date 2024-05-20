@@ -1,6 +1,7 @@
 import styles from "../../styles/input/nicknameInput.module.css";
-import { backHost, headers } from "../../static";
 import { NICKNAME_STATUS } from "../../utils/status";
+import { apiRequest } from "../../utils/fetchData";
+import { FetchUrl } from "../../utils/constants";
 
 export default function NicknameInput({
   nickname,
@@ -27,20 +28,10 @@ export default function NicknameInput({
     }
     nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
 
-    const isNicknameDuplicate = await fetch(
-      `${backHost}/api/users/signup/nickname/${nickname}`,
-      {
-        headers,
-        credentials: "include",
-        method: "POST",
-      }
-    ).then(async (response) => {
-      const data = await response.json();
-      if (data.status === 400) {
-        return true;
-      }
-      return false;
-    });
+    const isNicknameDuplicate = await apiRequest({
+      url: `${FetchUrl.signUpNickname}/${nickname}`,
+      method: "POST",
+    }).then((data) => data.status === 400);
 
     if (isNicknameDuplicate) {
       nicknameDispatcher({ type: NICKNAME_STATUS.Duplicate });

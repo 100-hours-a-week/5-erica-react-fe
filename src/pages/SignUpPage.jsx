@@ -1,5 +1,4 @@
 import styles from "../styles/SignUp.module.css";
-import { backHost, headers } from "../static";
 import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
 import { SignUpError } from "../utils/errorMessage";
@@ -7,12 +6,14 @@ import { navUrl } from "../utils/navigate";
 import { emailInitialMessage, emailMessageReducer  } from "../reducer/emailReducer";
 import { passwordInitialMessage, passwordMessageReducer } from "../reducer/passwordReducer";
 import { passwordCheckInitialMessage,passwordCheckMessageReducer } from "../reducer/passwordCheckReducer";
-import { nicknameReduer, nicknameInitialMessage } from "../reducer/nicknameReducer";
+import { nicknameMessageReduer, nicknameInitialMessage } from "../reducer/nicknameReducer";
 import { useSignUpValidation } from "../hooks/useSignUpValidation";
 
 import EmailInput from "../components/input/EmailInput";
 import PasswordInput from "../components/input/PasswordInput";
 import NicknameInput from "../components/input/NicknameInput";
+import { FetchUrl } from "../utils/constants";
+import { apiRequest } from "../utils/fetchData";
 
 const reader = new FileReader();
 
@@ -20,7 +21,7 @@ export default function SignUp() {
   const [emailState, emailDispatcher] = useReducer(emailMessageReducer, emailInitialMessage);
   const [passwordState, passwordDispatcher] = useReducer(passwordMessageReducer,passwordInitialMessage)
   const [passwordCheckState, passwordCheckDispatcher] = useReducer(passwordCheckMessageReducer, passwordCheckInitialMessage)
-  const [nicknameState, nicknameDispatcher] = useReducer(nicknameReduer, nicknameInitialMessage, )
+  const [nicknameState, nicknameDispatcher] = useReducer(nicknameMessageReduer, nicknameInitialMessage )
 
   const [profileImage, setProfileImage] = useState("");
   const [email, setEmail] = useState("");
@@ -67,25 +68,22 @@ export default function SignUp() {
 
   //회원가입 버튼 클릭 시
   const handleClickSignUp = async () => {
-    if (!isValid)  return ;
-
-    const data = JSON.stringify({
+    if (!isValid) return;
+  
+    const data = {
       email,
       password,
       nickname,
       profile_image: profileImage,
-    });
-
+    };
+  
     try {
-      const response = await fetch(`${backHost}/api/users/signup`, {
-        headers,
-        credentials: "include",
+      const responseData = await apiRequest({
+        url: FetchUrl.signUp,
         method: "POST",
         body: data,
       });
-
-      const responseData = await response.json();
-
+  
       switch (responseData.status) {
         case 201:
           alert("회원가입 성공");
@@ -100,6 +98,7 @@ export default function SignUp() {
       alert("회원가입 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
+  
 
   return (
     <section className={styles.signUpMain}>

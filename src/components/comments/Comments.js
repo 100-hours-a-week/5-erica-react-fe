@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { backHost, headers } from "../../static";
+import { headers } from "../../static";
 import AddComment from "./AddComment.js";
 import Comment from "./Comment.js";
 import styles from "../../styles/Comments.module.css";
 import useFetch from "../../hooks/useFetch.js";
+import { FetchUrl } from "../../utils/constants.js";
 
 export default function Comments({ postId }) {
   const [isAdd, setIsAdd] = useState(true);
   const [updateTarget, setUpdateTarget] = useState();
 
   const { responseData, loading, error } = useFetch(
-    `${backHost}/api/posts/${postId}/comments`,
+    `${FetchUrl.posts}/${postId}/comments`,
     {
       headers,
       credentials: "include",

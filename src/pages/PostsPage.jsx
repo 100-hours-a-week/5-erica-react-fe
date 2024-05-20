@@ -4,11 +4,12 @@ import styles from "../styles/Posts.module.css";
 import { navUrl } from "../utils/navigate";
 import withLogIn from "../hoc/withLogIn";
 import withLoading from "../hoc/withLoading";
-import { backHost, headers } from "../static";
+import { headers } from "../static";
 import useFetch from "../hooks/useFetch";
+import { FetchUrl } from "../utils/constants";
 
 export function Posts() {
-  const { responseData, error, logIn, loading } = useFetch(`${backHost}/api/posts`, {
+  const { responseData, error, logIn, loading } = useFetch(FetchUrl.posts, {
     headers,
     credentials: "include",
   });

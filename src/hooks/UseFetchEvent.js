@@ -1,26 +1,25 @@
-import useFetch from "./useFetch";
+import { useState } from "react";
 
-export function UseFetchEvent({ url, options }) {
-  //useFetch부르고
-  // const handleEvent = async () => {
-  //   try {
-  //     const response = await fetch(url, options);
-  //     const responseData = await response.json();
-  //     return responseData;
-  //   } catch (error) {
-  //     console.error("Error logging out:", error);
-  //   }
-  // };
-  console.log("click");
-  const { data, error, loading } = useFetch(url, options);
+export default function useFetchEvent(url, options) {
+  const [loading, setLoading] = useState(false);
 
-  if (!data || loading || error) {
-    return null;
-  }
+  const fetchEventApi = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(url, options);
+      const json = await res.json();
+      if (json.status === 200 || json.status === 201) {
+        setLoading(false);
+        return json;
+      }
+      setLoading(false);
+      alert("존재하지 않은 주소입니다.");
+      return null;
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
 
-  if (error) {
-    console.log(error);
-  }
-
-  return { data, error, loading };
+  return { loading, fetchEventApi };
 }

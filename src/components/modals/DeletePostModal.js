@@ -1,8 +1,9 @@
-import { backHost, headers } from "../../static.js";
 import { useNavigate } from "react-router-dom";
 import { enableScroll } from "../../utils/scroll.js";
 import Modal from "./Modal.js";
 import { navUrl } from "../../utils/navigate.js";
+import { FetchUrl } from "../../utils/constants.js";
+import { apiRequest } from "../../utils/fetchData.js";
 
 export default function DeletePostModal({
   postId,
@@ -20,12 +21,10 @@ export default function DeletePostModal({
 
   const handleClickDeleteConfirm = async () => {
     try {
-      const deleteResponse = await fetch(`${backHost}/api/posts/${postId}`, {
-        headers,
-        credentials: "include",
+      const responseData = await apiRequest({
+        url: `${FetchUrl.posts}/${postId}`,
         method: "DELETE",
       });
-      const responseData = await deleteResponse.json();
 
       if (responseData.status === 200) {
         alert("게시물이 삭제되었습니다.");

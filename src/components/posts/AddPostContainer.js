@@ -1,10 +1,11 @@
 import styles from "../../styles/AddPost.module.css";
-import { backHost, headers } from "../../static";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postError } from "../../utils/errorMessage";
 import { navUrl } from "../../utils/navigate";
 import withLogIn from "../../hoc/withLogIn";
+import { FetchUrl } from "../../utils/constants";
+import { apiRequest } from "../../utils/fetchData";
 
 function AddPostContainer() {
   const [title, setTitle] = useState("");
@@ -32,18 +33,15 @@ function AddPostContainer() {
     setIsEnable(false);
 
     try {
-      const response = await fetch(`${backHost}/api/posts`, {
-        headers,
-        credentials: "include",
+      const responseData = await apiRequest({
+        url: FetchUrl.posts,
         method: "POST",
-        body: JSON.stringify({
+        body: {
           title,
           content,
           postImageSrc: postImage,
-        }),
+        },
       });
-
-      const responseData = await response.json();
 
       switch (responseData.status) {
         case 201:

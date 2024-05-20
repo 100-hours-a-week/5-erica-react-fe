@@ -8,7 +8,7 @@ import { NICKNAME_STATUS } from "../utils/status";
 export const nicknameInitialMessage = { nicknameMessage: "" };
 
 //닉네임 hyperText
-export function nicknameReduer(_, action) {
+export function nicknameMessageReduer(_, action) {
   switch (action.type) {
     case NICKNAME_STATUS.Null:
       return { nicknameMessage: nicknameNullError };

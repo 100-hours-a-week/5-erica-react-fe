@@ -1,10 +1,11 @@
 import styles from "../styles/UpdateProfile.module.css";
-import { backHost, headers } from "../static";
+import { headers } from "../static";
 import {AuthUpdateProfile} from "../components/users/UpdateProfileContainer"
 import useFetch from "../hooks/useFetch";
+import { FetchUrl } from "../utils/constants";
 
 export default  function UpdateProfile() {
-  const {responseData, error, logIn} = useFetch(`${backHost}/api/users/user`, {
+  const {responseData, error, logIn} = useFetch(FetchUrl.user, {
     headers,
     credentials: "include",
   })

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { backHost, headers } from "../../static";
+import { FetchUrl } from "../../utils/constants";
 import styles from "../../styles/AddComment.module.css";
+import { apiRequest } from "../../utils/fetchData";
 
 export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
   const [comment, setComment] = useState("");
@@ -32,20 +33,17 @@ export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {
 
   const handleClickComment = async () => {
     const url = isAdd
-      ? `${backHost}/api/posts/${postId}/comments`
-      : `${backHost}/api/posts/${postId}/comments/${updateTarget.commentId}`;
+      ? `${FetchUrl.posts}/${postId}/comments`
+      : `${FetchUrl.posts}/${postId}/comments/${updateTarget.commentId}`;
 
     const method = isAdd ? "POST" : "PATCH";
 
     try {
-      const response = await fetch(url, {
-        headers,
-        credentials: "include",
+      const responseData = await apiRequest({
+        url,
         method,
-        body: JSON.stringify({ comment }),
+        body: { comment },
       });
-
-      const responseData = await response.json();
 
       if (responseData.status === 201 && isAdd) {
         alert("댓글이 등록되었습니다.");

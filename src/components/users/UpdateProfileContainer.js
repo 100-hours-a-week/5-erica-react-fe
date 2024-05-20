@@ -1,24 +1,26 @@
 import { disableScroll } from "../../utils/scroll";
 import DeleteUserModal from "../modals/DeleteUserModal";
 import styles from "../../styles/UpdateProfile.module.css";
-import { backHost, headers } from "../../static";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import {
-  nicknameNullError,
-  nicknameSpaceError,
-  nicknameDuplicateError,
-} from "../../utils/errorMessage";
+  nicknameMessageReduer,
+  nicknameInitialMessage,
+} from "../../reducer/nicknameReducer";
+import { NICKNAME_STATUS } from "../../utils/status";
 import { navUrl } from "../../utils/navigate";
 import withLogIn from "../../hoc/withLogIn";
+import { FetchUrl } from "../../utils/constants";
+import { apiRequest } from "../../utils/fetchData";
 
 function UpdateProfileContainer({ responseData }) {
   const [profile, setProfile] = useState("");
   const [nickname, setNickname] = useState("");
   const [isDelete, setIsDelete] = useState(false);
+  const [nicknameState, nicknameDispatcher] = useReducer(
+    nicknameMessageReduer,
+    nicknameInitialMessage
+  );
 
-  const [nicknameNull, setNicknameNull] = useState(false);
-  const [nicknameSpace, setNicknameSpace] = useState(false);
-  const [nicknameDuplicate, setNicknameDuplicate] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [isAble, setIsAble] = useState(false);
   const reader = new FileReader();
@@ -35,63 +37,46 @@ function UpdateProfileContainer({ responseData }) {
 
   useEffect(
     function enableButton() {
-      if (
-        profile &&
-        nickname &&
-        !nicknameNull &&
-        !nicknameSpace &&
-        !nicknameDuplicate
-      )
+      if (profile && nickname && !nicknameState.nicknameMessage)
         setIsAble(true);
       else setIsAble(false);
     },
-    [profile, nickname, nicknameNull, nicknameSpace, nicknameDuplicate]
+    [profile, nickname, nicknameState]
   );
 
   if (!responseData) {
     return null;
   }
 
-  const handleChangeNickname = (event) => {
-    if (!event.target.value) setNicknameNull(true);
+  const handleChangeNickname = async (event) => {
     setNickname(event.target.value);
-    setNicknameNull(false);
+    await checkNicknameValidation(event.target.value);
   };
 
   //닉네임 유효성 검사
   const checkNicknameValidation = async () => {
     if (!nickname) {
-      setNicknameNull(true);
+      nicknameDispatcher({ type: NICKNAME_STATUS.Null });
       return false;
     }
-    setNicknameNull(false);
+    nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
 
     if (String(nickname).includes(" ")) {
-      setNicknameSpace(true);
+      nicknameDispatcher({ type: NICKNAME_STATUS.Space });
       return false;
     }
-    setNicknameSpace(false);
+    nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
 
-    const isNicknameDuplicate = await fetch(
-      `${backHost}/api/users/nickname/${nickname}`,
-      {
-        headers,
-        credentials: "include",
-        method: "POST",
-      }
-    ).then(async (response) => {
-      const data = await response.json();
-      if (data.status === 400) {
-        return true;
-      }
-      return false;
-    });
+    const isNicknameDuplicate = await apiRequest({
+      url: `${FetchUrl.nickname}/${nickname}`,
+      method: "POST",
+    }).then((data) => data.status === 400);
 
     if (isNicknameDuplicate) {
-      setNicknameDuplicate(true);
+      nicknameDispatcher({ type: NICKNAME_STATUS.Duplicate });
       return false;
     }
-    setNicknameDuplicate(false);
+    nicknameDispatcher({ type: NICKNAME_STATUS.Reset });
     return true;
   };
 
@@ -108,17 +93,14 @@ function UpdateProfileContainer({ responseData }) {
     if (!isValid) return;
 
     try {
-      const updateResponse = await fetch(`${backHost}/api/users/user/profile`, {
-        headers,
-        credentials: "include",
+      const updateData = await apiRequest({
+        url: FetchUrl.profile,
         method: "PATCH",
-        body: JSON.stringify({
+        body: {
           nickname,
           profile_image: profile,
-        }),
+        },
       });
-
-      const updateData = await updateResponse.json();
 
       if (updateData.status === 201) {
         setShowToast(true);
@@ -184,9 +166,7 @@ function UpdateProfileContainer({ responseData }) {
           />
           <div className={styles.helperTextContainer}>
             <div className={styles.helperText}>
-              {nicknameNull && nicknameNullError}
-              {nicknameSpace && nicknameSpaceError}
-              {nicknameDuplicate && nicknameDuplicateError}
+              {nicknameState.nicknameMessage}
             </div>
           </div>
         </div>

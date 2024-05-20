@@ -1,17 +1,14 @@
-import { backHost, headers } from "../static";
+import { FetchUrl } from "./constants";
+import { apiRequest } from "./fetchData";
 
 export const checkCommentOwner = async (postId, commentId) => {
   try {
-    const checkData = await fetch(
-      `${backHost}/api/posts/${postId}/comments/checkOwner`,
-      {
-        headers,
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({ commentId }),
-      }
-    );
-    return await checkData.json();
+    const checkData = await apiRequest({
+      url: `${FetchUrl.posts}/${postId}/comments/checkOwner`,
+      method: "POST",
+      body: { commentId },
+    });
+    return checkData;
   } catch (error) {
     console.log(error);
   }
@@ -19,13 +16,12 @@ export const checkCommentOwner = async (postId, commentId) => {
 
 export const checkPostOwner = async (postId) => {
   try {
-    const checkData = await fetch(`${backHost}/api/posts/checkOwner`, {
-      headers,
-      credentials: "include",
+    const checkData = await apiRequest({
+      url: FetchUrl.checkPostOwner,
       method: "POST",
-      body: JSON.stringify({ postId }),
+      body: { postId },
     });
-    return await checkData.json();
+    return checkData;
   } catch (error) {
     console.log(error);
   }

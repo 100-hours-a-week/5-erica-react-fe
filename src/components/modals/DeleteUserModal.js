@@ -1,8 +1,9 @@
-import { backHost, headers } from "../../static.js";
 import { useNavigate } from "react-router-dom";
 import { enableScroll } from "../../utils/scroll.js";
 import Modal from "./Modal.js";
 import { navUrl } from "../../utils/navigate.js";
+import { FetchUrl } from "../../utils/constants.js";
+import { apiRequest } from "../../utils/fetchData.js";
 
 export default function DeleteUserModal({ isDelete, setIsDelete }) {
   const navigate = useNavigate();
@@ -17,12 +18,10 @@ export default function DeleteUserModal({ isDelete, setIsDelete }) {
 
   const handleClickDeleteUserConfirm = async () => {
     try {
-      const deleteResponse = await fetch(`${backHost}/api/users/user`, {
-        headers,
-        credentials: "include",
+      const deleteData = await apiRequest({
+        url: FetchUrl.user,
         method: "DELETE",
       });
-      const deleteData = await deleteResponse.json();
 
       if (deleteData.status === 200) {
         alert("계정이 삭제되었습니다.");

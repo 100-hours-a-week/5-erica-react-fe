@@ -1,8 +1,9 @@
 import styles from "../../styles/button/LogoutButton.module.css";
-import { backHost, headers } from "../../static";
 import { navUrl } from "../../utils/navigate";
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { FetchUrl } from "../../utils/constants";
+import { apiRequest } from "../../utils/fetchData";
 
 export default function LogoutButton() {
   const navigate = useNavigate();
@@ -11,19 +12,17 @@ export default function LogoutButton() {
   const handleClickLogOut = useCallback(async () => {
     try {
       setLogoutStatus("loading");
-      const response = await fetch(`${backHost}/api/users/logOut`, {
-        headers,
+      const responseData = await apiRequest({
+        url: FetchUrl.logOut,
         method: "DELETE",
-        credentials: "include",
       });
-
-      const responseData = await response.json();
 
       if (responseData.status !== 200) {
         setLogoutStatus("fail");
         alert("로그아웃 실패. 다시 시도하세요.");
         return;
       }
+
       setLogoutStatus("success");
       alert("로그아웃 됐습니다.");
       navigate(navUrl.logIn);

@@ -4,7 +4,8 @@ import { postError } from "../../utils/errorMessage";
 import { navUrl } from "../../utils/navigate";
 import withLogIn from "../../hoc/withLogIn";
 import styles from "../../styles/UpdatePost.module.css";
-import { backHost, headers } from "../../static";
+import { FetchUrl } from "../../utils/constants";
+import { apiRequest } from "../../utils/fetchData";
 
 function UpdateContainer({ responseData, postId }) {
   const [title, setTitle] = useState("");
@@ -41,18 +42,15 @@ function UpdateContainer({ responseData, postId }) {
 
   const handleClickUpdatePost = async () => {
     try {
-      const response = await fetch(`${backHost}/api/posts/${postId}`, {
-        headers,
-        credentials: "include",
+      const responseData = await apiRequest({
+        url: `${FetchUrl.posts}/${postId}`,
         method: "PATCH",
-        body: JSON.stringify({
+        body: {
           title,
           content,
           postImageInput: postImage,
-        }),
+        },
       });
-
-      const responseData = await response.json();
 
       switch (responseData.status) {
         case 200:

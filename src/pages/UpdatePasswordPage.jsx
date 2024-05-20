@@ -1,10 +1,11 @@
 import styles from "../styles/UpdatePassword.module.css";
-import { backHost, headers } from "../static";
+import { headers } from "../static";
 import useFetch from "../hooks/useFetch";
 import { AuthUpdatePassword } from "../components/users/UpdatePasswordContainer";
+import { FetchUrl } from "../utils/constants";
 
 export default function UpdatePassword() {
-  const { responseData, error, logIn } = useFetch(`${backHost}/api/users/logIn`, {
+  const { responseData, error, logIn } = useFetch(FetchUrl.logIn, {
     headers,
     credentials: "include",
   });

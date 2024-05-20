@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import styles from "../styles/UpdatePost.module.css";
-import { backHost, headers } from "../static";
+import { headers } from "../static";
 import useFetch from "../hooks/useFetch";
 import { AuthUpdatePost } from "../components/posts/UpdatePostContainer";
+import { FetchUrl } from "../utils/constants";
 
 export function UpdatePost() {
   const postId = Number(useParams().id);
 
-  const {responseData, loading, error} = useFetch(`${backHost}/api/posts/${postId}/update`, {
+  const {responseData, loading, error} = useFetch(`${FetchUrl.posts}/${postId}/update`, {
     headers,
     credentials: "include",
   });

@@ -1,6 +1,7 @@
-import { backHost, headers } from "../../static.js";
+import { FetchUrl } from "../../utils/constants.js";
 import { enableScroll } from "../../utils/scroll.js";
 import Modal from "./Modal.js";
+import { apiRequest } from "../../utils/fetchData.js";
 
 export default function DeleteCommentModal({
   postId,
@@ -13,15 +14,10 @@ export default function DeleteCommentModal({
 
   const handleClickDeleteConfirm = async () => {
     try {
-      const response = await fetch(
-        `${backHost}/api/posts/${postId}/comments/${commentId}`,
-        {
-          credentials: "include",
-          headers,
-          method: "DELETE",
-        }
-      );
-      const responseData = await response.json();
+      const responseData = await apiRequest({
+        url: `${FetchUrl.posts}/${postId}/comments/${commentId}`,
+        method: "DELETE",
+      });
 
       if (responseData?.status === 200) {
         alert("댓글이 삭제되었습니다.");

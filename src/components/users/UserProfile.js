@@ -1,19 +1,17 @@
-import { backHost, headers } from "../../static";
+import { headers } from "../../static";
 import { Link } from "react-router-dom";
 import UserProfileImage from "./UserProfileImage";
 import useFetch from "../../hooks/useFetch";
 import LogoutButton from "../button/LogOutButton";
 import styles from "../../styles/UserProfile.module.css";
 import { navUrl } from "../../utils/navigate";
+import { FetchUrl } from "../../utils/constants";
 
 export default function UserProfile() {
-  const { responseData, error, loading } = useFetch(
-    `${backHost}/api/users/user`,
-    {
-      headers,
-      credentials: "include",
-    }
-  );
+  const { responseData, error, loading } = useFetch(FetchUrl.user, {
+    headers,
+    credentials: "include",
+  });
 
   if (!responseData || loading || error) {
     return null;

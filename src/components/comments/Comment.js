@@ -10,7 +10,7 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
 
   const handleClick = async (action) => {
     const checkResponseData = await checkCommentOwner(postId, data.commentId);
-
+    console.log(checkResponseData);
     if (checkResponseData.status === 403) {
       alert("본인이 작성한 댓글이 아닙니다.");
       return;

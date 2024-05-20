@@ -1,6 +1,7 @@
 import styles from "../../styles/input/emailInput.module.css";
-import { headers, backHost } from "../../static";
 import { EMAIL_STATUS } from "../../utils/status";
+import { FetchUrl } from "../../utils/constants";
+import { apiRequest } from "../../utils/fetchData";
 
 export default function EmailInput({
   email,
@@ -29,20 +30,10 @@ export default function EmailInput({
     }
     emailDispatcher({ type: EMAIL_STATUS.Reset });
 
-    const isEmailDuplicate = await fetch(
-      `${backHost}/api/users/email/${email}`,
-      {
-        headers,
-        credentials: "include",
-        method: "POST",
-      }
-    ).then(async (response) => {
-      const data = await response.json();
-      if (data.status === 400) {
-        return true;
-      }
-      return false;
-    });
+    const isEmailDuplicate = await apiRequest({
+      url: `${FetchUrl.email}/${email}`,
+      method: "POST",
+    }).then((data) => data.status === 400);
 
     if (isEmailDuplicate) {
       emailDispatcher({ type: EMAIL_STATUS.Duplicate });

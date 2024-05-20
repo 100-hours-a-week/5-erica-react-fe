@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { backHost, headers } from "../static";
 import styles from "../styles/LogIn.module.css";
 import { emailNotValidErrorLine } from "../utils/errorMessage";
 import { navUrl } from "../utils/navigate";
+import { FetchUrl } from "../utils/constants";
+import { apiRequest } from "../utils/fetchData";
 
 export default function LogInPage() {
   const [email, setEmail] = useState("");
@@ -23,27 +24,24 @@ export default function LogInPage() {
 
   const handleClickLogIn = async () => {
     const isEmailValid = checkEmailValidation(email);
-
+  
     if (!isEmailValid) return;
-
+  
     try {
-      const response = await fetch(`${backHost}/api/users/login`, {
-        headers,
-        credentials: "include",
+      const responseData = await apiRequest({
+        url: FetchUrl.logIn,
         method: "POST",
-        body: JSON.stringify({
+        body: {
           email,
           password,
-        }),
+        },
       });
-
-      const responseData = await response.json();
-
+  
       switch (responseData.status) {
         case 200:
           setLogInSuccess(true);
           setTimeout(() => {
-            navigate(navUrl.posts, {replace: true});
+            navigate(navUrl.posts, { replace: true });
           }, 3000);
           break;
         default:
@@ -56,6 +54,7 @@ export default function LogInPage() {
       alert("로그인 요청 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
+  
 
   const checkEmailValidation = (email) => {
     const emailForm = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
