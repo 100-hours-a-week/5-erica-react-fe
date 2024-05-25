@@ -1,13 +1,19 @@
 :root {
   --button-enabled: #7f6aee;
   --button-disabled: #aca0eb;
+  --yellow: #febe98;
 }
 
 html {
+  background-color: white;
   font-size: 62.5%;
 }
 
 body {
+  /* 익스플로러 스크롤바 옵션 */
+  -ms-overflow-style: none;
+  /* 파이어폭스 스크롤바 옵션 */
+  scrollbar-width: none;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -30,11 +36,23 @@ body {
 }
 
 .main {
-  margin: 10rem auto 0;
-  max-width: 60rem;
+  margin: 1rem auto 0;
   width: 100%;
-  height: fit-content;
+  height: 100%;
+  max-width: 70rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.container {
+  min-width: 35rem;
+  border-radius: 2rem;
+  margin: 0 2rem;
+  height: 100%;
+  padding-top: 8rem;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
