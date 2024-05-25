@@ -1,20 +1,25 @@
 .userSetting {
   position: relative;
+  width: fit-content;
+  height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding-right: 2rem;
 }
 
 .settingList {
   cursor: pointer;
   display: none;
-  width: 15rem;
+  width: 17rem;
+  top: 3rem;
+  right: 4rem;
   flex-direction: column;
   position: absolute;
-  top: 2rem;
-  right: 3rem;
   border-radius: 2rem;
+  padding: 1rem;
+  background-color: lightgray;
 }
 
 .userSetting:hover .settingList {
@@ -34,6 +39,7 @@
   text-decoration: none;
   color: black;
   display: flex;
+  border-radius: 2rem;
   justify-content: center;
   align-items: center;
   width: 100%;

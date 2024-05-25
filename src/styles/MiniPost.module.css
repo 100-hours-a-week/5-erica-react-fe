@@ -1,6 +1,7 @@
 .miniBoardContainer {
   display: block;
   margin: 0 auto;
+  min-width: 30rem;
   width: 100%;
   background-color: white;
   padding: 2rem;

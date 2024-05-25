@@ -1,7 +1,7 @@
 .postsMain {
   max-width: 60rem;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 90px);
 }
 
 .profileWrapper {
@@ -9,7 +9,7 @@
   width: 100%;
   height: calc(100vh - 240px);
   overflow-y: scroll;
-  max-width: 70rem;
+  max-width: 60rem;
   display: flex;
   flex-direction: column;
   align-items: center;
