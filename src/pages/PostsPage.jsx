@@ -34,12 +34,12 @@ export function Posts() {
 
 function MiniPostList({ responseData }) {
   return (
-    <div className={styles.profileWrapper}>
-      {responseData.map((post) => (
-        <MiniPost key={post.postId} data={post} />
-      ))}
-      <div className={styles.target}></div>
-    </div>
+      <div className={styles.postsWrapper}>
+        {responseData.map((post) => (
+          <MiniPost key={post.postId} data={post} />
+        ))}
+        <div className={styles.target}></div>
+      </div>
   );
 }
 
