@@ -1,19 +1,15 @@
 .boardAction {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-.readCount,
-.commentCount {
-  background-color: lightgrey;
-  width: 8rem;
-  height: 8rem;
+.count {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  border-radius: 1rem;
+  font-size: 1.2rem;
+  gap: 1rem;
+}
+
+.readNumber,
+.commentNumber {
+  display: flex;
 }

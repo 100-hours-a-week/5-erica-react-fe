@@ -17,7 +17,7 @@
   right: 4rem;
   flex-direction: column;
   position: absolute;
-  border-radius: 2rem;
+  border-radius: 1rem;
   padding: 1rem;
   background-color: lightgray;
 }
@@ -39,7 +39,7 @@
   text-decoration: none;
   color: black;
   display: flex;
-  border-radius: 2rem;
+  border-radius: 1rem;
   justify-content: center;
   align-items: center;
   width: 100%;

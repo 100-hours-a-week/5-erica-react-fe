@@ -2,6 +2,8 @@
   margin-top: 1rem;
   margin-bottom: 5rem;
   width: 100%;
+  box-sizing: border-box;
+  max-width: 70rem;
 }
 
 .commentList {

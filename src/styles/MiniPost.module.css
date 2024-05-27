@@ -3,17 +3,38 @@
   margin: 0 auto;
   min-width: 30rem;
   width: 100%;
-  background-color: white;
   padding: 2rem;
-  border-radius: 2rem;
+  background-color: white;
+  border-radius: 1rem;
   box-sizing: border-box;
   text-decoration: none;
   color: black;
 }
 
+.bookMark {
+  width: 2rem;
+  height: 2rem;
+}
+
+.titleContainer {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .miniBoardContent {
   display: flex;
   justify-content: space-between;
+}
+
+.miniBoardTitle {
+  font-weight: 700;
+  font-size: 1.7rem;
+}
+
+.miniBoardContainer:hover {
+  box-shadow: 0 0.2rem 1.4rem 0.2rem rgba(0, 0, 0, 0.102);
 }
 
 .action {

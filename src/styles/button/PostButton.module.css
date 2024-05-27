@@ -6,10 +6,10 @@
   justify-content: center;
   text-decoration: none;
   padding: 0.1rem 1rem;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: black;
   cursor: pointer;
-  border: 0.1rem solid black;
+  border: 0;
   height: 3rem;
   box-sizing: border-box;
 }

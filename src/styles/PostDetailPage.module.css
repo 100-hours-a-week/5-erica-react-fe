@@ -1,0 +1,7 @@
+.detailPage {
+  max-width: 108rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

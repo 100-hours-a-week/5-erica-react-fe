@@ -116,13 +116,13 @@ input {
   height: 4rem;
   background-color: var(--button-enabled);
   border: 0;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.3rem;
   font-weight: 600;
-  color: white;
+  color: black;
   text-decoration: none;
   cursor: pointer;
 }
@@ -134,13 +134,13 @@ input {
   height: 4rem;
   background-color: var(--button-disabled);
   border: 0;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.3rem;
   font-weight: 600;
-  color: white;
+  color: black;
   text-decoration: none;
   cursor: pointer;
 }

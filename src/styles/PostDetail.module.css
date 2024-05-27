@@ -1,5 +1,11 @@
 .detailBoard {
   width: 100%;
+  box-sizing: border-box;
+  max-width: 70rem;
+}
+
+.boardHeader {
+  margin-top: 2rem;
 }
 
 .detailBoardTitle {

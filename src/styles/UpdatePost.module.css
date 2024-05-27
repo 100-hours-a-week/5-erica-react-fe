@@ -5,7 +5,7 @@
 }
 
 .boardContainer {
-  max-width: 60rem;
+  max-width: 70rem;
   width: 100%;
 }
 
@@ -59,10 +59,10 @@ hr {
   width: 40rem;
   height: 5rem;
   cursor: pointer;
-  color: white;
+  color: black;
   background-color: var(--button-enabled);
   border: 0;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,10 +76,10 @@ hr {
   width: 40rem;
   height: 6rem;
   cursor: pointer;
-  color: white;
+  color: black;
   background-color: var(--button-disabled);
   border: 0;
-  border-radius: 2rem;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;

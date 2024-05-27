@@ -48,7 +48,7 @@
 
 .submitButton {
   cursor: pointer;
-  background-color: var(--button-disabled);
+  background-color: var(--button-enabled);
   color: black;
 }
 
