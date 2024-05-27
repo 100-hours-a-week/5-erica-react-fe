@@ -1,6 +1,7 @@
 .writeComment {
-  background-color: white;
-  width: 100%;
+  border: 1px solid lightgray;
+  margin: 2rem;
+  box-sizing: border-box;
   height: fit-content;
   border-radius: 1rem;
   display: flex;

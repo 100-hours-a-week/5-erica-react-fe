@@ -1,11 +1,11 @@
 :root {
-  --button-enabled: #7f6aee;
-  --button-disabled: #aca0eb;
-  --yellow: #febe98;
+  --button-enabled: #fbe300;
+  --button-hover: #e9d200;
+  --button-disabled: #f3f38a;
 }
 
 html {
-  background-color: white;
+  background: #b4c8bb;
   font-size: 62.5%;
 }
 
@@ -17,7 +17,6 @@ body {
   padding: 0;
   margin: 0;
   width: 100%;
-  background: #f4f5f6;
   font-family: "Noto Sans KR", sans-serif;
 }
 
@@ -39,7 +38,7 @@ body {
   margin: 1rem auto 0;
   width: 100%;
   height: 100%;
-  max-width: 70rem;
+  max-width: 109rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -47,7 +46,7 @@ body {
 
 .container {
   min-width: 35rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   margin: 0 2rem;
   height: 100%;
   padding-top: 8rem;

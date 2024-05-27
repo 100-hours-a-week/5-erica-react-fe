@@ -34,7 +34,7 @@
 }
 
 .miniBoardContainer:hover {
-  box-shadow: 0 0.2rem 1.4rem 0.2rem rgba(0, 0, 0, 0.102);
+  background-color: rgba(250, 250, 250);
 }
 
 .action {
