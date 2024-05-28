@@ -37,7 +37,7 @@ export default function Comments({ postId }) {
       />
       <hr className={styles.divHr} />
       <div className={styles.commentList}>
-        {responseData?.data.map((comment) => (
+        {responseData?.data?.map((comment) => (
           <Comment
             setUpdateTarget={setUpdateTarget}
             key={comment.commentId}
