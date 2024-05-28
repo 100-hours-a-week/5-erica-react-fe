@@ -9,8 +9,15 @@
   max-width: 70rem;
 }
 
+.divHr {
+  padding: 0 2rem;
+  box-sizing: border-box;
+  border-width: 1px 0 0 0;
+  border-style: dashed;
+  border-color: #bbb;
+}
+
 .commentList {
-  margin-top: 3rem;
   width: 100%;
   padding: 0 2rem;
   box-sizing: border-box;

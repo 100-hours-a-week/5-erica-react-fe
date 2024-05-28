@@ -52,6 +52,7 @@ hr {
 .boardDetailContent {
   word-break: break-all;
   margin-top: 2rem;
+  margin-bottom: 2rem;
   font-size: 1.5rem;
   font-weight: 500;
 }

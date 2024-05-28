@@ -1,30 +1,15 @@
 .container {
-  width: 100%;
-  height: 75rem;
-  max-width: 100rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-}
-
-.pageTitle {
-  font-size: 2.4rem;
-  font-weight: 700;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-.boardLeft {
-  width: 60%;
-}
-
-.space {
-  width: 5%;
+  align-items: center;
+  width: 100%;
+  height: 80rem;
+  max-width: 100rem;
 }
 
 .boardContainer {
   display: flex;
-  height: 100%;
+  height: 60rem;
   justify-content: center;
   align-items: flex-start;
   padding: 3rem;
@@ -34,6 +19,20 @@
   width: 100%;
 }
 
+.boardLeft {
+  width: 60%;
+}
+
+.pageTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.space {
+  width: 5%;
+}
+
 .boardContent {
   margin-top: 3rem;
   flex-grow: 1;
@@ -41,10 +40,15 @@
 
 .boardTitle,
 .boardContent {
+  margin: 0 auto;
   width: 100%;
   font-size: 1.6rem;
   font-weight: 700;
   font-family: "Noto Sans KR", sans-serif;
+}
+
+.boardContent {
+  margin-top: 2rem;
 }
 
 #boardContentInput {
@@ -53,7 +57,7 @@
 
 #boardTitleInput,
 #boardContentInput {
-  margin-top: 1rem;
+  margin-top: 2rem;
   border: 0.1rem solid lightgray;
   border-radius: 1rem;
   padding: 1rem;
@@ -62,9 +66,9 @@
   box-sizing: border-box;
   font-size: 1.5rem;
   font-weight: 400;
+  font-family: "Noto Sans KR", sans-serif;
   color: black;
   resize: none;
-  font-family: "Noto Sans KR", sans-serif;
 }
 
 input:focus,
@@ -75,6 +79,12 @@ textarea:focus {
 hr {
   width: 100%;
   margin: 2rem 0;
+}
+
+.boardImage {
+  width: 100%;
+  font-size: 1.3rem;
+  font-weight: 400;
 }
 
 .inputTitle {
@@ -93,7 +103,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2rem auto 5rem;
+  margin: 2rem auto 0;
   font-size: 1.4rem;
   font-weight: 700;
   text-decoration: none;
@@ -101,7 +111,7 @@ hr {
 
 .updateButtonDisabled {
   width: 40rem;
-  height: 6rem;
+  height: 5rem;
   cursor: pointer;
   color: black;
   background-color: var(--button-disabled);
@@ -120,13 +130,9 @@ hr {
   color: #ff0000;
   font-size: 1.2rem;
   font-weight: 400;
-  width: 100%;
-  justify-content: flex-start;
 }
 
 .helperTextContainer {
-  margin-bottom: 2rem;
-  height: 2rem;
   width: 100%;
 }
 
@@ -136,12 +142,6 @@ hr {
   justify-content: flex-start;
   width: 35%;
   height: 100%;
-}
-
-.boardImage {
-  width: 100%;
-  font-size: 1.3rem;
-  font-weight: 400;
 }
 
 .imageShow {
@@ -157,9 +157,12 @@ hr {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
   margin: 0 auto;
-  background-color: #f4f5f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
 }
 
 .imageContainer {
@@ -211,4 +214,11 @@ hr {
 .updateImageTop {
   display: flex;
   justify-content: space-between;
+}
+
+.buttonContainer {
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
