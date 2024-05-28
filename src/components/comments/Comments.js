@@ -2,7 +2,7 @@ import { useState } from "react";
 import { headers } from "../../static";
 import AddComment from "./AddComment.js";
 import Comment from "./Comment.js";
-import styles from "../../styles/Comments.module.css";
+import styles from "../../styles/comment/Comments.module.css";
 import useFetch from "../../hooks/useFetch.js";
 import { FetchUrl } from "../../utils/constants.js";
 

@@ -1,4 +1,4 @@
-import styles from "../../styles/UserImage.module.css";
+import styles from "../../styles/user/UserImage.module.css";
 
 export default function UserProfileImage({ image, size = 32 }) {
   return (

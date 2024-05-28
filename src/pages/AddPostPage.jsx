@@ -1,4 +1,4 @@
-import styles from "../styles/AddPost.module.css";
+import styles from "../styles/post/AddPost.module.css";
 import { headers } from "../static";
 import { AuthAddPost } from "../components/posts/AddPostContainer";
 import useFetch from "../hooks/useFetch";

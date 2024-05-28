@@ -1,4 +1,4 @@
-import styles from "../../styles/UpdatePassword.module.css";
+import styles from "../../styles/user/UpdatePassword.module.css";
 import { useState, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { navUrl } from "../../utils/navigate";

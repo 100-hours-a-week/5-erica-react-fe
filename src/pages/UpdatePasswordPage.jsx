@@ -1,4 +1,4 @@
-import styles from "../styles/UpdatePassword.module.css";
+import styles from "../styles/user/UpdatePassword.module.css";
 import { headers } from "../static";
 import useFetch from "../hooks/useFetch";
 import { AuthUpdatePassword } from "../components/users/UpdatePasswordContainer";

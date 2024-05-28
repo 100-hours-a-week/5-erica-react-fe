@@ -1,4 +1,4 @@
-import styles from "../styles/UpdateProfile.module.css";
+import styles from "../styles/user/UpdateProfile.module.css";
 import { headers } from "../static";
 import {AuthUpdateProfile} from "../components/users/UpdateProfileContainer"
 import useFetch from "../hooks/useFetch";

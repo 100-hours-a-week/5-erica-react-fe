@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FetchUrl } from "../../utils/constants";
-import styles from "../../styles/AddComment.module.css";
+import styles from "../../styles/comment/AddComment.module.css";
 import { apiRequest } from "../../utils/fetchData";
 
 export default function AddComment({ postId, isAdd, setIsAdd, updateTarget }) {

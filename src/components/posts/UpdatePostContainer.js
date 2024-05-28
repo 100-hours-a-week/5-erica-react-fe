@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { postError } from "../../utils/errorMessage";
 import { navUrl } from "../../utils/navigate";
 import withLogIn from "../../hoc/withLogIn";
-import styles from "../../styles/UpdatePost.module.css";
+import styles from "../../styles/post/UpdatePost.module.css";
 import { FetchUrl } from "../../utils/constants";
 import { apiRequest } from "../../utils/fetchData";
 

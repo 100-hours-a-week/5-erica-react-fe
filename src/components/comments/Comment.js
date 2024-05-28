@@ -2,7 +2,7 @@ import DeleteCommentModal from "../modals/DeleteCommentModal.js";
 import { disableScroll } from "../../utils/scroll.js";
 import { checkCommentOwner } from "../../utils/checkOwner.js";
 import { useState, useMemo } from "react";
-import styles from "../../styles/Comment.module.css";
+import styles from "../../styles/comment/Comment.module.css";
 import UserProfileImage from "../users/UserProfileImage.js";
 
 export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {

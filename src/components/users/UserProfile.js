@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import UserProfileImage from "./UserProfileImage";
 import useFetch from "../../hooks/useFetch";
 import LogoutButton from "../button/LogOutButton";
-import styles from "../../styles/UserProfile.module.css";
+import styles from "../../styles/user/UserProfile.module.css";
 import { navUrl } from "../../utils/navigate";
 import { FetchUrl } from "../../utils/constants";
 

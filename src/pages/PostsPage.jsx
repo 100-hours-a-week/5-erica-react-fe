@@ -1,6 +1,6 @@
 
 import MiniPost from "../components/posts/MiniPost";
-import styles from "../styles/Posts.module.css";
+import styles from "../styles/post/Posts.module.css";
 import withLogIn from "../hoc/withLogIn";
 import withLoading from "../hoc/withLoading";
 import { headers } from "../static";

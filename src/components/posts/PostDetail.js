@@ -1,4 +1,4 @@
-import styles from "../../styles/PostDetail.module.css";
+import styles from "../../styles/post/PostDetail.module.css";
 import UserProfileImage from "../../components/users/UserProfileImage.js";
 import PostButton from "../button/PostButton.js";
 import PostAction from "./PostAction.js";

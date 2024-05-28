@@ -1,5 +1,5 @@
 import { viewToK, commentToK } from "../../utils/numberToK";
-import styles from "../../styles/MiniPost.module.css";
+import styles from "../../styles/post/MiniPost.module.css";
 import { Link } from "react-router-dom";
 import UserProfileImage from "../users/UserProfileImage";
 import { navUrl } from "../../utils/navigate";

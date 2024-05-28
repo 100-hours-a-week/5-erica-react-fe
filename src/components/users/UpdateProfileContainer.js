@@ -1,6 +1,6 @@
 import { disableScroll } from "../../utils/scroll";
 import DeleteUserModal from "../modals/DeleteUserModal";
-import styles from "../../styles/UpdateProfile.module.css";
+import styles from "../../styles/user/UpdateProfile.module.css";
 import { useState, useEffect, useReducer } from "react";
 import {
   nicknameMessageReduer,

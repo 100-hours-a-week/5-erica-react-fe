@@ -1,5 +1,5 @@
 import { viewToK, commentToK } from "../../utils/numberToK.js";
-import styles from "../../styles/PostAction.module.css";
+import styles from "../../styles/post/PostAction.module.css";
 
 export default function PostAction({ view, comment }) {
   return (

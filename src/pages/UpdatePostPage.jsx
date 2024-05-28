@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import styles from "../styles/UpdatePost.module.css";
+import styles from "../styles/post/UpdatePost.module.css";
 import { headers } from "../static";
 import useFetch from "../hooks/useFetch";
 import { AuthUpdatePost } from "../components/posts/UpdatePostContainer";

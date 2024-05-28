@@ -1,4 +1,4 @@
-import styles from "../../styles/AddPost.module.css";
+import styles from "../../styles/post/AddPost.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postError } from "../../utils/errorMessage";

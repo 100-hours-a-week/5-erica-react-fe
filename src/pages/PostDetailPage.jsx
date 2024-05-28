@@ -6,7 +6,7 @@ import { headers } from "../static";
 import { useParams } from "react-router-dom";
 import { AuthPostDetailPage } from "../components/posts/PostDetail";
 import { FetchUrl } from "../utils/constants";
-import styles from "../styles/PostDetailPage.module.css"
+import styles from "../styles/post/PostDetailPage.module.css"
 
 export function PostDetailPage() {
   const postId = Number(useParams().id);
