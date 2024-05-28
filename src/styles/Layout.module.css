@@ -21,7 +21,9 @@
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 600;
+  color: black;
   border-bottom: 1px solid black;
+  text-decoration: none;
 }
 
 .tab {
@@ -30,6 +32,8 @@
   padding: 1rem;
   height: 2rem;
   font-size: 1.5rem;
+  text-decoration: none;
+  color: black;
   font-weight: 400;
 }
 
@@ -50,11 +54,11 @@
   top: 13rem;
   width: 30rem;
   position: sticky;
-  height: fit-content;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 @media (max-width: 800px) {
@@ -71,6 +75,7 @@
   box-sizing: border-box;
   width: 30rem;
   height: 20rem;
+  min-height: 18rem;
   border-radius: 1rem;
   background-color: white;
 }
@@ -131,4 +136,10 @@
 .sideBaner {
   border-radius: 1rem;
   margin-top: 1rem;
+}
+
+@media (max-height: 1080px) {
+  .advertisement {
+    display: none;
+  }
 }
