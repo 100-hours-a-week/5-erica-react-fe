@@ -6,9 +6,13 @@ import withLoading from "../../hoc/withLoading.js";
 import withLogIn from "../../hoc/withLogIn.js";
 
 function PostDetail({ responseData, setIsPostDelete }) {
+  console.log(responseData.type);
   return (
     <div className={styles.detailBoard}>
       <div className={styles.boardHeader}>
+        <div className={styles.postType}>
+          {responseData.type === "other" ? "고민" : "개발"}
+        </div>
         <div className={styles.writer}>
           <UserProfileImage image={responseData.userImage} size={28} />
           <p className={styles.postWriterName}>{responseData.nickname}</p>

@@ -3,7 +3,6 @@ import styles from "../../styles/MiniPost.module.css";
 import { Link } from "react-router-dom";
 import UserProfileImage from "../users/UserProfileImage";
 import { navUrl } from "../../utils/navigate";
-import bookMark from "../../images/bookmark.png";
 
 export default function MiniPost({ data }) {
   const postTitle = data.title.slice(0, 26);
@@ -19,7 +18,9 @@ export default function MiniPost({ data }) {
     >
       <div className={styles.miniBoard}>
         <div className={styles.titleContainer}>
-          <img src={bookMark} className={styles.bookMark} alt="" />
+          <div className={styles.postType}>
+            {data.type === "other" ? "고민" : "개발"}
+          </div>
           <div className={styles.miniBoardTitle}>{postTitle}</div>
         </div>
         <div className={styles.miniBoardContent}>

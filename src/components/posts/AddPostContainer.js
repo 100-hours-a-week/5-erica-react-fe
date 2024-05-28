@@ -10,6 +10,7 @@ import { apiRequest } from "../../utils/fetchData";
 function AddPostContainer() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [type, setType] = useState("coding");
   const [postImage, setPostImage] = useState();
   const [isEnable, setIsEnable] = useState(true);
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ function AddPostContainer() {
         url: FetchUrl.posts,
         method: "POST",
         body: {
+          type,
           title,
           content,
           postImageSrc: postImage,
@@ -64,6 +66,19 @@ function AddPostContainer() {
     <>
       <form className={styles.boardContainer}>
         <div className={styles.boardLeft}>
+          <div className={styles.boardType}>
+            <label htmlFor="boardTypeInput" className={styles.inputTitle}>
+              주제*
+            </label>
+            <select
+              className={styles.boardTypeSelect}
+              id="boardTypeInput"
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="coding">개발</option>
+              <option value="other">고민</option>
+            </select>
+          </div>
           <div className={styles.boardTitle}>
             <label htmlFor="boardTitleInput" className={styles.inputTitle}>
               제목*

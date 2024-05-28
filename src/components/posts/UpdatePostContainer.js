@@ -12,6 +12,7 @@ function UpdateContainer({ responseData, postId }) {
   const [content, setContent] = useState("");
   const [postImage, setPostImage] = useState("");
   const [isEnable, setIsEnable] = useState(false);
+  const [type, setType] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ function UpdateContainer({ responseData, postId }) {
         setTitle(responseData.title);
         setContent(responseData.content);
         setPostImage(responseData.postImage ?? "");
+        setType(responseData.type);
       }
     },
     [responseData]
@@ -42,6 +44,12 @@ function UpdateContainer({ responseData, postId }) {
   };
 
   const handleClickUpdatePost = async () => {
+    console.log({
+      title,
+      type,
+      content,
+      postImageInput: postImage,
+    });
     setIsEnable(false);
     try {
       const responseData = await apiRequest({
@@ -49,6 +57,7 @@ function UpdateContainer({ responseData, postId }) {
         method: "PATCH",
         body: {
           title,
+          type,
           content,
           postImageInput: postImage,
         },
@@ -74,6 +83,20 @@ function UpdateContainer({ responseData, postId }) {
     <>
       <form className={styles.boardContainer}>
         <div className={styles.boardLeft}>
+          <div className={styles.boardType}>
+            <label htmlFor="boardTypeInput" className={styles.inputTitle}>
+              주제*
+            </label>
+            <select
+              value={type}
+              className={styles.boardTypeSelect}
+              id="boardTypeInput"
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="coding">개발</option>
+              <option value="other">고민</option>
+            </select>
+          </div>
           <div className={styles.boardTitle}>
             <label htmlFor="boardTitleInput" className={styles.inputTitle}>
               제목*

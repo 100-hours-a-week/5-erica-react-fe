@@ -19,10 +19,10 @@ export default function Layout({children, logIn, error, responseData}) {
   return (
     <>
     <div className={styles.top}>
-      <div to={navUrl.posts} onClick={() => {setClickedTab("전체")}} className={clickedTab === "전체" ? `${styles.tabClicked}`: `${styles.tab}`}>전체</div>
-      <div to={navUrl.devPosts} onClick={() => {setClickedTab("개발")}} className={clickedTab === "개발" ? `${styles.tabClicked}`: `${styles.tab}`}>개발</div>
-      <div to={navUrl.quesPosts} onClick={() => {setClickedTab("고민")}} className={clickedTab === "고민" ? `${styles.tabClicked}`: `${styles.tab}`}>고민</div>
-      <div to={navUrl.myPosts} onClick={() => {setClickedTab("MY글")}} className={clickedTab === "MY글" ? `${styles.tabClicked}`: `${styles.tab}`}>MY 글</div>
+      <Link to={navUrl.posts} onClick={() => {setClickedTab("전체")}} className={clickedTab === "전체" ? `${styles.tabClicked}`: `${styles.tab}`}>전체</Link>
+      <Link to={navUrl.codingPosts} onClick={() => {setClickedTab("개발")}} className={clickedTab === "개발" ? `${styles.tabClicked}`: `${styles.tab}`}>개발</Link>
+      <Link to={navUrl.otherPosts} onClick={() => {setClickedTab("고민")}} className={clickedTab === "고민" ? `${styles.tabClicked}`: `${styles.tab}`}>고민</Link>
+      <Link to={navUrl.myPosts} onClick={() => {setClickedTab("MY글")}} className={clickedTab === "MY글" ? `${styles.tabClicked}`: `${styles.tab}`}>MY 글</Link>
     </div>
     <div className={styles.layout}>
       <AuthLayout logIn={logIn} error={error} responseData={responseData} />
