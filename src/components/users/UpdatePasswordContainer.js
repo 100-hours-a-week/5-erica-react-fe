@@ -48,7 +48,7 @@ function UpdatePasswordContainer() {
       switch (updateResponse.status) {
         case 201:
           alert("비밀번호가 수정되었습니다.");
-          navigate(navUrl.logIn);
+          navigate(navUrl.home);
           return;
         default:
           alert("비밀번호 수정실패");
@@ -62,16 +62,19 @@ function UpdatePasswordContainer() {
 
   return (
     <form className={styles.passwordWrapper}>
-      <PasswordInput
-        password={password}
-        setPassword={setPassword}
-        passwordCheck={passwordCheck}
-        setPasswordCheck={setPasswordCheck}
-        passwordState={passwordState}
-        passwordDispatcher={passwordDispatcher}
-        passwordCheckState={passwordCheckState}
-        passwordCheckDispatcher={passwordCheckDispatcher}
-      />
+      <div className={styles.passwordInnerWrapper}>
+        <PasswordInput
+          password={password}
+          setPassword={setPassword}
+          passwordCheck={passwordCheck}
+          setPasswordCheck={setPasswordCheck}
+          passwordState={passwordState}
+          passwordDispatcher={passwordDispatcher}
+          passwordCheckState={passwordCheckState}
+          passwordCheckDispatcher={passwordCheckDispatcher}
+        />
+      </div>
+
       <button
         type="button"
         onClick={handleClickUpdatePassword}

@@ -1,4 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { navUrl } from "../utils/navigate";
 
 export default function useFetch(url, options) {
   const [logIn, setLogIn] = useState(null);
@@ -11,7 +13,6 @@ export default function useFetch(url, options) {
     try {
       const res = await fetch(url, options);
       const json = await res.json();
-      console.log(json);
       if (json.status === 200 || json.status === 201) {
         setLogIn(true);
         setResponseData(json);
@@ -19,13 +20,15 @@ export default function useFetch(url, options) {
         return;
       }
       setLoading(false);
-      if (json.status === 401 || json.stats === 403) {
+      if (json.status === 401 || json.status === 403) {
         setLogIn(false);
+        setResponseData(json);
         return;
       }
 
       setLogIn(false);
       alert("존재하지 않은 주소입니다.");
+      return <Navigate to={navUrl.home} />;
     } catch (err) {
       setLogIn(false);
       setError(err);
