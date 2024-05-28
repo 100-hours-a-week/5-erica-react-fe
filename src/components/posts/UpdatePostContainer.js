@@ -20,6 +20,7 @@ function UpdateContainer({ responseData, postId }) {
       if (responseData) {
         setTitle(responseData.title);
         setContent(responseData.content);
+        setPostImage(responseData.postImage ?? "");
       }
     },
     [responseData]
@@ -41,6 +42,7 @@ function UpdateContainer({ responseData, postId }) {
   };
 
   const handleClickUpdatePost = async () => {
+    setIsEnable(false);
     try {
       const responseData = await apiRequest({
         url: `${FetchUrl.posts}/${postId}`,
@@ -64,64 +66,80 @@ function UpdateContainer({ responseData, postId }) {
     } catch (error) {
       console.error("게시글 수정 중 에러가 발생했습니다:", error);
       alert("게시글 수정 중 에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      setIsEnable(true);
     }
   };
 
   return (
-    <form className={styles.boardContainer}>
-      <div className={styles.boardTitle}>
-        <label htmlFor="boardTitleInput" className={styles.inputTitle}>
-          제목*
-        </label>
-        <input
-          type="text"
-          maxLength="26"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          id={styles.boardTitleInput}
-        />
-      </div>
-      <hr />
-      <div className={styles.boardContent}>
-        <label htmlFor="boardContentInput" className={styles.inputTitle}>
-          내용*
-        </label>
-        <textarea
-          type="text"
-          maxLength="200"
-          onChange={(event) => setContent(event.target.value)}
-          rows="10"
-          value={content}
-          id={styles.boardContentInput}
-        ></textarea>
-      </div>
-      <hr />
-      <div className={styles.helperTextContainer}>
-        <div className={styles.helperText}>
-          {(!title || !content) && postError}
+    <>
+      <form className={styles.boardContainer}>
+        <div className={styles.boardLeft}>
+          <div className={styles.boardTitle}>
+            <label htmlFor="boardTitleInput" className={styles.inputTitle}>
+              제목*
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              maxLength="26"
+              id={styles.boardTitleInput}
+            />
+          </div>
+          <div className={styles.boardContent}>
+            <label htmlFor="boardContentInput" className={styles.inputTitle}>
+              내용*
+            </label>
+            <textarea
+              type="text"
+              rows="10"
+              value={content}
+              maxLength="200"
+              onChange={(event) => setContent(event.target.value)}
+              id={styles.boardContentInput}
+            ></textarea>
+          </div>
+          <div className={styles.helperTextContainer}>
+            <div className={styles.helperText}>
+              {!title || !content ? postError : ""}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.updateBoardImage}>
-        <label htmlFor="boardInputImage" className={styles.inputTitle}>
-          이미지
-        </label>
-        <input
-          type="file"
-          src={postImage}
-          onChange={handleChangePostImage}
-          id={styles.boardInputImage}
-          accept="image/*"
-        />
-      </div>
+        <div className={styles.space}></div>
+        <div className={styles.updateBoardImage}>
+          <div className={styles.updateImageTop}>
+            <div className={styles.inputTitle}>포스트 이미지</div>
+            <div className={styles.buttonContainer}>
+              <label htmlFor="imageInput" className={styles.imageInputButton}>
+                추가
+              </label>
+            </div>
+          </div>
+          <div className={styles.imageContainer}>
+            {postImage ? (
+              <img className={styles.imageShow} alt="post" src={postImage} />
+            ) : (
+              <div className={styles.imageNone}>이미지 없음</div>
+            )}
+            <input
+              type="file"
+              className={styles.imageInput}
+              id="imageInput"
+              onChange={handleChangePostImage}
+              accept="image/*"
+            />
+          </div>
+        </div>
+      </form>
       <button
         type="button"
-        disabled={!isEnable}
+        disabled={!isEnable || !title || !content}
         onClick={handleClickUpdatePost}
         className={isEnable ? styles.updateButton : styles.updateButtonDisabled}
       >
         완료
       </button>
-    </form>
+    </>
   );
 }
 

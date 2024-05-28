@@ -3,6 +3,7 @@ import styles from "../../styles/MiniPost.module.css";
 import { Link } from "react-router-dom";
 import UserProfileImage from "../users/UserProfileImage";
 import { navUrl } from "../../utils/navigate";
+import bookMark from "../../images/bookmark.png";
 
 export default function MiniPost({ data }) {
   const postTitle = data.title.slice(0, 26);
@@ -17,14 +18,17 @@ export default function MiniPost({ data }) {
       to={`${navUrl.posts}/${data.postId}`}
     >
       <div className={styles.miniBoard}>
-        <h2 className={styles.miniBoardTitle}>{postTitle}</h2>
+        <div className={styles.titleContainer}>
+          <img src={bookMark} className={styles.bookMark} alt="" />
+          <div className={styles.miniBoardTitle}>{postTitle}</div>
+        </div>
         <div className={styles.miniBoardContent}>
           <div className={styles.action}>
             <div className={styles.miniComment}>댓글 {postCommentCount}</div>
             <div className={styles.miniLike}>좋아요 {data.like}</div>
             <div className={styles.miniView}>조회수 {postView}</div>
           </div>
-          <div className={styles.date}>{data.created_at}</div>
+          <div className={styles.date}>📆 {data.created_at}</div>
         </div>
       </div>
       <hr className={styles.miniBoardHr} />

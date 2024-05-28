@@ -8,16 +8,16 @@ import { FetchUrl } from "../utils/constants";
 export function UpdatePost() {
   const postId = Number(useParams().id);
 
-  const {responseData, loading, error} = useFetch(`${FetchUrl.posts}/${postId}/update`, {
+  const {responseData,logIn, loading, error} = useFetch(`${FetchUrl.posts}/${postId}/update`, {
     headers,
     credentials: "include",
   });
 
   return (
-    <>
+    <div className={styles.container}>
       <p className={styles.pageTitle}>게시글 수정</p>
-      <AuthUpdatePost responseData = {responseData?.data} postId={postId} loading={loading} error={error}/>
-    </>
+      <AuthUpdatePost responseData = {responseData?.data} postId={postId} logIn={logIn} loading={loading} error={error}/>
+    </div>
   );
 }
 

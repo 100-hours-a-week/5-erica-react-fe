@@ -11,10 +11,10 @@ export function AddPost() {
   });
 
   return (
-    <>
+    <div className={styles.addPost}>
       <p className={styles.pageTitle}>게시글 작성</p>
       <AuthAddPost responseData={responseData?.data} logIn={logIn} loading={loading} error={error} />
-    </>
+    </div>
   );
 }
 

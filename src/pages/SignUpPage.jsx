@@ -2,7 +2,6 @@ import styles from "../styles/SignUp.module.css";
 import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
 import { SignUpError } from "../utils/errorMessage";
-import { navUrl } from "../utils/navigate";
 import { emailInitialMessage, emailMessageReducer  } from "../reducer/emailReducer";
 import { passwordInitialMessage, passwordMessageReducer } from "../reducer/passwordReducer";
 import { passwordCheckInitialMessage,passwordCheckMessageReducer } from "../reducer/passwordCheckReducer";
@@ -17,7 +16,7 @@ import { apiRequest } from "../utils/fetchData";
 
 const reader = new FileReader();
 
-export default function SignUp() {
+export default function SignUp({setLogIn, setSignUp}) {
   const [emailState, emailDispatcher] = useReducer(emailMessageReducer, emailInitialMessage);
   const [passwordState, passwordDispatcher] = useReducer(passwordMessageReducer,passwordInitialMessage)
   const [passwordCheckState, passwordCheckDispatcher] = useReducer(passwordCheckMessageReducer, passwordCheckInitialMessage)
@@ -87,10 +86,12 @@ export default function SignUp() {
       switch (responseData.status) {
         case 201:
           alert("회원가입 성공");
-          window.location.href = navUrl.logIn;
+          setSignUp(false);
+          setLogIn(true);
           break;
         default:
           alert("회원가입 실패");
+          setSignUp(false);
           break;
       }
     } catch (error) {
@@ -158,9 +159,6 @@ export default function SignUp() {
           회원가입
         </button>
       </form>
-      <Link to="/" className={styles.goLoginButton}>
-        로그인하러 가기
-      </Link>
     </section>
   );
 }
