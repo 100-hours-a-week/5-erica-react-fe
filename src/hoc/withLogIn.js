@@ -9,7 +9,7 @@ export default function withLogIn(Component) {
 
     if (props.logIn === false) {
       alert("로그인 하십시오.");
-      return <Navigate to={navUrl.logIn} />;
+      return <Navigate to={navUrl.home} />;
     }
 
     return <Component {...props} />;

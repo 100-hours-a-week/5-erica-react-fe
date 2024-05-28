@@ -14,11 +14,7 @@ export default function Navbar() {
       <div className={styles.navbarContainer}>
         <Link
           className={styles.navbarTitle}
-          to={
-            pathname === navUrl.logIn || pathname === navUrl.signUp
-              ? navUrl.logIn
-              : navUrl.posts
-          }
+          to={pathname === navUrl.home ? navUrl.home : navUrl.posts}
         >
           <img alt="로고이미지" src={logo} className={styles.logo} />
         </Link>

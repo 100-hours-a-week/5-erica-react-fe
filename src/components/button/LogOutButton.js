@@ -25,7 +25,7 @@ export default function LogoutButton() {
 
       setLogoutStatus("success");
       alert("로그아웃 됐습니다.");
-      navigate(navUrl.logIn);
+      navigate(navUrl.home);
     } catch (error) {
       console.error("Error logging out:", error);
     }
