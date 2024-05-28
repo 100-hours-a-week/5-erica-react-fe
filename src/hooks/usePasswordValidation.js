@@ -14,7 +14,8 @@ export function usePasswordValidation(
         password &&
           passwordCheck &&
           !passwordState.passwordMessage &&
-          !passwordCheckState.passwordCheckMessage
+          !passwordCheckState.passwordCheckMessage &&
+          password === passwordCheck
       );
     },
     [password, passwordCheck, passwordState, passwordCheckState]
