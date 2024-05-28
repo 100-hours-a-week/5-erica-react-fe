@@ -28,12 +28,14 @@ export default function Comments({ postId }) {
 
   return (
     <div className={styles.commentContainer}>
+      <div className={styles.commentTitle}>댓글</div>
       <AddComment
         postId={postId}
         setIsAdd={setIsAdd}
         isAdd={isAdd}
         updateTarget={updateTarget}
       />
+      <hr className={styles.divHr} />
       <div className={styles.commentList}>
         {responseData?.data.map((comment) => (
           <Comment

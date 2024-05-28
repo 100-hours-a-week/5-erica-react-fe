@@ -45,13 +45,13 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
               onClick={() => memoizedHandleClick("update")}
               className={styles.commentUpdate}
             >
-              수정
+              ✏️
             </button>
             <button
               onClick={() => memoizedHandleClick("delete")}
               className={styles.commentDelete}
             >
-              삭제
+              🗑️
             </button>
           </div>
         </div>

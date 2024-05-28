@@ -33,13 +33,13 @@ export default function UserProfile() {
           to={navUrl.updateProfile}
           className={`${styles.profileUpdate} ${styles.setting}`}
         >
-          회원정보수정
+          프로필 수정
         </Link>
         <Link
           to={navUrl.updatePassword}
           className={`${styles.passwordUpdate} ${styles.setting}`}
         >
-          비밀번호수정
+          비밀번호 수정
         </Link>
         <LogoutButton />
       </div>

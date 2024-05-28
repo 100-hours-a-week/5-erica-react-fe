@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/LogIn.module.css";
 import { emailNotValidErrorLine } from "../utils/errorMessage";
 import { navUrl } from "../utils/navigate";
@@ -112,9 +112,6 @@ export default function LogInPage() {
           로그인
         </button>
       </form>
-      <Link to={navUrl.signUp} className={styles.goSignUpButton}>
-        회원가입
-      </Link>
     </section>
   );
 }

@@ -12,7 +12,7 @@ export default  function UpdateProfile() {
 
   return (
     <section className={styles.updateMain}>
-      <p className={styles.pageTitle}>회원정보 수정</p>
+      <p className={styles.pageTitle}>프로필 수정</p>
       <AuthUpdateProfile responseData={responseData?.data} logIn={logIn}  error={error} />
     </section>
   );

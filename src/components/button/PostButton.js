@@ -31,10 +31,10 @@ export default function PostButton({ postId, setIsPostDelete }) {
   return (
     <div className={styles.boardButton}>
       <button onClick={handleClickUpdate} className={styles.updateBoard}>
-        수정
+        ✏️
       </button>
       <button onClick={handleClickDelete} className={styles.deleteBoard}>
-        삭제
+        🗑️
       </button>
     </div>
   );

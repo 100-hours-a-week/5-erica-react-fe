@@ -157,16 +157,18 @@ function UpdateProfileContainer({ responseData }) {
           <label htmlFor="nicknameInput" className={styles.inputTitle}>
             닉네임
           </label>
-          <input
-            type="text"
-            id={styles.nicknameInput}
-            maxLength="10"
-            value={nickname}
-            onChange={handleChangeNickname}
-          />
-          <div className={styles.helperTextContainer}>
-            <div className={styles.helperText}>
-              {nicknameState.nicknameMessage}
+          <div className={styles.nicknameContainer}>
+            <input
+              type="text"
+              id={styles.nicknameInput}
+              maxLength="10"
+              value={nickname}
+              onChange={handleChangeNickname}
+            />
+            <div className={styles.helperTextContainer}>
+              <div className={styles.helperText}>
+                {nicknameState.nicknameMessage}
+              </div>
             </div>
           </div>
         </div>
@@ -182,7 +184,7 @@ function UpdateProfileContainer({ responseData }) {
           disabled={!isAble}
           onClick={handleClickUpdateButton}
         >
-          수정하기
+          프로필 저장
         </button>
       </div>
       <div className={styles.profilebutton}>
