@@ -7,7 +7,7 @@ export const navUrl = {
   updatePost: "/posts/:id/update",
   updateProfile: "/user/update",
   updatePassword: "/user/password",
-  devPosts: "/posts?type=dev",
-  quesPosts: "/posts?type=ques",
+  codingPosts: "/posts?type=coding",
+  otherPosts: "/posts?type=other",
   myPosts: "/posts?type=my",
 };

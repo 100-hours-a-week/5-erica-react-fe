@@ -13,4 +13,7 @@ export const FetchUrl = {
   signUp: `${backHost}/api/users/signup`,
   userPassword: `${backHost}/api/users/user/password`,
   userWriteCount: `${backHost}/api/users/myWrite`,
+  myPosts: `${backHost}/api/posts/myPosts`,
+  otherPosts: `${backHost}/api/posts/other`,
+  codingPosts: `${backHost}/api/posts/coding`,
 };
