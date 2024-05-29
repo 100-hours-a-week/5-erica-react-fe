@@ -19,10 +19,10 @@ function UpdateContainer({ responseData, postId }) {
   useEffect(
     function addPostInfo() {
       if (responseData) {
-        setTitle(responseData.title);
-        setContent(responseData.content);
-        setPostImage(responseData.postImage ?? "");
-        setType(responseData.type);
+        setTitle(responseData[0].title);
+        setContent(responseData[0].content);
+        setPostImage(responseData[0].postImage ?? "");
+        setType(responseData[0].type);
       }
     },
     [responseData]
@@ -44,12 +44,6 @@ function UpdateContainer({ responseData, postId }) {
   };
 
   const handleClickUpdatePost = async () => {
-    console.log({
-      title,
-      type,
-      content,
-      postImageInput: postImage,
-    });
     setIsEnable(false);
     try {
       const responseData = await apiRequest({
@@ -91,7 +85,7 @@ function UpdateContainer({ responseData, postId }) {
               value={type}
               className={styles.boardTypeSelect}
               id="boardTypeInput"
-              onChange={(e) => setType(e.target.value)}
+              onChange={(event) => setType(event.target.value)}
             >
               <option value="coding">개발</option>
               <option value="other">고민</option>

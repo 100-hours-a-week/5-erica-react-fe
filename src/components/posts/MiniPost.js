@@ -9,7 +9,7 @@ export default function MiniPost({ data }) {
 
   const postView = viewToK(data.view);
 
-  const postCommentCount = commentToK(data.comment_count);
+  const postCommentCount = commentToK(data.comment_count ?? 0);
 
   return (
     <Link
@@ -34,7 +34,7 @@ export default function MiniPost({ data }) {
       </div>
       <hr className={styles.miniBoardHr} />
       <div className={styles.miniBoardWriter}>
-        <UserProfileImage image={data.userImage} />
+        <UserProfileImage image={data.profileImage} />
         <p className={styles.miniWriterName}>{data.nickname}</p>
       </div>
     </Link>

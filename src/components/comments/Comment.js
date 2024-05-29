@@ -36,7 +36,7 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
         <div className={styles.commentHeader}>
           <div className={styles.commentWriter}>
             <input type="hidden" id="commentId" value={data.commentId} />
-            <UserProfileImage image={data.profile_image} size={36} />
+            <UserProfileImage image={data.profileImage} size={36} />
             <div className={styles.commentWriterName}>{data.nickname}</div>
             <div className={styles.commentWriterDate}>{data.created_at}</div>
           </div>

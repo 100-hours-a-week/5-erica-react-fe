@@ -23,8 +23,8 @@ export default function UserProfile() {
 
   return (
     <div className={styles.userSetting}>
-      {responseData?.data?.profile_image ? (
-        <UserProfileImage image={responseData.data.profile_image} size={36} />
+      {responseData?.data.profileImage ? (
+        <UserProfileImage image={responseData?.data.profileImage} size={36} />
       ) : (
         <div className={styles.profileImage}></div>
       )}

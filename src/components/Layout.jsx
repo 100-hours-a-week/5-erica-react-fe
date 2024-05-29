@@ -43,8 +43,8 @@ function SideContainer({ responseData}) {
     <div className={styles.sideContainer}>
     <div className={styles.sideProfile}>
       <div className={styles.profileContainer}>
-        <UserProfileImage image={responseData?.profile_image} size={40}/>
-        <strong>🚀 {responseData?.nickname}</strong>
+        <UserProfileImage image={responseData?.data.profileImage} size={40}/>
+        <strong>🚀 {responseData?.data.nickname}</strong>
       </div>
       <hr />
       <div className={styles.bottomContainer}>

@@ -8,6 +8,7 @@ export const checkCommentOwner = async (postId, commentId) => {
       method: "POST",
       body: { commentId },
     });
+
     return checkData;
   } catch (error) {
     console.log(error);
@@ -21,6 +22,7 @@ export const checkPostOwner = async (postId) => {
       method: "POST",
       body: { postId },
     });
+    console.log(checkData);
     return checkData;
   } catch (error) {
     console.log(error);

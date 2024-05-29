@@ -21,7 +21,7 @@ export function Posts() {
 
   
   return (
-    <AuthLayout logIn={userLogIn} error={userError} responseData={userResponseData?.data}>
+    <AuthLayout logIn={userLogIn} error={userError} responseData={userResponseData}>
       <section className={styles.postsMain}>
         {type === "coding" ? 
         <CodingPosts /> : type === "other" ? 

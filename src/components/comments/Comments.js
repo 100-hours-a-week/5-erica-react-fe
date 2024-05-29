@@ -22,6 +22,7 @@ export default function Comments({ postId }) {
     return null;
   }
 
+  console.log("댓글" + responseData?.data);
   if (error) {
     console.log(error);
   }

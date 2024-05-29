@@ -16,9 +16,10 @@ export function PostDetailPage() {
     credentials: "include",
   });
 
+
   return (
     <div className={styles.detailPage}>
-      <AuthPostDetailPage responseData={responseData?.data} logIn={logIn} error={error} loading={loading} setIsPostDelete={setIsPostDelete}/>
+      <AuthPostDetailPage responseData={responseData} logIn={logIn} error={error} loading={loading} setIsPostDelete={setIsPostDelete}/>
       <Comments postId={postId} />
       <DeletePostModal
         postId={postId}

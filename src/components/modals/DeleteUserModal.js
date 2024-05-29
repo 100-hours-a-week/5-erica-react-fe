@@ -25,7 +25,7 @@ export default function DeleteUserModal({ isDelete, setIsDelete }) {
 
       if (deleteData.status === 200) {
         alert("계정이 삭제되었습니다.");
-        navigate(navUrl.logIn);
+        navigate(navUrl.home);
       } else {
         alert("계정삭제 실패");
       }
