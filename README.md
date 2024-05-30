@@ -142,6 +142,11 @@
 
 <br/>
 
+**서비스 시연 영상**
+- <a href="https://drive.google.com/file/d/1r5nhfgSoqopi0j6_GYv-twRqwGcv5qbA/view?usp=sharing" target="_blank">구글 드라이브</a>
+
+<br/>
+
 ## 서비스 화면
 
 `홈`
