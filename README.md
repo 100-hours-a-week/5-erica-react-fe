@@ -6,8 +6,14 @@
 **해당 프로젝트는 개인적인 고민과 개발을 주제로 서로 소통하는 커뮤니티 프로젝트입니다.**  
 
 **개발 환경**     
-- `사용 언어 및 라이브러리` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; React, JavaScript, HTML, CSS <br/>
-- `개발 및 이슈 관리` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VSCode, Github 
+- `기술 스택`   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+  <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/js-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <br/>  
+- `사용 툴 및 이슈 관리` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white"> 
+  <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"> <br/>  
 <br/>
 
 **프로젝트 구조**
@@ -173,10 +179,13 @@
 
 <br />
 
+## 프로젝트 후기
+온전히 제 힘으로 구현하는 프로젝트는 처음이었기에, 두려움이 있었습니다. 경험해보지 못했던 에러나 어떻게 구현해야 할 지 감이 안오던 코드들을 마주했을 때 머리가 하얘지기도 했었습니다. 이를 해결하기 위해 책도 찾아보고 구글링도 하면서 여러 구현 방법들을 알게 되면서 점차 코딩하는게 재밌어졌습니다 :) 여러모로 많은 것들을 배웠던 것 같습니다. 아쉬운 점은 맞닥뜨렸던 에러를 해결한 것에 대해 기록을 제대로 하지 못한 점입니다.. 다음 프로젝트부터는 꼬박꼬박 기록하여 같은 실수를 반복하지 않도록 하겠습니다 !!
+
 <br/>
 <br/>
 <br/>
 
 <p align="center">
-  <img src="https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/d611b233-b596-4d1d-bbb9-dc2e4e41eb47" style="width:400px; margin: 0 auto"/>
+  <img src="https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/d611b233-b596-4d1d-bbb9-dc2e4e41eb47" style="width:200px; margin: 0 auto"/>
 </p>
