@@ -5,6 +5,7 @@ import { emailNotValidErrorLine } from "../utils/errorMessage";
 import { navUrl } from "../utils/navigate";
 import { FetchUrl } from "../utils/constants";
 import { apiRequest } from "../utils/fetchData";
+import { enableScroll } from "../utils/scroll";
 
 export default function LogInPage() {
   const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ export default function LogInPage() {
       switch (responseData.status) {
         case 200:
           setLogInSuccess(true);
+          enableScroll();
           setTimeout(() => {
             navigate(navUrl.posts, { replace: true });
           }, 3000);

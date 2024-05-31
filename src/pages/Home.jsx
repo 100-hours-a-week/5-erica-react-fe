@@ -2,7 +2,7 @@ import welcome from "../images/welcome.gif"
 import styles from "../styles/Home.module.css"
 import { useState } from "react";
 import { usePosition } from "../hooks/usePosition";
-import { disableScroll } from "../utils/scroll";
+import { disableScroll, enableScroll } from "../utils/scroll";
 import LogInPage from "./LogInPage";
 import SignUpPage from "./SignUpPage"
 
@@ -25,6 +25,7 @@ export default function Home() {
   const closeModal= () => {
     setLogIn(false);
     setSignUp(false);
+    enableScroll();
   }
 
   return (

@@ -1,5 +1,4 @@
 import styles from "../styles/SignUp.module.css";
-import { Link } from "react-router-dom";
 import { useState, useReducer } from "react";
 import { SignUpError } from "../utils/errorMessage";
 import { emailInitialMessage, emailMessageReducer  } from "../reducer/emailReducer";
