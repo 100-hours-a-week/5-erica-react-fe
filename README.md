@@ -8,12 +8,6 @@
 **개발 환경**     
 - `기술 스택`   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-  <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"> 
-  <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white">
-  <img src="https://img.shields.io/badge/js-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <br/>  
-- `사용 툴 및 이슈 관리` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white"> 
-  <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"> <br/>  
 <br/>
 
 **프로젝트 구조**
@@ -152,7 +146,7 @@
 `홈`
 | 인트로 | 로그인 모달 | 회원가입 모달 |
 |---|---|---|
-|![홈](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/34e27bd3-65d7-4283-bbd5-ee22b672172a)|![로그인](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/98668876-b38a-44e5-955f-a83b3b52607c)|![ezgif-7-d5b2374724 (1)](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/f9a26dd9-6016-4ac3-84f8-21c5e856d314)|
+|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/a57cf720-321d-4ea4-8b07-12a67bf884ed)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/2b064bce-ce5a-4c47-a162-5cac4fce313b)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/d11c592f-ab70-47e9-b82c-9b950d1875ad)|
 
   
 `게시글 목록`
@@ -166,23 +160,28 @@
 
 |게시물 작성|게시물 상세|게시글 수정|게시글 삭제|
 |---|---|---|---|
-|![게시글 작성](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/84a6702d-4e39-4bfb-8229-47e8cd0317ab)|![게시글 상세](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/7a1f4b1e-47c6-4ad3-926b-4712658184e3)|![게시글 수정](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/a0f0f6ac-a4cb-47a3-933b-c5715405e5cd)|![게시글 삭제](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/f61b207a-2fff-4a38-a186-87c929e1642b)|
+|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/a427bfca-0334-433c-9a8f-5ea0bededdcc)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/9a5b80bd-735b-4577-a78b-369d4422bef1)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/d3da8573-4e8e-4ad0-a4ec-d77958d48afe)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/dd9a6fe0-f48d-48a3-aeb7-192f88bdd8b3)|
   
 
 `댓글 목록 / 등록 / 수정 /삭제`
 
 |댓글 목록|댓글 등록|댓글 수정|댓글 삭제|
 |---|---|---|---|
-|![댓글](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/af052804-9b9c-49fa-9eeb-489070c8d16a)|![댓글작성](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/9a9a3e87-25dd-44ae-a3ec-2f8bf98e32d0)|![댓글 수정](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/d6074187-9659-45fa-a169-e636a18955cc)|![댓글삭제](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/7aed1088-201e-46f6-be09-b03e2d0791fe)|
+|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/8178d223-048d-4d7d-bb72-6e44d555ecc9)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/749d122e-c49d-45c5-965b-3026570d1224)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/e85f499b-4410-4b15-9b6a-70897cde84ca)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/ea914f0a-074c-48b2-88ea-6a6efc338ff8)|
 
   
 `프로필 수정 / 비밀번호 수정 / 회원 탈퇴 / 로그아웃`
 
 |프로필 수정|비밀번호 수정|회원 탈퇴|로그아웃|
 |---|---|---|---|
-|![정보수정](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/f7c61feb-5658-4ae2-98d6-dcffeeac7ea8)|![비밀번호수정_g](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/96ab2c92-3c58-46a9-a049-5413b4aed15a)|![탈퇴g](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/b575fadd-5752-4ca8-ac20-4fe494852db9)|![로그아웃](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/3a7ce9b0-4f6e-40ca-8149-bf6edd1b755f)|
+|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/394dc685-8658-4447-a6ec-031edd84a38d)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/29d158f2-c9c3-492a-a1dc-9fa3df218a5a)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/9dcec60c-4733-4b9e-ba61-69d27cd39444)|![image](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/5f3eed2f-393a-4198-aa0d-8c852823c8e6)|
 
 <br />
+
+## 트러블 슈팅
+
+
+
 
 ## 프로젝트 후기
 온전히 제 힘으로 구현하는 프로젝트는 처음이었기에, 두려움이 있었습니다. 경험해보지 못했던 에러나 어떻게 구현해야 할 지 감이 안오던 코드들을 마주했을 때 머리가 하얘지기도 했었습니다. 이를 해결하기 위해 책도 찾아보고 구글링도 하면서 여러 구현 방법들을 알게 되면서 점차 코딩하는게 재밌어졌습니다 :) 여러모로 많은 것들을 배웠던 것 같습니다. 아쉬운 점은 맞닥뜨렸던 에러를 해결한 것에 대해 기록을 제대로 하지 못한 점입니다.. 다음 프로젝트부터는 꼬박꼬박 기록하여 같은 실수를 반복하지 않도록 하겠습니다 !!
