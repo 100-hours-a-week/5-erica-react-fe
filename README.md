@@ -1,5 +1,3 @@
-![001](https://github.com/100-hours-a-week/5-erica-react-fe/assets/81230764/7f884653-458e-498a-9e0a-96fe8ea4987b)
-
 # 🎙️오픈스퀘어
 ## 프로젝트 소개
 
