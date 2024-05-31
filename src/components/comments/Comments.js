@@ -10,7 +10,7 @@ export default function Comments({ postId }) {
   const [isAdd, setIsAdd] = useState(true);
   const [updateTarget, setUpdateTarget] = useState();
 
-  const { responseData, loading, error } = useFetch(
+  const { responseData, error } = useFetch(
     `${FetchUrl.posts}/${postId}/comments`,
     {
       headers,
@@ -18,11 +18,6 @@ export default function Comments({ postId }) {
     }
   );
 
-  if (!responseData || loading || error) {
-    return null;
-  }
-
-  console.log("댓글" + responseData?.data);
   if (error) {
     console.log(error);
   }
@@ -36,18 +31,22 @@ export default function Comments({ postId }) {
         isAdd={isAdd}
         updateTarget={updateTarget}
       />
-      <hr className={styles.divHr} />
-      <div className={styles.commentList}>
-        {responseData?.data?.map((comment) => (
-          <Comment
-            setUpdateTarget={setUpdateTarget}
-            key={comment.commentId}
-            setIsAdd={setIsAdd}
-            postId={postId}
-            data={comment}
-          />
-        ))}
-      </div>
+      {responseData ? (
+        <>
+          <hr className={styles.divHr} />
+          <div className={styles.commentList}>
+            {responseData?.data?.map((comment) => (
+              <Comment
+                setUpdateTarget={setUpdateTarget}
+                key={comment.commentId}
+                setIsAdd={setIsAdd}
+                postId={postId}
+                data={comment}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
