@@ -1,15 +1,26 @@
-# 🎙️오픈스퀘어
-## 프로젝트 소개
+# 🎙️openSquare
 
-**해당 프로젝트는 개인적인 고민과 개발을 주제로 서로 소통하는 커뮤니티 프로젝트입니다.**  
+## Front-end 소개
 
-**개발 환경**     
-- `기술 스택` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-  React
-<br/>
+- 개인적인 고민과 개발을 주제로 `서로 소통하는 커뮤니티` 프로젝트입니다.
+- `React` 라이브러리를 사용하여 구현했습니다.
+- 개발은 초기 프로젝트 화면부터, 기능, 백엔드 연결까지 `직접 구현`했습니다.
 
-**프로젝트 구조**
+### 개발 인원 및 기간
 
+- 개발기간 :  2024-05-03 ~ 2024-05-29
+- 개발 인원 : 프론트엔드/백엔드 1명 (본인)
+
+### 사용 기술 및 tools
+- React
+
+### Back-end
+- <a href="https://github.com/100-hours-a-week/5-erica-react-be">Back-end Github</a>
+
+### 서비스 시연 영상
+- <a href="https://drive.google.com/file/d/1r5nhfgSoqopi0j6_GYv-twRqwGcv5qbA/view?pli=1">구글 드라이브</a>
+
+### 폴더 구조
 <details>
   <summary>폴더 구조 보기/숨기기</summary>
   <div markdown="1">
@@ -122,27 +133,6 @@
     
   </div>
 </details> 
-<br/>
-
-**개발 기간**  
-- `전체 개발 기간` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2024-05-03 ~ 2024-05-29
-<br/>
-
-**개발 인원 및 담당**  
-- `개발 인원`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1명 (본인)
-- `개발 담당`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 프론트엔드, 백엔드
-
-<br/>
-
-**서비스 시연 영상**
-- <a href="https://drive.google.com/file/d/1r5nhfgSoqopi0j6_GYv-twRqwGcv5qbA/view?usp=sharing" target="_blank">구글 드라이브</a>
-  
-<br/>
-
-**백엔드 주소**
-
-- <a href="https://github.com/100-hours-a-week/5-erica-express-be">백엔드 주소</a>
-
 <br/>
 
 ## 서비스 화면
