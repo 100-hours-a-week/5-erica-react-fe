@@ -26,7 +26,6 @@ export default function MiniPost({ data }) {
         <div className={styles.miniBoardContent}>
           <div className={styles.action}>
             <div className={styles.miniComment}>댓글 {postCommentCount}</div>
-            <div className={styles.miniLike}>좋아요 {data.like}</div>
             <div className={styles.miniView}>조회수 {postView}</div>
           </div>
           <div className={styles.date}>📆 {data.created_at}</div>
