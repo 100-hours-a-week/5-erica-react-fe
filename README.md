@@ -180,7 +180,8 @@
 
 ## 트러블 슈팅
 
-
+📎[스크롤 안되는 이슈 및 해결](https://github.com/100-hours-a-week/5-erica-react-fe/issues/2)  
+📎[helper text 상태값 관리 이슈 및 해결](https://github.com/100-hours-a-week/5-erica-react-fe/issues/3)  
 
 
 ## 프로젝트 후기
