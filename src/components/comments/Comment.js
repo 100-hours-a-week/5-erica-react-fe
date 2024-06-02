@@ -4,6 +4,7 @@ import { checkCommentOwner } from "../../utils/checkOwner.js";
 import { useState, useMemo } from "react";
 import styles from "../../styles/comment/Comment.module.css";
 import UserProfileImage from "../users/UserProfileImage.js";
+import { changeDate } from "../../utils/date.js";
 
 export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
   const [isCommentDelete, setIsCommentDelete] = useState(false);
@@ -38,7 +39,9 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
             <input type="hidden" id="commentId" value={data.commentId} />
             <UserProfileImage image={data.profileImage} size={36} />
             <div className={styles.commentWriterName}>{data.nickname}</div>
-            <div className={styles.commentWriterDate}>{data.created_at}</div>
+            <div className={styles.commentWriterDate}>
+              {changeDate(data.created_at)}
+            </div>
           </div>
           <div className={styles.commentButton}>
             <button

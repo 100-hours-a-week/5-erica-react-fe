@@ -4,6 +4,7 @@ import PostButton from "../button/PostButton.js";
 import PostAction from "./PostAction.js";
 import withLoading from "../../hoc/withLoading.js";
 import withLogIn from "../../hoc/withLogIn.js";
+import { changeDate } from "../../utils/date.js";
 
 function PostDetail({ responseData, setIsPostDelete }) {
   const data = responseData?.data[0];
@@ -16,7 +17,9 @@ function PostDetail({ responseData, setIsPostDelete }) {
         <div className={styles.writer}>
           <UserProfileImage image={data.profileImage} size={28} />
           <p className={styles.postWriterName}>{data.nickname}</p>
-          <div className={styles.postWriteDate}>{data.created_at}</div>
+          <div className={styles.postWriteDate}>
+            {changeDate(data.created_at)}
+          </div>
         </div>
         <div className={styles.boardHeaderBottom}>
           <span className={styles.detailBoardTitle}>{data.title}</span>

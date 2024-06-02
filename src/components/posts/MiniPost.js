@@ -3,6 +3,7 @@ import styles from "../../styles/post/MiniPost.module.css";
 import { Link } from "react-router-dom";
 import UserProfileImage from "../users/UserProfileImage";
 import { navUrl } from "../../utils/navigate";
+import { changeDate } from "../../utils/date";
 
 export default function MiniPost({ data }) {
   const postTitle = data.title.slice(0, 26);
@@ -28,7 +29,7 @@ export default function MiniPost({ data }) {
             <div className={styles.miniComment}>댓글 {postCommentCount}</div>
             <div className={styles.miniView}>조회수 {postView}</div>
           </div>
-          <div className={styles.date}>📆 {data.created_at}</div>
+          <div className={styles.date}>📆 {changeDate(data.created_at)}</div>
         </div>
       </div>
       <hr className={styles.miniBoardHr} />
