@@ -28,7 +28,7 @@ function UpdateProfileContainer({ responseData }) {
   useEffect(
     function userProfile() {
       if (responseData) {
-        setProfile(responseData.profileImage);
+        setProfile(responseData.profile_image);
         setNickname(responseData.nickname);
       }
     },

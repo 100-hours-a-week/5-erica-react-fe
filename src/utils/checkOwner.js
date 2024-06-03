@@ -1,8 +1,9 @@
 import { FetchUrl } from "./constants";
 import { apiRequest } from "./fetchData";
 
-export const checkCommentOwner = async (postId, commentId) => {
+export const checkCommentOwner = async ({ postId, commentId }) => {
   try {
+    console.log(commentId);
     const checkData = await apiRequest({
       url: `${FetchUrl.posts}/${postId}/comments/checkOwner`,
       method: "POST",

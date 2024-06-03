@@ -10,7 +10,10 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
   const [isCommentDelete, setIsCommentDelete] = useState(false);
 
   const handleClick = async (action) => {
-    const checkResponseData = await checkCommentOwner(postId, data.commentId);
+    const checkResponseData = await checkCommentOwner({
+      postId,
+      commentId: data.comment_id,
+    });
     console.log(checkResponseData);
     if (checkResponseData.status === 403) {
       alert("본인이 작성한 댓글이 아닙니다.");
@@ -18,7 +21,7 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
     }
 
     if (action === "update") {
-      setUpdateTarget({ commentId: data.commentId, comment: data.comment });
+      setUpdateTarget({ commentId: data.comment_id, comment: data.comment });
       setIsAdd(false);
     } else if (action === "delete") {
       disableScroll();
@@ -36,8 +39,8 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
       <div className={styles.comment}>
         <div className={styles.commentHeader}>
           <div className={styles.commentWriter}>
-            <input type="hidden" id="commentId" value={data.commentId} />
-            <UserProfileImage image={data.profileImage} size={36} />
+            <input type="hidden" id="commentId" value={data.comment_id} />
+            <UserProfileImage image={data.profile_image} size={36} />
             <div className={styles.commentWriterName}>{data.nickname}</div>
             <div className={styles.commentWriterDate}>
               {changeDate(data.created_at)}
@@ -62,7 +65,7 @@ export default function Comment({ data, postId, setIsAdd, setUpdateTarget }) {
       </div>
       <DeleteCommentModal
         postId={postId}
-        commentId={data.commentId}
+        commentId={data.comment_id}
         isCommentDelete={isCommentDelete}
         setIsCommentDelete={setIsCommentDelete}
       />

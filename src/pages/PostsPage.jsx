@@ -81,7 +81,7 @@ function MiniPostList({ responseData }) {
   return (
       <div className={styles.postsWrapper}>
         {responseData.map((post) => (
-          <MiniPost key={post.postId} data={post} />
+          <MiniPost key={post.post_id} data={post} />
         ))}
         <div className={styles.target}></div>
       </div>

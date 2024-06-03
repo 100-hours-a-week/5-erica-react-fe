@@ -38,7 +38,7 @@ export default function Comments({ postId }) {
             {responseData?.data?.map((comment) => (
               <Comment
                 setUpdateTarget={setUpdateTarget}
-                key={comment.commentId}
+                key={comment.comment_id}
                 setIsAdd={setIsAdd}
                 postId={postId}
                 data={comment}

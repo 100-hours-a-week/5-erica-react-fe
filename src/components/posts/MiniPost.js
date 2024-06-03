@@ -15,7 +15,7 @@ export default function MiniPost({ data }) {
   return (
     <Link
       className={styles.miniBoardContainer}
-      to={`${navUrl.posts}/${data.postId}`}
+      to={`${navUrl.posts}/${data.post_id}`}
     >
       <div className={styles.miniBoard}>
         <div className={styles.titleContainer}>
@@ -34,7 +34,7 @@ export default function MiniPost({ data }) {
       </div>
       <hr className={styles.miniBoardHr} />
       <div className={styles.miniBoardWriter}>
-        <UserProfileImage image={data.profileImage} />
+        <UserProfileImage image={data.profile_image} />
         <p className={styles.miniWriterName}>{data.nickname}</p>
       </div>
     </Link>

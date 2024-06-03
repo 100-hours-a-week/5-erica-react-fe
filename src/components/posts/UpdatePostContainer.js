@@ -21,7 +21,7 @@ function UpdateContainer({ responseData, postId }) {
       if (responseData) {
         setTitle(responseData[0].title);
         setContent(responseData[0].content);
-        setPostImage(responseData[0].postImage ?? "");
+        setPostImage(responseData[0].post_image ?? "");
         setType(responseData[0].type);
       }
     },
